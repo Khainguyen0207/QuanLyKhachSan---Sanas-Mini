@@ -48,6 +48,7 @@ namespace QuanLyKhachSan.Controllers
 
                 // ✅ Còn lại là khách → trang HomePage
                 return RedirectToAction("Index", "HomePage");
+
             }
 
             else

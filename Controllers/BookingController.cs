@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace QuanLyKhachSan.Controllers
 {
-    public class BookingController : Controller
+    public class BookingController : BaseController
     {
         QuanLyKhachSanDataContext db;
         public BookingController()

@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
 namespace QuanLyKhachSan.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         QuanLyKhachSanDataContext db;
         public AccountController()
@@ -26,13 +27,37 @@ namespace QuanLyKhachSan.Controllers
 
         // -------------------- [ POST: Đăng nhập ] --------------------
         [HttpPost]
-        public ActionResult Login(string email, string password)
+        public ActionResult Login(FormCollection collection)
         {
+
+            string email = collection["email"];
+            string password = collection["password"];
+            bool isRemember = collection["remember"] == "on" ? true : false;
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                ViewBag.Error = "Email hoặc mật khẩu không đúng!";
+                return View();
+            }
+
             var user = db.Customers.FirstOrDefault(u => u.email == email && u.password == password);
 
             if (user != null)
             {
                 Session["User"] = user; // lưu người dùng
+
+                if (isRemember)
+                {
+                    string token = Guid.NewGuid().ToString();
+
+                    HttpCookie cookie = new HttpCookie("remember_token", token);
+                    cookie.Expires = DateTime.Now.AddDays(7);
+                    Response.Cookies.Add(cookie);
+
+                    user.remember_token = token;
+                    UpdateModel(user);
+                    db.SubmitChanges();
+                }
 
                 // ✅ Nếu là admin → chuyển đến trang Admin
                 if (user.is_admin == true)
@@ -116,6 +141,13 @@ namespace QuanLyKhachSan.Controllers
         // -------------------- [ Đăng xuất ] --------------------
         public ActionResult Logout()
         {
+            if (Request.Cookies["remember_token"] != null)
+            {
+                var c = new HttpCookie("remember_token");
+                c.Expires = DateTime.Now.AddDays(-1); // ngày hết hạn trong quá khứ
+                Response.Cookies.Add(c);
+            }
+
             Session.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "HomePage");

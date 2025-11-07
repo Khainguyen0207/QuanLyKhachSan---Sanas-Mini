@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace QuanLyKhachSan.Controllers
 {
-    public class HomePageController : Controller
+    public class HomePageController : BaseController
     {
         QuanLyKhachSanDataContext db;
         public HomePageController()

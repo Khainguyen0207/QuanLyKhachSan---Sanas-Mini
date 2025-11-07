@@ -10,7 +10,7 @@ using QuanLyKhachSan.Helpers;
 namespace QuanLyKhachSan.Controllers
 {
     [AdminAuthorize]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         QuanLyKhachSanDataContext db;
         public AdminController()

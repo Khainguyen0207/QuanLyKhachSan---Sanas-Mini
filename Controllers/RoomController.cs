@@ -15,7 +15,7 @@ using System.Web.WebPages;
 
 namespace QuanLyKhachSan.Controllers
 {
-    public class RoomController : Controller
+    public class RoomController : BaseController
     {
         QuanLyKhachSanDataContext db;
         private int PerPage = 12;

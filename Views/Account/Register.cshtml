@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Đăng ký tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <section class="register-section" data-bb-toggle="register-modal">
+        <div class="register-wrapper">
+            <h2 class="text-center mb-4">Đăng ký</h2>
+
+            @if (ViewBag.Error != null)
+            {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+
+            @if (ViewBag.Success != null)
+            {
+            <div class="alert alert-success">@ViewBag.Success</div>
+            }
+
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Tên</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="terms" required>
+                    <label class="form-check-label" for="terms">Tôi đồng ý với <a href="#">điều khoản và điều kiện</a></label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+            }
+            <div class="text-center mt-3">
+                <p>Đã có tài khoản? <a href="@Url.Action("Login","Account")">Đăng nhập</a></p>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<QuanLyKhachSan.Models.ResortViewModel>
+
+@{
+    ViewBag.Title = "Danh sách Resort";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold text-center text-primary mb-4">
+        🏖️ Danh sách Resort
+    </h2>
+
+    <div class="text-end mb-3">
+        <a href="@Url.Action("CreateResort", "Admin")" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm Resort
+        </a>
+    </div>
+
+    <div class="table-responsive shadow-sm rounded-4">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>#</th>
+                    <th>Tên Resort</th>
+                    <th>Địa chỉ</th>
+                    <th>Giá thấp nhất</th>
+                    <th>Giá cao nhất</th>
+                    <th>Tùy chọn thành công</th>
+                    <th>Tùy chọn lỗi</th>
+                    <th>Ngày tạo</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="9" class="text-center text-muted py-4">
+                            Không có resort nào được tìm thấy.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    int i = 1;
+                    foreach (var r in Model)
+                    {
+            <tr>
+                <td class="text-center fw-bold">@i</td>
+                <td class="fw-semibold">
+                    <a href="@Url.Action("RoomList", "Admin", new { resortId = r.Id })"
+                       class="text-decoration-none text-primary fw-bold">
+                        @r.Name
+                    </a>
+                </td>
+                <td>@r.Address</td>
+                <td class="text-success fw-bold text-end">
+                    @String.Format("{0:N0}đ", r.MinPrice)
+                </td>
+                <td class="text-primary fw-bold text-end">
+                    @String.Format("{0:N0}đ", r.MaxPrice)
+                </td>
+                <td>@r.OptionSuccess</td>
+                <td>@r.OptionError</td>
+                <td class="text-center">
+                    @(r.CreatedAt.HasValue ? r.CreatedAt.Value.ToString("dd/MM/yyyy HH:mm:ss") : "")
+                </td>
+                <td class="text-center">
+                    <a href="@Url.Action("EditResort", "Admin", new { id = r.Id })"
+                       class="btn btn-sm btn-warning me-1">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a href="@Url.Action("DeleteResort", "Admin", new { id = r.Id })"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa resort này không?');">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+                        i++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

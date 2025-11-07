@@ -1,0 +1,84 @@
+﻿@model IEnumerable<QuanLyKhachSan.Models.Room>
+
+@{
+    ViewBag.Title = "Danh sách phòng";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold text-primary mb-4 text-center">
+        Danh sách phòng của <span class="text-success">@ViewBag.ResortName</span>
+    </h2>
+
+    <div class="d-flex justify-content-between mb-3">
+        <a href="@Url.Action("Resorts", "Admin")" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left"></i> Quay lại danh sách Resort
+        </a>
+        <a href="@Url.Action("CreateRoom", "Admin", new { resortId = ViewBag.ResortId })"
+           class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm phòng mới
+        </a>
+    </div>
+
+    <div class="table-responsive shadow-sm rounded-4">
+        <table class="table" id="customer-table">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="form-check form-check-muted m-0">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">
+                            </label>
+                        </div>
+                    </th>
+                    <th>ID</th>
+                    <th>Tên phòng</th>
+                    <th>Giá (đ/đêm)</th>
+                    <th>Số lượng</th>
+                    <th>Tiện nghi</th>
+                    <th>Ngày tạo</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var data = Model.Any();
+                }
+                @if (Model.Any())
+                {
+                    int i = 0;
+
+                    foreach (var room in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="form-check form-check-muted m-0">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input">
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="text-center fw-bold">@i</td>
+                            <td class="fw-semibold">@room.name</td>
+                            <td class="text-end text-primary fw-bold">@String.Format("{0:N0} đ", room.price)</td>
+                            <td class="text-center">@room.quantity</td>
+                            <td>@room.room_amenities</td>
+                            <td>@(room.created_at.HasValue ? room.created_at.Value.ToString("dd/MM/yyyy HH:mm") : "")</td>
+                            <td class="text-center">
+                                <a href="@Url.Action("EditRoom", "Admin", new { id = room.id })" type="button"
+                                   class="btn-sm btn-inverse-primary btn-icon">
+                                    <i class="mdi mdi-pencil-box-outline"></i>
+                                </a>
+                                <a href="@Url.Action("DeleteRoom", "Admin", new { id = room.id })" type="button" class="btn-sm btn-inverse-danger btn-icon" data-bs-action="modal-confirm-action" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete">
+                                    <i class="mdi mdi-delete"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        i++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

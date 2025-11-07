@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanas - Khám Phá Thế Giới</title>
+
+    <link rel="shortcut icon" href="~/Content/assets/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="~/Content/assets/libs/bootstrap/bootstrap.min.css">
+    <link href="~/Content/assets/libs/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/assets/libs/fontawesome/fontawesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jockey+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital@0;1&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/assets/css/user/style.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        html {
+            scroll-behavior: smooth !important;
+        }
+
+        .truncate-single-line {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg navbar-light px-2 mx-md-0 justify-content-between fixed-top"
+                     style="z-index: 100;" data-bs-toggle="main-menu">
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="/">
+                        <img src="~/Content/assets/images/logo.png" alt="Sanas Logo" class="navbar-logo">
+                    </a>
+                    <a href="auth/login.html" class="btn btn-primary ms-3 d-block d-lg-none" data-action="login">
+                        <i class="fa-solid fa-user me-2"></i>
+                        <span id="login-small">Đăng nhập</span>
+                    </a>
+
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+
+                    </div>
+
+                    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                         aria-labelledby="offcanvasDarkNavbarLabel">
+                        <div class="offcanvas-header">
+                            <a class="navbar-brand" href="/">
+                                <img src="~/Content/assets/images/logo.png" alt="Sanas Logo" class="navbar-logo">
+                            </a>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item">@Html.ActionLink("Home", "Index", "HomePage", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Rooms", "Index", "Room", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li class="nav-item"><a href="#footer-info" class="nav-link">About</a></li>
+                                <li class="nav-item"><a href="#footer-info" class="nav-link">Contact</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    @if (Session["User"] == null)
+                    {
+                        <a href="@Url.Action("Login", "Account")" class="btn btn-primary ms-3 d-none d-lg-block" data-action="login">
+                            <i class="fa-solid fa-user me-2"></i>
+                            <span id="login">Đăng nhập</span>
+                        </a>
+                    }
+                    else
+                    {
+                        var user = (QuanLyKhachSan.Models.Customer) Session["User"];
+
+                        <a href="@Url.Action("Profile", "Account")" class="truncate-single-line btn btn-primary ms-3 d-none d-lg-block" data-action="login">
+                            <i class="fa-solid fa-user me-2"></i>
+                            <span>@user.name</span>
+                        </a>
+                    }
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="overflow-x-hidden">
+        @RenderBody()
+    </main>
+    <footer class="footer" id="footer-info">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="row row-cols-2">
+                    <div class="col">
+                        <h3>Thông tin về Sanas</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Cách đặt chỗ</a></li>
+                            <li><a href="#">Liên hệ chúng tôi</a></li>
+                            <li><a href="#">Trợ giúp</a></li>
+                            <li><a href="#">Tuyển dụng</a></li>
+                            <li><a href="#">Về chúng tôi</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Theo dõi chúng tôi trên</h3>
+                        <ul class="social-links">
+                            <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
+                            <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
+                            <li><a href="#"><i class="bi bi-tiktok"></i> TikTok</a></li>
+                            <li><a href="#"><i class="bi bi-youtube"></i> Youtube</a></li>
+                            <li><a href="#"><i class="bi bi-telegram"></i> Telegram</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="/"><img src="~/Content/assets/images/logo.png" alt="" style="max-width: 100px;"></a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Địa chỉ của chúng tôi</h3>
+                <div class="contact-info">
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i> Địa chỉ: 140 Lê Trọng Tấn, P.Tây Thạnh, Q.Tân Phú, TP.Hồ
+                        Chí Minh
+                    </p>
+                    <p><i class="fas fa-phone"></i> Điện thoại: 08.8888.8888</p>
+                    <p><i class="fas fa-envelope"></i> Email:</p>
+                </div>
+
+                <div class="map-embed">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0672790781086!2d106.62609067451758!3d10.80615915864564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be27d8b4f4d%3A0x92dcba2950430867!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBUaMawxqFuZyBUUC4gSOG7kyBDaMOtIE1pbmggKEhVSVQp!5e0!3m2!1svi!2s!4v1749038965609!5m2!1svi!2s"
+                            width="150" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <footer>
+        <script src="~/Content/assets/libs/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="~/Content/assets/libs/jquery/jquery-3.7.1.min.js"></script>
+
+        <script type="module" src="@Url.Content("~/Content/assets/js/script.js")"></script>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

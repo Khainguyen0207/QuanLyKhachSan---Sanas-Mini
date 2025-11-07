@@ -1,0 +1,69 @@
+﻿@model QuanLyKhachSan.Models.Resort
+
+@{
+    ViewBag.Title = "Thêm Resort";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold text-primary text-center mb-4">
+        🏝️ Thêm Resort mới
+    </h2>
+
+    @using (Html.BeginForm("CreateResort", "Admin", FormMethod.Post))
+    {
+        <div class="card shadow-sm p-4">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Tên Resort:</label>
+                @Html.TextBoxFor(m => m.name, new { @class = "form-control", placeholder = "Nhập tên resort" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Địa chỉ:</label>
+                @Html.TextBoxFor(m => m.address, new { @class = "form-control", placeholder = "Địa chỉ resort" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Mô tả:</label>
+                @Html.TextAreaFor(m => m.map, new { @class = "form-control", rows = 3, placeholder = "Mô tả vị trí hoặc bản đồ" })
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-success fw-bold">✅ Tùy chọn thành công</h5>
+                    <div class="border rounded p-3 bg-light">
+                        @foreach (var f in ViewBag.Features as List<string>)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="successOptions" value="@f" id="@f.Replace(" ", "")">
+                                <label class="form-check-label" for="@f.Replace(" ", "")">@f</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h5 class="text-danger fw-bold">⚠️ Tùy chọn lỗi</h5>
+                    <div class="border rounded p-3 bg-light">
+                        @foreach (var e in ViewBag.Errors as List<string>)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="errorOptions" value="@e" id="@e.Replace(" ", "")">
+                                <label class="form-check-label" for="@e.Replace(" ", "")">@e</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-4">
+                    <i class="bi bi-save"></i> Lưu Resort
+                </button>
+                <a href="@Url.Action("ResortList", "Admin")" class="btn btn-secondary px-4">
+                    <i class="bi bi-arrow-left"></i> Quay lại
+                </a>
+            </div>
+        </div>
+    }
+</div>

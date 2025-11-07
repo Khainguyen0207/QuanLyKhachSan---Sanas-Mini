@@ -1,0 +1,63 @@
+﻿@model QuanLyKhachSan.Models.Room
+
+@{
+    ViewBag.Title = "Xóa phòng";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-danger text-white rounded-top-4 py-3">
+            <h3 class="fw-bold mb-0">⚠️ Xác nhận xóa phòng</h3>
+        </div>
+
+        <div class="card-body p-4">
+            <h5 class="mb-3">Bạn có chắc chắn muốn xóa phòng này?</h5>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th style="width: 200px;">Tên phòng</th>
+                    <td>@Model.name</td>
+                </tr>
+                <tr>
+                    <th>Resort</th>
+                    <td>@Model.Resort?.name</td>
+                </tr>
+                <tr>
+                    <th>Giá</th>
+                    <td class="text-primary fw-bold">@string.Format("{0:N0} đ", Model.price)</td>
+                </tr>
+                <tr>
+                    <th>Số lượng</th>
+                    <td>@Model.quantity</td>
+                </tr>
+                <tr>
+                    <th>Tiện nghi</th>
+                    <td>@Model.room_amenities</td>
+                </tr>
+                <tr>
+                    <th>Ngày tạo</th>
+                    <td>@Model.created_at?.ToString("dd/MM/yyyy")</td>
+                </tr>
+            </table>
+
+            <div class="alert alert-warning mt-3">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                Hành động này không thể hoàn tác. Dữ liệu phòng sẽ bị xóa vĩnh viễn.
+            </div>
+
+            <form method="post" action="@Url.Action("ConfirmDeleteRoom", "Admin", new { id = Model.id })">
+                <div class="text-end">
+                    <a href="@Url.Action("RoomList", "Admin", new { resortId = Model.resort_id })"
+                       class="btn btn-secondary me-2">
+                        <i class="bi bi-arrow-left"></i> Quay lại
+                    </a>
+
+                    <button type="submit" class="btn btn-danger px-4">
+                        <i class="bi bi-trash"></i> Xóa phòng
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

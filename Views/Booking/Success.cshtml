@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Thanh toán thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="container mt-5 mb-5 text-center">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-header bg-success text-white py-4 rounded-top-4">
+                <h2 class="fw-bold mb-0">✅ Đặt phòng thành công!</h2>
+                <p class="mt-2">Cảm ơn bạn đã đặt phòng tại <strong>@ViewBag.ResortName</strong></p>
+            </div>
+
+            <div class="card-body p-4 text-start">
+                <h4 class="fw-bold text-primary mb-3">📋 Thông tin đặt phòng</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Khách hàng</th>
+                        <td>@ViewBag.CustomerName</td>
+                    </tr>
+                    <tr>
+                        <th>Phòng</th>
+                        <td>@ViewBag.RoomName</td>
+                    </tr>
+                    <tr>
+                        <th>Nhận phòng</th>
+                        <td>@ViewBag.Checkin</td>
+                    </tr>
+                    <tr>
+                        <th>Trả phòng</th>
+                        <td>@ViewBag.Checkout</td>
+                    </tr>
+                    <tr>
+                        <th>Tổng tiền</th>
+                        <td class="fw-bold text-success">@string.Format("{0:N0}đ", ViewBag.Total)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card-footer bg-light py-3">
+                <a href="@Url.Action("Index", "HomePage")" class="btn btn-primary">
+                    <i class="bi bi-house-door"></i> Về trang chủ
+                </a>
+            </div>
+        </div>
+    </div>*@
+
+
+<div class="container-fluid">
+    <section class="order-complete-section payment-wrapper" style="margin-top: 6rem;">
+        <div class="progress-bar-container">
+            <div class="progress-step active">
+                <div class="circle">1</div>
+                <span>Kiểm tra</span>
+            </div>
+            <div class="progress-step active">
+                <div class="circle">2</div>
+                <span>Thanh toán</span>
+            </div>
+            <div class="progress-step completed active">
+                <div class="circle"><i class="fas fa-check"></i></div>
+                <span>Xác nhận</span>
+            </div>
+        </div>
+        <div class="container my-4">
+            <div class="row">
+                <section class="col-lg-7 col-12">
+                    <h1 class="fw-bold mb-4">Thanh toán thành công!</h1>
+                    <p class="success-message p-0">
+                        "Cảm ơn bạn đã đặt phòng tại SANAS! Chúng tôi đã gửi email xác nhận đến địa chỉ email của bạn.
+                        Nếu bạn cần bất kỳ thông tin nào trước khi đến, vui lòng liên hệ với chủ nhà!
+                    </p>
+                </section>
+
+                <section class="col-lg-5 col-12">
+                    <div class="right mb-4 p-3 right ">
+                        <div class="payment-summary-box text-start w-100 justify-content-between mb-0">
+                            <div class="amount justify-content-between">
+                                <div class="amount-total">
+                                    <span class="total">Tổng cộng</span>
+                                    <span>@ViewBag.Total     VNĐ</span>
+                                </div>
+                                <span>
+                                    <img src="@Url.Content("~/Content/assets/icon-images/circle-checked.png")" alt="circle-checked" style="max-width: 40px;">
+                                </span>
+                            </div>
+                            <div class="status mb-0">Thanh toán thành công!</div>
+                        </div>
+                    </div>
+
+                    <div class="right">
+                        <h3 class="payment-details-text">Chi tiết thanh toán</h3>
+                        <table class="payment-details-table">
+                            <tr>
+                                <th>Khách hàng</th>
+                                <td>@ViewBag.CustomerName</td>
+                            </tr>
+                            <tr>
+                                <th>Phòng</th>
+                                <td>@ViewBag.RoomName</td>
+                            </tr>
+                            <tr>
+                                <th>Nhận phòng</th>
+                                <td>@ViewBag.Checkin</td>
+                            </tr>
+                            <tr>
+                                <th>Trả phòng</th>
+                                <td>@ViewBag.Checkout</td>
+                            </tr>
+                            <tr>
+                                <th>Tổng tiền</th>
+                                <td class="fw-bold text-success">@string.Format("{0:N0}đ", ViewBag.Total)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+                <div class="text-center mt-4 col-12">
+                    <a href="/" class="btn btn-primary w-100 mb-4 rounded-4" onclick="alert('Đặt phòng thành công')">DONE!</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</div>

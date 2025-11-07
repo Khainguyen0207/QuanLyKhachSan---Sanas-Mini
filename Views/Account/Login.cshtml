@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <section class="login-section" data-bb-toggle="login-modal">
+        <div class="login-wrapper col-12">
+            <h2 class="text-center mb-4">Đăng nhập</h2>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" value="admin@qlks.com" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input type="password" class="form-control" id="password" name="password" value="123456" required>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+            }
+            <div class="text-center mt-3">
+                <p>Chưa có tài khoản? <a href="@Url.Action("Register","Account")">Đăng ký ngay</a></p>
+                <p><a href="#">Quên mật khẩu?</a></p>
+            </div>
+        </div>
+    </section>
+</div>

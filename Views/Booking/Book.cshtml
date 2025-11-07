@@ -1,0 +1,253 @@
+﻿@{
+    ViewBag.Title = "Đặt phòng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var room = ViewBag.Room as QuanLyKhachSan.Models.Room;
+    var resort = ViewBag.Resort as QuanLyKhachSan.Models.Resort;
+}
+
+@*<div class="container mt-5 mb-5">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-header bg-primary text-white py-3 rounded-top-4">
+                <h3 class="fw-bold mb-0">📝 Đặt phòng tại @resort.name</h3>
+                <p class="mb-0"><i class="bi bi-geo-alt-fill"></i> @resort.address</p>
+            </div>
+
+            <div class="card-body p-4">
+                <form method="post" action="@Url.Action("Confirm", "Booking")">
+                    <input type="hidden" name="roomId" value="@room.id" />
+
+                    <div class="mb-3">
+                        <label class="form-label">📧 Email</label>
+                        <input type="email" name="email" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">📱 Số điện thoại</label>
+                        <input type="tel" name="phone" class="form-control" pattern="[0-9]{9,11}" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">📅 Ngày nhận phòng</label>
+                            <input type="date" name="checkin" class="form-control" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">📅 Ngày trả phòng</label>
+                            <input type="date" name="checkout" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">👨‍👩‍👧‍👦 Người lớn</label>
+                            <input type="number" name="adults" class="form-control" min="1" value="1" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">🧒 Trẻ em</label>
+                            <input type="number" name="children" class="form-control" min="0" value="0" />
+                        </div>
+                    </div>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">@ViewBag.Error</div>
+                    }
+
+                    <button type="submit" class="btn btn-success w-100 btn-lg mt-3">
+                        <i class="bi bi-arrow-right-circle"></i> Tiếp tục
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>*@
+<div class="container-fluid">
+    <section class="order-payment-section payment-wrapper" style="margin-top: 6rem;">
+        <div class="progress-bar-container">
+            <div class="progress-step active">
+                <div class="circle">1</div>
+                <span>Kiểm tra</span>
+            </div>
+            <div class="progress-step">
+                <div class="circle">2</div>
+                <span>Thanh toán</span>
+            </div>
+            <div class="progress-step completed">
+                <div class="circle"><i class="fas fa-check"></i></div>
+                <span>Xác nhận</span>
+            </div>
+        </div>
+        <div class="container align-items-lg-start">
+            <section class="left">
+                <div class="container_items">
+                    <h2>Thông tin người đặt phòng</h2>
+                    <div class="required-hint text-danger">* Bắt buộc điền đầy đủ thông tin</div>
+                    <form action="@Url.Action("Confirm", "Booking")" method="post" class="needs-validation" novalidate
+                          data-bs-toggle="order-information-form">
+                        <input type="hidden" name="roomId" value="@room.id" />
+                        <div class="form-group">
+                            <label for="lastName">Họ Tên*</label>
+                            <input type="text" class="form-control" name="name"
+                                   placeholder="Nhập họ tên của bạn" required>
+                            <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email*</label>
+                            <input type="email" class="form-control" name="email" placeholder="Nhập email của bạn"
+                                   required>
+                            <div class="required-hint">Chúng tôi sẽ gửi email xác nhận để giúp bạn quản lý đặt phòng. Nếu bạn không hoàn thành, đặt phòng của bạn sẽ hết hạn.</div>
+                            <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Ngày nhận phòng</label>
+                                    <input type="date" name="checkin" class="form-control" required />
+                                    <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
+
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Ngày trả phòng</label>
+                                    <input type="date" name="checkout" class="form-control" required />
+                                    <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Người lớn</label>
+                                    <input type="number" name="adults" class="form-control" min="1" value="@room.number_of_adults" required />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Trẻ em</label>
+                                    <input type="number" name="children" class="form-control" min="0" value="@room.number_of_children" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Số điện thoại (tùy chọn)</label>
+                            <input type="number" class="form-control" name="phoneNumber"
+                                   placeholder="Nhập số điện thoại của bạn" required>
+                            <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
+                        </div>
+
+                        @if (ViewBag.Error != null)
+                        {
+                            <div class="alert alert-danger">@ViewBag.Error</div>
+                        }
+
+                    </form>
+                </div>
+
+                <div class="container_items">
+                    <h3>Yêu cầu đặc biệt</h3>
+                    <div class="form-section-title" style="margin-top: 20px;">Bạn có yêu cầu thêm gì không? Hãy cho chúng tôi biết</div>
+                    <textarea placeholder="Nhập yêu cầu của bạn tại đây..."></textarea>
+                </div>
+            </section>
+
+            <section class="right">
+                <div class="room-info">
+                    <div class="room-items">
+                        @{
+                            List<string> images = new List<string>();
+
+                            if (!string.IsNullOrEmpty(room.images))
+                            {
+                                var clean = room.images.Replace("[", "").Replace("]", "").Replace("\"", "");
+                                images = clean.Split(',').Select(x => x.Trim()).ToList();
+                            }
+                        }
+                        <img src="@Url.Content("~/Content/assets/images/room/" + images.FirstOrDefault() ?? "default.jpg")" alt="">
+                        <div>
+                            <h3 class="py-1 name-room">@resort.name</h3>
+                            <div class="stars py-1">
+                                <i class="fa-solid fa-star"></i> <span class="fw-bold"></span>
+                            </div>
+                            <div class="location-views">
+                                <div class="fw-bold text-black">
+                                    <i class="fa-solid fa-location-dot py-1"></i>
+                                    <span class="address">@resort.address</span>
+                                </div>
+                                <div class="fw-bold py-1">111 views</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="room-bottom">
+                        <div class="room-details">
+                            <img src="@Url.Content("~/Content/assets/images/room/khachsan.webp")" alt="khachsan">
+
+                            <div class="room-text-info">
+                                <p class="fs-6">Người Lớn: <strong>@room.number_of_adults</strong></p>
+                                <p class="fs-6">Trẻ em: <strong>@room.number_of_children</strong></p>
+                            </div>
+                        </div>
+
+                        <div class="wifi-tag">
+                            <i class="fa-solid fa-wifi"></i> Free Wifi
+                        </div>
+
+                        <ul class="features">
+                            <li>24 hours check-in</li>
+                            <li class="green">Limted time offer, prices include 9% discount</li>
+                            <li>Book and pay now or later</li>
+                            <li class="red">Only @room.quantity rooms at this price</li>
+                            <li class="green">Free wifi</li>
+                            <li>Great views</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="booking-box">
+                    <div class="price-row">
+                        <div></div>
+                        <div class="bg-danger text-white text-center sale-box">
+                            Giảm giá 10% OFF DAY
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <div>Original Price</div>
+                        <div class="strikethrough">
+                            <span class="original-price">@string.Format("{0:N0}đ / đêm", room.price)</span>
+                            <span>VNĐ</span>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <div>Giá Phòng / 1 Đêm</div>
+                        <div>
+                            <span class="price">@string.Format("{0:N0}VNĐ", room.price * 0.9m)</span>
+                            <span>VNĐ</span>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <div>Discount</div>
+                        <div>
+                            <span class="discount">@string.Format("{0:N0}VNĐ", room.price * 0.1m)</span>
+                            <span>VNĐ</span>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <div>Booking fee</div>
+                        <div class="booking-fee">FREE</div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="price-row total-price">
+                        <div>Total</div>
+                        <div>
+                            <span class="total">@string.Format("{0:N0}VNĐ", room.price * 0.9m)</span>
+                            <span>VNĐ</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #777;">Include: Service fee and taxes</div>
+                    <div class="footer-note">Our last 4 rooms at this price</div>
+                    <button type="button" class="btn-pay fw-bold"
+                            data-action="order-information-form-submit">
+                        NEXT STEP
+                        PAYMENT
+                    </button>
+                    <div class="not-charged">You won't be charged yet.</div>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>

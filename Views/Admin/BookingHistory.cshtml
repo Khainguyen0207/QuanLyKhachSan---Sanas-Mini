@@ -1,0 +1,122 @@
+﻿@model IEnumerable<QuanLyKhachSan.Models.AdminBookingVM>
+
+@{
+    ViewBag.Title = "Lịch sử đặt phòng";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold text-primary mb-4 text-center">
+        🧾 Lịch sử đặt phòng
+    </h2>
+
+    <!-- 🔍 Bộ lọc -->
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-md-3">
+            <label class="fw-semibold">Từ ngày:</label>
+            <input type="date" name="startDate" value="@ViewBag.StartDate" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="fw-semibold">Đến ngày:</label>
+            <input type="date" name="endDate" value="@ViewBag.EndDate" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="fw-semibold">Resort:</label>
+            <select name="resortId" class="form-select">
+                <option value="">Tất cả</option>
+                @foreach (var r in ViewBag.Resorts)
+                {
+                    <option value="@r.id" @(r.id == ViewBag.SelectedResortId ? "selected" : "")>@r.name</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="fw-semibold">Trạng thái:</label>
+            <select name="status" class="form-select">
+                <option value="">Tất cả</option>
+                <option value="confirmed" @(ViewBag.Status == "confirmed" ? "selected" : "")>Đã xác nhận</option>
+                <option value="pending" @(ViewBag.Status == "pending" ? "selected" : "")>Đang chờ</option>
+                <option value="cancelled" @(ViewBag.Status == "cancelled" ? "selected" : "")>Đã hủy</option>
+            </select>
+        </div>
+        <div class="col-md-1 d-grid align-items-end">
+            <button type="submit" class="btn btn-primary mt-4">
+                <i class="bi bi-funnel"></i> Lọc
+            </button>
+        </div>
+    </form>
+
+    <!-- 📋 Bảng dữ liệu -->
+    <div class="table-responsive shadow-sm">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>#</th>
+                    <th>Khách hàng</th>
+                    <th>Email</th>
+                    <th>Điện thoại</th>
+                    <th>Resort</th>
+                    <th>Phòng</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thanh toán</th>
+                    <th>Ngày đặt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="12" class="text-center text-muted py-3">Không có dữ liệu phù hợp</td>
+                    </tr>
+                }
+                else
+                {
+                    int i = 1;
+                    decimal total = 0;
+                    foreach (var b in Model)
+                    {
+                        var statusClass = b.Status == "confirmed" ? "success"
+                                        : b.Status == "pending" ? "warning"
+                                        : "danger";
+
+                        var payClass = b.PaymentStatus == "paid" ? "success"
+                                    : b.PaymentStatus == "refund" ? "secondary"
+                                    : "warning text-dark";
+
+                        // ✅ CHỈ cộng những đơn được xem là “doanh thu thực tế”
+                        if (b.Status == "confirmed" || b.PaymentStatus == "paid")
+                        {
+                            total += b.TotalPrice;
+                        }
+
+                        <tr>
+                            <td class="text-center fw-bold">@i</td>
+                            <td>@b.CustomerName</td>
+                            <td>@b.Email</td>
+                            <td>@b.Phone</td>
+                            <td>@b.ResortName</td>
+                            <td>@b.RoomName</td>
+                            <td>@(b.CheckIn?.ToString("dd/MM/yyyy"))</td>
+                            <td>@(b.CheckOut?.ToString("dd/MM/yyyy"))</td>
+                            <td class="text-end text-primary fw-bold">@string.Format("{0:N0} đ", b.TotalPrice)</td>
+                            <td class="text-center"><span class="badge bg-@statusClass text-uppercase">@b.Status</span></td>
+                            <td class="text-center"><span class="badge bg-@payClass text-uppercase">@b.PaymentStatus</span></td>
+                            <td>@(b.CreatedAt?.ToString("dd/MM/yyyy HH:mm"))</td>
+                        </tr>
+                        i++;
+                    }
+
+                    <!-- Tổng tiền -->
+                    <tr class="fw-bold bg-light">
+                        <td colspan="8" class="text-end">Tổng cộng:</td>
+                        <td class="text-end text-primary">@string.Format("{0:N0} đ", total)</td>
+                        <td colspan="3"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

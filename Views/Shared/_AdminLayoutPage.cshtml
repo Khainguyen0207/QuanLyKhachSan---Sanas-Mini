@@ -1,0 +1,355 @@
+﻿@using QuanLyKhachSan.Models
+@{
+    var user = Session["User"] as Customer;
+}
+
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title - Quản trị hệ thống</title>
+
+    <script src='@Url.Content("~/Content/assets/libs/jquery/jquery-3.7.1.min.js")'></script>
+    <script src='@Url.Content("~/Content/assets/libs/dataTables/js/dataTables.js")'></script>
+    <script src='@Url.Content("~/Content/assets/libs/dataTables/js/dataTables.bootstrap5.js")'></script>
+    <script src='@Url.Content("~/Content/assets/libs/bootstrap/bootstrap.bundle.min.js")'></script>
+
+    <!-- plugins:css -->
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/mdi/css/materialdesignicons.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/css/vendor.bundle.base.css")'>
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/libs/bootstrap/bootstrap.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/jvectormap/jquery-jvectormap.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/flag-icon-css/css/flag-icon.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/owl-carousel-2/owl.carousel.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/owl-carousel-2/owl.theme.default.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/libs/dataTables/css/dataTables.bootstrap5.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/select2/select2.min.css")'>
+
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/css/style.css")'>
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href='@Url.Content("~/Content/assets/images/favicon.png")' />
+
+    <script src='@Url.Content("~/Content/assets/js/mode.js")'></script>
+    <script src='@Url.Content("~/Content/assets/admin/js/form.js")'></script>
+
+    <!-- build -->
+    <link rel="preload" as="style" href='@Url.Content("~/Content/build/assets/style-vqzVuQzB.css")' />
+    <link rel="stylesheet" href='@Url.Content("~/Content/build/assets/style-vqzVuQzB.css")' />
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jockey+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital@0;1&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css" integrity="sha512-/k658G6UsCvbkGRB3vPXpsPHgWeduJwiWGPCGS14IQw3xpr63AEMdA8nMYG2gmYkXitQxDTn6iiK/2fD4T87qA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <main>
+        <div class="container-scroller">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+                    <a class="sidebar-brand brand-logo" href="@Url.Action("Index", "Admin")"><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
+                    <a class="sidebar-brand brand-logo-mini" href="@Url.Action("Index", "Admin")"><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
+                </div>
+                <ul class="nav">
+                    <li class="nav-item profile">
+                        <div class="profile-desc">
+                            <div class="profile-pic">
+                                <div class="count-indicator">
+                                    <img class="img-xs rounded-circle " src="@Url.Content("~/Content/assets/images/default-avatar.png")" alt="face15">
+                                    <span class="count bg-success"></span>
+                                </div>
+                                <div class="profile-name">
+                                    <h5 class="mb-0 font-weight-normal">@user.name</h5>
+                                    <span>Admin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-category">
+                        <span class="nav-link">Main menu</span>
+                    </li>
+                    <li class="nav-item menu-items mb-2">
+                        <a class="nav-link" href="@Url.Action("Dashboard", "Admin")">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-speedometer"></i>
+                            </span>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items mb-2">
+                        <a class="nav-link" href="@Url.Action("Customers", "Admin")">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-account-group"></i>
+                            </span>
+                            <span class="menu-title">Customers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items mb-2">
+                        <a class="nav-link" href="@Url.Action("Orders", "Admin")">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-sofa"></i>
+                            </span>
+                            <span class="menu-title">Orders</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items mb-2">
+                        <a class="nav-link" href="@Url.Action("Resorts", "Admin")">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-sofa"></i>
+                            </span>
+                            <span class="menu-title">Resorts</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items mb-2">
+                        <a class="nav-link" href="@Url.Action("Logout", "Account")">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-logout"></i>
+                            </span>
+                            <span class="menu-title">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="container-fluid page-body-wrapper">
+                <nav class="navbar p-0 fixed-top d-flex flex-row">
+                    <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+                        <a class="navbar-brand brand-logo-mini" href="/"><img src="@Url.Content("~/Content/assets/images/default-avatar.png")" alt="logo"></a>
+                    </div>
+                    <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+                        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                            <span class="mdi mdi-menu"></span>
+                        </button>
+                        <ul class="navbar-nav w-100">
+                            <li class="nav-item w-100">
+                                <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm">
+                                </form>
+                            </li>
+                        </ul>
+
+                        <ul class="navbar-nav navbar-nav-right">
+                            @*<li class="nav-item nav-settings d-none d-lg-block">
+                                    <a class="nav-link" href="#">
+                                        <i class="mdi mdi-view-grid"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown border-left">
+                                    <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="count bg-success"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                                        <h6 class="p-3 mb-0">Tin nhắn</h6>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item preview-item">
+                                            <div class="preview-thumbnail">
+                                                <img src="@Url.Content("~/Content/assets/images/default-avatar.png" alt="image" class="rounded-circle profile-pic">
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject ellipsis mb-1">Mark đã gửi cho bạn một tin nhắn</p>
+                                                <p class="text-muted mb-0"> 1 phút trước </p>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item preview-item">
+                                            <div class="preview-thumbnail">
+                                                <img src="@Url.Content("~/Content/assets/images/default-avatar.png" alt="image" class="rounded-circle profile-pic">
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject ellipsis mb-1">Cregh đã gửi cho bạn một tin nhắn</p>
+                                                <p class="text-muted mb-0"> 15 phút trước </p>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item preview-item">
+                                            <div class="preview-thumbnail">
+                                                <img src="@Url.Content("~/Content/assets/images/default-avatar.png" alt="image" class="rounded-circle profile-pic">
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject ellipsis mb-1">Đã cập nhật ảnh đại diện</p>
+                                                <p class="text-muted mb-0"> 18 phút trước </p>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <p class="p-3 mb-0 text-center">4 tin nhắn mới</p>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown border-left">
+                                    <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                                        <i class="mdi mdi-bell"></i>
+                                        <span class="count bg-danger"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                                        <h6 class="p-3 mb-0">Thông báo</h6>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item preview-item">
+                                            <div class="preview-thumbnail">
+                                                <div class="preview-icon bg-dark rounded-circle">
+                                                    <i class="mdi mdi-calendar text-success"></i>
+                                                </div>
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject mb-1">Sự kiện hôm nay</p>
+                                                <p class="text-muted ellipsis mb-0"> Nhắc nhở rằng bạn có một sự kiện hôm nay </p>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item preview-item">
+                                            <div class="preview-thumbnail">
+                                                <div class="preview-icon bg-dark rounded-circle">
+                                                    <i class="mdi mdi-settings text-danger"></i>
+                                                </div>
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject mb-1">Cài đặt</p>
+                                                <p class="text-muted ellipsis mb-0"> Cập nhật bảng điều khiển </p>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item preview-item">
+                                            <div class="preview-thumbnail">
+                                                <div class="preview-icon bg-dark rounded-circle">
+                                                    <i class="mdi mdi-link-variant text-warning"></i>
+                                                </div>
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject mb-1">Khởi chạy Admin</p>
+                                                <p class="text-muted ellipsis mb-0"> Admin mới tuyệt vời! </p>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <p class="p-3 mb-0 text-center">Xem tất cả thông báo</p>
+                                    </div>
+                                </li>*@
+                            <li class="nav-item dropdown border-left">
+                                <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="5"></circle>
+                                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                    </svg>
+                                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+                                    <div class="navbar-profile">
+                                        <img class="img-xs rounded-circle" src="@Url.Content("~/Content/assets/images/default-avatar.png")" alt="">
+                                        <p class="mb-0 d-none d-sm-block navbar-profile-name">@user.name</p>
+                                        <i class="mdi mdi-menu-down d-none d-sm-block"></i>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
+                                    <h6 class="p-3 mb-0">Hồ sơ</h6>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item preview-item">
+                                        <div class="preview-thumbnail">
+                                            <div class="preview-icon bg-dark rounded-circle">
+                                                <i class="mdi mdi-account text-success"></i>
+                                            </div>
+                                        </div>
+                                        <div class="preview-item-content">
+                                            <p class="preview-subject mb-1">Profile</p>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item preview-item" href="@Url.Action("Logout", "Account")">
+                                        <div class="preview-thumbnail">
+                                            <div class="preview-icon bg-dark rounded-circle">
+                                                <i class="mdi mdi-logout text-danger"></i>
+                                            </div>
+                                        </div>
+                                        <div class="preview-item-content">
+                                            <p class="preview-subject mb-1">Logout</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                            <span class="mdi mdi-format-line-spacing"></span>
+                        </button>
+                    </div>
+                </nav>
+
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        @RenderBody()
+                    </div>
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FogDev 2025</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-uppercase"> FogDev </span>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <script src='@Url.Content("~/Content/assets/libs/bootstrap/bootstrap.bundle.min.js")'></script>
+        <script src='@Url.Content("~/Content/assets/libs/jquery/jquery-3.7.1.min.js")'></script>
+        <script src='@Url.Content("~/Content/assets/vendors/js/vendor.bundle.base.js")'></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page -->
+        <script src='@Url.Content("~/Content/assets/vendors/chart.js/Chart.min.js")'></script>
+        <script src='@Url.Content("~/Content/assets/vendors/progressbar.js/progressbar.min.js")'></script>
+        <script src='@Url.Content("~/Content/assets/vendors/jvectormap/jquery-jvectormap.min.js")'></script>
+        <script src='@Url.Content("~/Content/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js")'></script>
+        <script src='@Url.Content("~/Content/assets/vendors/owl-carousel-2/owl.carousel.min.js")'></script>
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script src='@Url.Content("~/Content/assets/js/off-canvas.js")'></script>
+        <script src='@Url.Content("~/Content/assets/js/hoverable-collapse.js")'></script>
+        <script src='@Url.Content("~/Content/assets/js/misc.js")'></script>
+        <script src='@Url.Content("~/Content/assets/js/settings.js")'></script>
+        <script src='@Url.Content("~/Content/assets/js/todolist.js")'></script>
+        <!-- endinject -->
+        <!-- Custom js for this page -->
+        <script src='@Url.Content("~/Content/assets/js/dashboard.js")'></script>
+
+        <script type="module" src='@Url.Content("~/Content/assets/admin/js/app.js")'></script>
+    </footer>
+
+</body>
+
+
+
+</html>
+
+
+<div class="modal fade" id="modal-confirm-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có thật sự muốn xóa
+            </div>
+            <form action="#" id="modal-confirm-action" method="GET">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

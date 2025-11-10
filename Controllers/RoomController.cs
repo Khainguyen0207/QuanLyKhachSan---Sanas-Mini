@@ -39,11 +39,9 @@ namespace QuanLyKhachSan.Controllers
                     return HttpNotFound();
                 }
 
-                // Lấy danh sách phòng thuộc resort này, chỉ hiển thị phòng còn trống
                 rooms = rooms.Where(r => r.resort_id == resortId && r.quantity > 0).AsQueryable();
             }
             
-
             // -------------------- [ Tìm kiếm theo tên / mô tả ] --------------------
             if (!string.IsNullOrEmpty(search))
             {
@@ -135,6 +133,7 @@ namespace QuanLyKhachSan.Controllers
             }
 
             List<Room> query = db.Rooms
+                .Where(m => m.quantity > 0)
                 .OrderBy(p => p.id).ToList();
 
             var dataRooms = query.Skip((page - 1) * PerPage).Take(PerPage).Select(room => 

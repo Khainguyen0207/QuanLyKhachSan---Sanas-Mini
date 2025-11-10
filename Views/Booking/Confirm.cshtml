@@ -23,9 +23,9 @@
         </div>
         <div class="container align-items-lg-start">
             <section class="left">
-                <form action="complete.html" method="get" class="needs-validation" novalidate
+                <form action="#" method="get" class="needs-validation" novalidate
                       data-bs-toggle="order-processing-form">
-                    <div class="live-help mb-4">
+                    <div class="live-help mb-4" style=" border: 2px solid var(--primary-color);">
                         <h2>Hỗ trợ trực tuyến SANAS</h2>
                         <div class="secure-payment-info"
                              style="border-left-color: #28a745; background-color: #e6ffe6; color: #333;">
@@ -109,72 +109,104 @@
                         </div>
                     </div>
 
-                    <div class="room-bottom">
-                        <div class="room-details">
-                            <img src="@Url.Content("~/Content/assets/images/room/khachsan.webp")" alt="khachsan">
 
+                    <div class="room-bottom">
+                        <h3 class="mb-3">Thông tin phòng</h3>
+
+                        <div class="wifi-tag mb-0">
+                            <i class="fa-solid fa-info-circle"></i> Sức chứa
+                        </div>
+                        <div class="room-details">
                             <div class="room-text-info">
-                                <p class="fs-6">Người Lớn: <strong>@room.number_of_adults</strong></p>
-                                <p class="fs-6">Trẻ em: <strong>@room.number_of_children</strong></p>
+                                <p class="fs-6">Người Lớn: <span class="fw-bold">@room.number_of_adults</span></p>
+                                <p class="fs-6">Trẻ em: <span class="fw-bold">@room.number_of_children</span></p>
                             </div>
                         </div>
 
-                        <div class="wifi-tag">
-                            <i class="fa-solid fa-wifi"></i> Free Wifi
+                        <div class="wifi-tag mb-0">
+                            <i class="fa-solid fa-info-circle"></i> Tiện ích
                         </div>
 
-                        <ul class="features">
-                            <li>24 hours check-in</li>
-                            <li class="green">Limted time offer, prices include 9% discount</li>
-                            <li>Book and pay now or later</li>
-                            <li class="red">Only @room.quantity rooms at this price</li>
-                            <li class="green">Free wifi</li>
-                            <li>Great views</li>
-                        </ul>
+                        @{
+                            List<string> amenities = room.room_amenities.Split(',').ToList();
+                            List<string> colors = new List<string> { "red", "green", "text-primary", "text-info" };
+                            int i = 0;
+
+                            <ul class="features">
+                                @foreach (string amenitie in amenities)
+                                {
+                                    <li class="@colors[i]">@amenitie</li>
+
+                                    if (i == colors.Count - 1)
+                                    {
+                                        i = 0;
+                                    }
+                                    else
+                                    {
+                                        i++;
+                                    }
+                                }
+                            </ul>
+                        }
+
+
+                        <div class="wifi-tag mb-0">
+                            <i class="fa-solid fa-info-circle"></i>
+                            <span>Mô tả phòng</span>
+                        </div>
+                        <p style="font-size: 0.85em ">@room.description</p>
                     </div>
                 </div>
                 <div class="booking-box">
                     <div class="price-row">
                         <div></div>
                         <div class="bg-danger text-white text-center sale-box">
-                            Giảm giá 10% OFF DAY
+                            Giảm giá 10%
                         </div>
                     </div>
                     <div class="price-row">
-                        <div>Original Price</div>
-                        <div class="strikethrough">
-                            <span class="original-price">@string.Format("{0:N0}đ / đêm", room.price)</span>
-                            <span>VNĐ</span>
-                        </div>
-                    </div>
-                    <div class="price-row">
-                        <div>Giá Phòng / 1 Đêm</div>
+                        <div>Giá phòng / 1 Đêm</div>
                         <div>
-                            <span class="price">@string.Format("{0:N0}VNĐ", room.price * 0.9m)</span>
-                            <span>VNĐ</span>
+                            <span class="price">@string.Format("{0:N0} VNĐ", room.price)</span>
                         </div>
                     </div>
                     <div class="price-row">
-                        <div>Discount</div>
+                        <div>Giá phòng</div>
                         <div>
-                            <span class="discount">@string.Format("{0:N0}VNĐ", room.price * 0.1m)</span>
-                            <span>VNĐ</span>
+                            <span class="price">@string.Format("{0:N0} VNĐ", room.price * 0.9m * (decimal)ViewBag.Days)</span>
                         </div>
                     </div>
                     <div class="price-row">
-                        <div>Booking fee</div>
-                        <div class="booking-fee">FREE</div>
+                        <div>Giảm Giá</div>
+                        <div>
+                            <span class="discount">@string.Format("{0:N0} VNĐ", room.price * 0.1m * (decimal)ViewBag.Days)</span>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <div>Số Đêm</div>
+                        <div>
+                            <span class="number-of-days">@ViewBag.Days Đêm</span>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <div>Ngày vào dự kiến</div>
+                        <div>@ViewBag.Checkin.ToString("dd/MM/yyyy")</div>
+                    </div>
+                    <div class="price-row">
+                        <div>Ngày ra dự kiến</div>
+                        <div>@ViewBag.Checkout.ToString("dd/MM/yyyy")</div>
                     </div>
                     <div class="line"></div>
                     <div class="price-row total-price">
-                        <div>Total</div>
-                        <div>
-                            <span class="total">@string.Format("{0:N0}VNĐ", room.price * 0.9m)</span>
+                        <div>Tổng cộng</div>
+                        <div style="color: #28a745 !important">
+                            <span class="total" style="color: #28a745 ">@string.Format("{0:N0}", (decimal)ViewBag.Days * room.price * 0.9m)</span>
                             <span>VNĐ</span>
                         </div>
                     </div>
-                    <div style="font-size: 12px; color: #777;">Include: Service fee and taxes</div>
-                    <div class="footer-note">Our last 4 rooms at this price</div>
+
+                    <div style="font-size: 12px; color: #777;">Bao gồm: Phí dịch vụ và thuế</div>
+
                     <form method="post" action="@Url.Action("Success", "Booking")">
                         <input type="hidden" name="paymentMethod" value="later" />
                         <input type="hidden" name="roomId" value="@room.id" />
@@ -183,14 +215,32 @@
                         <input type="hidden" name="total" value="@ViewBag.Total" />
                         <input type="hidden" name="email" value="@ViewBag.Email" />
                         <input type="hidden" name="phone" value="@ViewBag.Phone" />
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="confirm-information">
+                            <label class="form-check-label" for="confirm-information">Tôi xác nhận những thông tin trên và đã đọc <a href="#checkin-policy">Quy định nhận phòng</a></label>
+                        </div>
+
                         <button type="submit" class="btn-pay fw-bold"
                                 data-action="order-processing-form-submit">
-                            NEXT STEP
-                            PAYMENT
+                            Xác Nhận
                         </button>
-                        <div class="not-charged">You won't be charged yet.</div>
+
+                        <div class="not-charged">Bạn sẽ không bị tính phí nữa.</div>
                     </form>
-                    <div class="not-charged">You won't be charged yet.</div>
+                </div>
+
+                <div class="booking-box" style="font-size: 0.85rem" id="checkin-policy">
+                    <h3 style="margin-top:0;font-size:16px;font-weight:600;color:#222;">Quy định nhận phòng</h3>
+                    <ul style="margin:0 0 8px 18px;padding:0;">
+                        <li>Thời gian <strong>nhận phòng (Check-in)</strong>: sau <strong>14:00</strong> ngày nhận phòng.</li>
+                        <li>Thời gian <strong>trả phòng (Check-out)</strong>: trước <strong>12:00 trưa</strong> ngày trả phòng.</li>
+                        <li>Khách nhận phòng sớm hoặc trả phòng trễ sẽ được tính <strong>phụ thu</strong> tùy theo quy định của khách sạn.</li>
+                        <li>Trường hợp khách đến muộn (sau 22:00), phòng vẫn được giữ và tính phí như bình thường.</li>
+                    </ul>
+                    <p style="margin:0;font-size:13px;color:#555;">
+                        Ví dụ: Đặt từ ngày <strong>01 → 03</strong> sẽ tính <strong>2 đêm</strong> (đêm 01→02 và đêm 02→03).
+                    </p>
                 </div>
             </section>
         </div>

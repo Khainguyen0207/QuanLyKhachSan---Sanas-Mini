@@ -38,7 +38,7 @@ namespace QuanLyKhachSan.Controllers
 
         // -------------------- [ STEP 2: Xác nhận thông tin & kiểm tra trùng email/phone ] --------------------
         [HttpPost]
-        public ActionResult Confirm(int roomId, DateTime checkin, DateTime checkout, int adults, int children, string email, string phone)
+        public ActionResult Confirm(int roomId, DateTime checkin, DateTime checkout, string email, string phone)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -56,11 +56,13 @@ namespace QuanLyKhachSan.Controllers
             ViewBag.Resort = db.Resorts.FirstOrDefault(r => r.id == room.resort_id);
             ViewBag.Checkin = checkin;
             ViewBag.Checkout = checkout;
-            ViewBag.Adults = adults;
-            ViewBag.Children = children;
+            ViewBag.Days = days;
+            ViewBag.Adults = room.number_of_adults;
+            ViewBag.Children = room.number_of_children;
             ViewBag.Total = total;
             ViewBag.Email = email;
             ViewBag.Phone = phone;
+
 
             return View();
         }
@@ -85,7 +87,7 @@ namespace QuanLyKhachSan.Controllers
             }
 
             // ✅ Tạo bản ghi đặt phòng
-            Booking newBooking = new Booking
+            Booking newBooking = new Booking    
             {
                 customer_id = Convert.ToInt32(user.id),
                 resort_id = room.resort_id,

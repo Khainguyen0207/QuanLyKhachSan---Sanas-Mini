@@ -591,8 +591,10 @@ function validateInput(input) {
         }
     } else if (input.getAttribute('name') === 'checkout') {
         const checkOutDate = new Date(input.value);
-       
-        if (checkOutDate < checkInDate) {
+        const inputCheckin = document.querySelector('input[name="checkin"]');
+        const checkInDateHere = new Date(inputCheckin.value);
+
+        if (checkOutDate < checkInDateHere) {
             isValid = false;
             errorMessage = 'Ngày check-out không được nhỏ hơn ngày check-in';
         }

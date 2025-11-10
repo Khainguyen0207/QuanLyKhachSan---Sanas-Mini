@@ -1,65 +1,13 @@
-﻿@{
+﻿@using System.Collections.Generic
+
+@{
+
     ViewBag.Title = "Đặt phòng";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var room = ViewBag.Room as QuanLyKhachSan.Models.Room;
     var resort = ViewBag.Resort as QuanLyKhachSan.Models.Resort;
 }
 
-@*<div class="container mt-5 mb-5">
-        <div class="card shadow-lg border-0 rounded-4">
-            <div class="card-header bg-primary text-white py-3 rounded-top-4">
-                <h3 class="fw-bold mb-0">📝 Đặt phòng tại @resort.name</h3>
-                <p class="mb-0"><i class="bi bi-geo-alt-fill"></i> @resort.address</p>
-            </div>
-
-            <div class="card-body p-4">
-                <form method="post" action="@Url.Action("Confirm", "Booking")">
-                    <input type="hidden" name="roomId" value="@room.id" />
-
-                    <div class="mb-3">
-                        <label class="form-label">📧 Email</label>
-                        <input type="email" name="email" class="form-control" required />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">📱 Số điện thoại</label>
-                        <input type="tel" name="phone" class="form-control" pattern="[0-9]{9,11}" required />
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">📅 Ngày nhận phòng</label>
-                            <input type="date" name="checkin" class="form-control" required />
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">📅 Ngày trả phòng</label>
-                            <input type="date" name="checkout" class="form-control" required />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">👨‍👩‍👧‍👦 Người lớn</label>
-                            <input type="number" name="adults" class="form-control" min="1" value="1" required />
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">🧒 Trẻ em</label>
-                            <input type="number" name="children" class="form-control" min="0" value="0" />
-                        </div>
-                    </div>
-
-                    @if (ViewBag.Error != null)
-                    {
-                        <div class="alert alert-danger">@ViewBag.Error</div>
-                    }
-
-                    <button type="submit" class="btn btn-success w-100 btn-lg mt-3">
-                        <i class="bi bi-arrow-right-circle"></i> Tiếp tục
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>*@
 <div class="container-fluid">
     <section class="order-payment-section payment-wrapper" style="margin-top: 6rem;">
         <div class="progress-bar-container">
@@ -80,7 +28,7 @@
             <section class="left">
                 <div class="container_items">
                     <h2>Thông tin người đặt phòng</h2>
-                    <div class="required-hint text-danger">* Bắt buộc điền đầy đủ thông tin</div>
+                    <div class="required-hint text-danger fst-italic">* Bắt buộc điền đầy đủ thông tin</div>
                     <form action="@Url.Action("Confirm", "Booking")" method="post" class="needs-validation" novalidate
                           data-bs-toggle="order-information-form">
                         <input type="hidden" name="roomId" value="@room.id" />
@@ -94,11 +42,12 @@
                             <label for="email">Email*</label>
                             <input type="email" class="form-control" name="email" placeholder="Nhập email của bạn"
                                    required>
-                            <div class="required-hint">Chúng tôi sẽ gửi email xác nhận để giúp bạn quản lý đặt phòng. Nếu bạn không hoàn thành, đặt phòng của bạn sẽ hết hạn.</div>
+                            <div class="required-hint fst-italic">Chúng tôi sẽ gửi email xác nhận để giúp bạn quản lý đặt phòng. Nếu bạn không hoàn thành, đặt phòng của bạn sẽ hết hạn.</div>
                             <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
                         </div>
                         <div class="form-group">
                             <div class="row">
+
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Ngày nhận phòng</label>
                                     <input type="date" name="checkin" class="form-control" required />
@@ -107,21 +56,11 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Ngày trả phòng</label>
+
                                     <input type="date" name="checkout" class="form-control" required />
                                     <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Người lớn</label>
-                                    <input type="number" name="adults" class="form-control" min="1" value="@room.number_of_adults" required />
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Trẻ em</label>
-                                    <input type="number" name="children" class="form-control" min="0" value="@room.number_of_children" />
-                                </div>
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -135,7 +74,6 @@
                         {
                             <div class="alert alert-danger">@ViewBag.Error</div>
                         }
-
                     </form>
                 </div>
 
@@ -175,78 +113,139 @@
                     </div>
 
                     <div class="room-bottom">
-                        <div class="room-details">
-                            <img src="@Url.Content("~/Content/assets/images/room/khachsan.webp")" alt="khachsan">
+                        <h3 class="mb-3">Thông tin phòng</h3>
 
+                        <div class="wifi-tag mb-0">
+                            <i class="fa-solid fa-info-circle"></i> Sức chứa
+                        </div>
+                        <div class="room-details">
                             <div class="room-text-info">
-                                <p class="fs-6">Người Lớn: <strong>@room.number_of_adults</strong></p>
-                                <p class="fs-6">Trẻ em: <strong>@room.number_of_children</strong></p>
+                                <p class="fs-6">Người Lớn: <span class="fw-bold">@room.number_of_adults</span></p>
+                                <p class="fs-6">Trẻ em: <span class="fw-bold">@room.number_of_children</span></p>
                             </div>
                         </div>
 
-                        <div class="wifi-tag">
-                            <i class="fa-solid fa-wifi"></i> Free Wifi
+                        <div class="wifi-tag mb-0">
+                            <i class="fa-solid fa-info-circle"></i> Tiện ích
                         </div>
 
-                        <ul class="features">
-                            <li>24 hours check-in</li>
-                            <li class="green">Limted time offer, prices include 9% discount</li>
-                            <li>Book and pay now or later</li>
-                            <li class="red">Only @room.quantity rooms at this price</li>
-                            <li class="green">Free wifi</li>
-                            <li>Great views</li>
-                        </ul>
+                        @{
+                            List<string> amenities = room.room_amenities.Split(',').ToList();
+                            List<string> colors = new List<string> { "red", "green", "text-primary", "text-info" };
+                            int i = 0;
+
+                            <ul class="features">
+                                @foreach (string amenitie in amenities)
+                                {
+                                    <li class="@colors[i]">@amenitie</li>
+
+                                    if (i == colors.Count - 1)
+                                    {
+                                        i = 0;
+                                    }
+                                    else
+                                    {
+                                        i++;
+                                    }
+                                }
+                            </ul>
+                        }
+
+
+                        <div class="wifi-tag mb-0">
+                            <i class="fa-solid fa-info-circle"></i>
+                            <span>Mô tả phòng</span>
+                        </div>
+                        <p style="font-size: 0.85em ">@room.description</p>
                     </div>
                 </div>
                 <div class="booking-box">
                     <div class="price-row">
                         <div></div>
                         <div class="bg-danger text-white text-center sale-box">
-                            Giảm giá 10% OFF DAY
+                            Giảm giá 10%
                         </div>
                     </div>
                     <div class="price-row">
-                        <div>Original Price</div>
+                        <div>Giá Gốc</div>
                         <div class="strikethrough">
-                            <span class="original-price">@string.Format("{0:N0}đ / đêm", room.price)</span>
-                            <span>VNĐ</span>
+                            <span class="original-price">@string.Format("{0:N0} VNĐ / Day", room.price)</span>
                         </div>
                     </div>
                     <div class="price-row">
-                        <div>Giá Phòng / 1 Đêm</div>
+                        <div>Giá / 1 Ngày</div>
                         <div>
-                            <span class="price">@string.Format("{0:N0}VNĐ", room.price * 0.9m)</span>
-                            <span>VNĐ</span>
+                            <span class="price">@string.Format("{0:N0} VNĐ", room.price * 0.9m)</span>
                         </div>
                     </div>
                     <div class="price-row">
-                        <div>Discount</div>
+                        <div>Giảm Giá</div>
                         <div>
-                            <span class="discount">@string.Format("{0:N0}VNĐ", room.price * 0.1m)</span>
-                            <span>VNĐ</span>
+                            <span class="discount">@string.Format("{0:N0} VNĐ", room.price * 0.1m)</span>
                         </div>
                     </div>
                     <div class="price-row">
-                        <div>Booking fee</div>
-                        <div class="booking-fee">FREE</div>
+                        <div>Số Ngày</div>
+                        <div>
+                            <span class="number-of-days">1</span>
+                            <span>Ngày</span>
+                        </div>
                     </div>
                     <div class="line"></div>
                     <div class="price-row total-price">
-                        <div>Total</div>
-                        <div>
-                            <span class="total">@string.Format("{0:N0}VNĐ", room.price * 0.9m)</span>
+                        <div>Tổng cộng</div>
+                        <div style="color: #28a745 !important">
+                            <span class="total" style="color: #28a745 ">@string.Format("{0:N0}", room.price * 0.9m)</span>
                             <span>VNĐ</span>
                         </div>
                     </div>
-                    <div style="font-size: 12px; color: #777;">Include: Service fee and taxes</div>
-                    <div class="footer-note">Our last 4 rooms at this price</div>
+                    <div style="font-size: 12px; color: #777;">Bao gồm: Phí dịch vụ và thuế</div>
+                    @*<div class="footer-note">Our last @resort.Rooms rooms at this price</div>*@
                     <button type="button" class="btn-pay fw-bold"
                             data-action="order-information-form-submit">
-                        NEXT STEP
-                        PAYMENT
+                        Tiếp tục
                     </button>
-                    <div class="not-charged">You won't be charged yet.</div>
+                    <div class="not-charged">Bạn sẽ không bị tính phí nữa.</div>
                 </div>
+
+                <script>
+                    const date = new Date();
+                    const inputCheckin = document.querySelector('input[name="checkin"]');
+                    const days = document.querySelector('span.number-of-days');
+                    const inputCheckout = document.querySelector('input[name="checkout"]');
+
+                    const now = date.toISOString().split('T')[0];
+                    inputCheckin.setAttribute("min", now);
+                    inputCheckin.value = now
+
+                    getDateCheckout();
+
+                    inputCheckin.addEventListener("change", function () {
+                        getDateCheckout()
+                    })
+
+                    inputCheckout.addEventListener("change", function () {
+                        const checkin = new Date(inputCheckin.value);
+                        const checkout = new Date(inputCheckout.value);
+                        let daysDiff = (checkout - checkin) / (1000 * 60 * 60 * 24);
+                        daysDiff = (daysDiff == 0 ? 1 : daysDiff);
+
+                        const priceOfDay = Math.round(@room.price);
+
+                        days.textContent = Math.round(daysDiff);
+
+                        const totalDom = document.querySelector(".total-price .total")
+                        let total = (daysDiff == 0 ? 1 : daysDiff ) * priceOfDay * 0.9;
+                        totalDom.textContent = total.toLocaleString();
+                    })
+
+                    function getDateCheckout() {
+                        const dateMin = new Date(inputCheckin.value).toISOString().split('T')[0];
+
+                        inputCheckout.setAttribute("min", dateMin)
+                        inputCheckout.value = dateMin
+                    }
+                </script>
             </section>
         </div>
     </section>

@@ -7,10 +7,9 @@
 
 <div class="container mt-4">
     <h2 class="fw-bold text-primary mb-4 text-center">
-        🧾 Lịch sử đặt phòng
+        Lịch sử đặt phòng
     </h2>
 
-    <!-- 🔍 Bộ lọc -->
     <form method="get" class="row g-2 mb-4">
         <div class="col-md-3">
             <label class="fw-semibold">Từ ngày:</label>
@@ -27,13 +26,13 @@
                 @foreach (var r in ViewBag.Resorts)
                 {
                     <option value="@r.id" @(r.id == ViewBag.SelectedResortId ? "selected" : "")>@r.name</option>
-                }
+                }   
             </select>
         </div>
         <div class="col-md-2">
             <label class="fw-semibold">Trạng thái:</label>
             <select name="status" class="form-select">
-                <option value="">Tất cả</option>
+                <option>Tất cả</option>
                 <option value="confirmed" @(ViewBag.Status == "confirmed" ? "selected" : "")>Đã xác nhận</option>
                 <option value="pending" @(ViewBag.Status == "pending" ? "selected" : "")>Đang chờ</option>
                 <option value="cancelled" @(ViewBag.Status == "cancelled" ? "selected" : "")>Đã hủy</option>
@@ -75,9 +74,7 @@
             <tbody>
                 @if (!Model.Any())
                 {
-                    <tr>
-                        <td colspan="12" class="text-center text-muted py-3">Không có dữ liệu phù hợp</td>
-                    </tr>
+                   
                 }
                 else
                 {

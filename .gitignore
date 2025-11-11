@@ -1,8 +1,87 @@
-﻿.vs/
+﻿# =============================
+# .NET / ASP.NET MVC / Web API
+# =============================
 bin/
 obj/
-packages/
+Debug/
+Release/
+.vs/
 *.user
 *.suo
-*.log
 *.cache
+*.dbmdl
+*.db
+*.bak
+*.ldf
+*.mdf
+*.log
+
+# Web config / secrets
+appsettings.json
+appsettings.*.json
+web.config
+Web.Debug.config
+Web.Release.config
+secrets.json
+.env
+.env.*
+
+# IIS / publish
+*.Publish.xml
+.publishsettings
+Project_Readme.html
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+.nuget/
+
+# Temporary / build
+*.tmp
+*.temp
+*.pid
+*.seed
+*.obj
+*.exe
+*.dll
+*.pdb
+
+# =============================
+# Node.js / Frontend
+# =============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+build/
+.cache/
+coverage/
+*.map
+
+# =============================
+# IDE / Tooling
+# =============================
+.idea/
+.vscode/
+*.sln.docstates
+
+# =============================
+# Logs / Backups
+# =============================
+*.log
+logs/
+backup/
+*.bak
+*.old
+*.orig
+
+# =============================
+# Misc
+# =============================
+Thumbs.db
+.DS_Store
+*.swp
+*.lnk

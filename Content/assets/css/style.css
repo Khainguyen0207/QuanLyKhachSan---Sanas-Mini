@@ -21132,4 +21132,20 @@ div.tagsinput {
   -webkit-flex-grow: 1;
   flex-grow: 1; }
 
+.toast.show {
+    opacity: 0;
+    animation: appear 1s ease-in forwards;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
 /*# sourceMappingURL=maps/style.css.map */

@@ -28,5 +28,38 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        public ActionResult DeleteCustomer(int id)
+        {
+            try
+            {
+                Customer customer = Session["User"] as Customer;
+
+                if (customer.id == id)
+                {
+                    throw new Exception("Delete action failed.");
+                }
+
+                Customer customerDeleted = db.Customers.FirstOrDefault(m => m.id == id);
+
+                if (customerDeleted == null)
+                {
+                    throw new Exception("Delete action failed.");
+                }
+
+                db.Customers.DeleteOnSubmit(customerDeleted);
+                db.SubmitChanges();
+
+                TempData["success"] = "Customer ID #" + id + " delete successful.";
+
+                return RedirectToAction("Index");
+            } catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

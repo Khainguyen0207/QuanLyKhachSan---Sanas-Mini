@@ -1,0 +1,140 @@
+﻿@model QuanLyKhachSan.Models.Resort
+
+@{
+    ViewBag.Title = "Thêm Resort";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="row">
+    <h3 class="card-title">Thêm khách hàng</h3>
+
+    <div class="form-has-data" id="customer-generate" data-url="http://127.0.0.1:8000/admin/rooms">
+        <form class="form-sample col-12" method="POST" action="http://127.0.0.1:8000/admin/rooms" data-bs-target="form-room" enctype="multipart/form-data" id="room-generate-form">
+            <input type="hidden" name="_token" value="tOZ65iIQV4b7YdGieRpSBSkCZP4TdmcQd7fn6vH0" autocomplete="off">    <input type="hidden" name="_method" value="POST">
+            <div class="row flex-row-reverse">
+                <div class="col-md-3 col-12">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="mb-4">Action</h3>
+                            <button type="submit" class="btn btn-primary btn-icon-text mb-3">
+                                <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit
+                            </button>
+                            <button type="reset" class="btn btn-danger btn-icon-text mb-3" data-bb-toggle="btn-with-href" data-url="#">
+                                <i class="mdi mdi-file-cancel btn-icon-prepend"></i> Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-section mb-4">
+                                <div class="row">
+                                    <!-- Name -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="name" class="form-label">Họ tên</label>
+                                        <input type="text" class="form-control" id="name" name="name" required maxlength="255">
+                                        <div class="invalid-feedback">Nhập họ tên vào đi.</div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" required maxlength="255">
+                                        <div class="invalid-feedback">Email không hợp lệ.</div>
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="password" class="form-label">Mật khẩu</label>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                               required minlength="6" maxlength="255">
+                                        <div class="invalid-feedback">Mật khẩu tối thiểu 6 ký tự.</div>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="phone" class="form-label">Số điện thoại</label>
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                               pattern="^[0-9]{9,11}$" maxlength="20">
+                                        <div class="invalid-feedback">SĐT từ 9-11 số.</div>
+                                    </div>
+
+                                    <!-- Birthday -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="birthday" class="form-label">Ngày sinh</label>
+                                        <input type="date" class="form-control" id="birthday" name="birthday">
+                                        <div class="invalid-feedback">Chọn ngày sinh hợp lệ.</div>
+                                    </div>
+                                    <!-- Status -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="status" class="form-label">Trạng thái</label>
+                                        <input type="text" class="form-control" id="status" name="status" maxlength="255">
+                                    </div>
+
+                                    <!-- Gender -->
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label d-block">Giới tính</label>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Chọn giới tính</option>
+                                            <option value="male">Nam</option>
+                                            <option value="female">Nữ</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="address" class="form-label">Địa chỉ</label>
+                                        <textarea class="form-control" id="address" name="address" rows="2" maxlength="255"></textarea>
+                                    </div>
+
+
+                                    <!-- Avatar -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="avatar" class="form-label">Avatar (URL)</label>
+                                        <input type="url" class="form-control" id="avatar" name="avatar" maxlength="255">
+                                        <div class="invalid-feedback">Nếu có thì nhập URL hợp lệ.</div>
+                                    </div>
+
+                                    <!-- Is Partner / Is Admin -->
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="is_partner" name="is_partner">
+                                        <label class="form-check-label" for="is_partner">Đối tác</label>
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="is_admin" name="is_admin">
+                                        <label class="form-check-label" for="is_admin">Admin</label>
+                                    </div>
+
+                                    <!-- Cash -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="cash" class="form-label">Số dư (VNĐ)</label>
+                                        <input type="number" class="form-control" id="cash" name="cash"
+                                               step="0.01" min="0" value="0">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <h3 class="mb-4">Hình ảnh</h3>
+                                        <div class="file-upload-input">
+                                            <div class="form-input">
+                                                <input type="file" class="form-control" id="images" name="images[]" accept="image/*" multiple="">
+                                                <small class="form-text text-muted">
+                                                    Allowed formats: JPG, PNG, GIF. Max size:
+                                                    2MB
+                                                </small>
+                                            </div>
+                                            <div class="file-preview-container">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -156,6 +156,7 @@
     <Content Include="Content\assets\admin\js\form.js" />
     <Content Include="Content\assets\admin\js\script.js" />
     <Content Include="Content\assets\admin\js\table.js" />
+    <Content Include="Content\assets\admin\js\toast.js" />
     <Content Include="Content\assets\css\admin\style.css" />
     <Content Include="Content\assets\css\style.css" />
     <Content Include="Content\assets\css\user\style.css" />
@@ -1295,6 +1296,7 @@
     <Content Include="Areas\Admin\Views\Room\DeleteRoom.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Create.cshtml" />
     <None Include="Models\QuanLyKhachSan.dbml.layout">
       <DependentUpon>QuanLyKhachSan.dbml</DependentUpon>
     </None>

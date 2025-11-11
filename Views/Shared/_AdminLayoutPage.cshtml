@@ -35,9 +35,10 @@
 
     <script src='@Url.Content("~/Content/assets/js/mode.js")'></script>
     <script src='@Url.Content("~/Content/assets/admin/js/form.js")'></script>
+    <script src='@Url.Content("~/Content/assets/admin/js/toast.js")'></script>
 
     <!-- build -->
-    <link rel="preload" as="style" href='@Url.Content("~/Content/build/assets/style-vqzVuQzB.css")' />
+    @*<link rel="preload" as="style" href='@Url.Content("~/Content/build/assets/style-vqzVuQzB.css")' />*@
     <link rel="stylesheet" href='@Url.Content("~/Content/build/assets/style-vqzVuQzB.css")' />
 
     <!-- fonts -->
@@ -49,6 +50,30 @@
 </head>
 
 <body>
+
+    <div id="validation" class="d-flex flex-column gap-2" style="position: absolute;
+        right: 0;
+        top: 78px;">
+    </div>
+    @{
+        if (TempData["error"] != null)
+        {
+        <script>
+                $(document).ready(() => {
+                    $('#validation').append(showError(`@TempData["error"]`, 0));
+                });
+        </script>
+        } 
+        
+        if (TempData["success"] != null)
+        {
+<script>
+                $(document).ready(() => {
+                    $('#validation').append(showSuccess(`@TempData["success"]`, 'success'));
+                });
+</script>
+        }
+    }
     <main>
         <div class="container-scroller">
             <nav class="sidebar sidebar-offcanvas" id="sidebar">

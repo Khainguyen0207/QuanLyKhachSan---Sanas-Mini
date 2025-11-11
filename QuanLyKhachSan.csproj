@@ -121,8 +121,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BlogController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ResortController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
@@ -149,6 +156,7 @@
     <Content Include="Content\assets\admin\js\form.js" />
     <Content Include="Content\assets\admin\js\script.js" />
     <Content Include="Content\assets\admin\js\table.js" />
+    <Content Include="Content\assets\admin\js\toast.js" />
     <Content Include="Content\assets\css\admin\style.css" />
     <Content Include="Content\assets\css\style.css" />
     <Content Include="Content\assets\css\user\style.css" />
@@ -1277,6 +1285,18 @@
     <Content Include="Content\build\manifest.json" />
     <Content Include="Content\assets\css\admin\style.css.map" />
     <Content Include="Content\assets\css\user\style.css.map" />
+    <Content Include="Areas\Admin\Views\Resort\CreateResort.cshtml" />
+    <Content Include="Areas\Admin\Views\Resort\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Resort\EditResort.cshtml" />
+    <Content Include="Areas\Admin\Views\Room\RoomList.cshtml" />
+    <Content Include="Areas\Admin\Views\Room\CreateRoom.cshtml" />
+    <Content Include="Areas\Admin\Views\Room\EditRoom.cshtml" />
+    <Content Include="Areas\Admin\Views\Room\DeleteRoom.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Create.cshtml" />
     <None Include="Models\QuanLyKhachSan.dbml.layout">
       <DependentUpon>QuanLyKhachSan.dbml</DependentUpon>
     </None>
@@ -1311,20 +1331,10 @@
     <Content Include="Views\Booking\Confirm.cshtml" />
     <Content Include="Views\Booking\Success.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
-    <Content Include="Views\Admin\Dashboard.cshtml" />
-    <Content Include="Views\Admin\Orders.cshtml" />
-    <Content Include="Views\Admin\Resorts.cshtml" />
     <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
-    <Content Include="Views\Admin\CreateResort.cshtml" />
-    <Content Include="Views\Admin\EditResort.cshtml" />
-    <Content Include="Views\Admin\DeleteResort.cshtml" />
-    <Content Include="Views\Admin\RoomList.cshtml" />
-    <Content Include="Views\Admin\CreateRoom.cshtml" />
-    <Content Include="Views\Admin\EditRoom.cshtml" />
-    <Content Include="Views\Admin\DeleteRoom.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Admin\Customers.cshtml" />
+    <Content Include="Views\Resort\Index.cshtml" />
+    <Content Include="Views\Resort\CreateResort.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

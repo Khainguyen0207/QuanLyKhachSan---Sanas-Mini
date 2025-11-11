@@ -13,7 +13,7 @@
         ✏️ Chỉnh sửa Resort
     </h2>
 
-    @using (Html.BeginForm("EditResort", "Admin", FormMethod.Post))
+    @using (Html.BeginForm("EditResort", "Resort", FormMethod.Post))
     {
         @Html.HiddenFor(m => m.id)
 
@@ -62,7 +62,7 @@
                 <button type="submit" class="btn btn-primary px-4">
                     <i class="bi bi-save"></i> Lưu thay đổi
                 </button>
-                <a href="@Url.Action("ResortList", "Admin")" class="btn btn-secondary px-4">
+                <a href="@Url.Action("Index", "Resort", new { area = "Admin" })" class="btn btn-secondary px-4">
                     <i class="bi bi-arrow-left"></i> Quay lại
                 </a>
             </div>

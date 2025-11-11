@@ -10,7 +10,7 @@
         🏝️ Thêm Resort mới
     </h2>
 
-    @using (Html.BeginForm("CreateResort", "Admin", FormMethod.Post))
+    @using (Html.BeginForm("CreateResort", "Resort", FormMethod.Post))
     {
         <div class="card shadow-sm p-4">
             <div class="mb-3">
@@ -60,7 +60,7 @@
                 <button type="submit" class="btn btn-primary px-4">
                     <i class="bi bi-save"></i> Lưu Resort
                 </button>
-                <a href="@Url.Action("ResortList", "Admin")" class="btn btn-secondary px-4">
+                <a href="@Url.Action("Index", "Resort", new { area = "Admin" })" class="btn btn-secondary px-4">
                     <i class="bi bi-arrow-left"></i> Quay lại
                 </a>
             </div>

@@ -19,10 +19,9 @@
   </appSettings>
 
   <system.web>
-    <!-- Khi publish: set debug="false" để tránh lộ stack trace -->
     <compilation debug="true" targetFramework="4.7.2" />
     <httpRuntime targetFramework="4.7.2" />
-    <customErrors mode="Off" /> <!-- đổi thành On khi deploy -->
+    <customErrors mode="Off" />
   </system.web>
 
   <runtime>

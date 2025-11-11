@@ -46,9 +46,9 @@
                 Hành động này không thể hoàn tác. Dữ liệu phòng sẽ bị xóa vĩnh viễn.
             </div>
 
-            <form method="post" action="@Url.Action("ConfirmDeleteRoom", "Admin", new { id = Model.id })">
+            <form method="post" action="@Url.Action("ConfirmDeleteRoom", "Room", new { id = Model.id, area = "Admin" })">
                 <div class="text-end">
-                    <a href="@Url.Action("RoomList", "Admin", new { resortId = Model.resort_id })"
+                    <a href="@Url.Action("RoomList", "Room", new { resortId = Model.resort_id, area = "Admin" })"
                        class="btn btn-secondary me-2">
                         <i class="bi bi-arrow-left"></i> Quay lại
                     </a>

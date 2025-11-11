@@ -22,6 +22,11 @@ namespace QuanLyKhachSan.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (Session["User"] != null)
+            {
+                return RedirectToAction("Index", "Homepage");
+            }
+
             return View();
         }
 
@@ -89,6 +94,11 @@ namespace QuanLyKhachSan.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            if (Session["User"] != null)
+            {
+                return RedirectToAction("Index", "Homepage");
+            }
+
             return View();
         }
 

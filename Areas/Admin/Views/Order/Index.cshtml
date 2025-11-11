@@ -5,12 +5,11 @@
     Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
 }
 
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <h2 class="fw-bold text-primary mb-4 text-center">
-        🧾 Lịch sử đặt phòng
+        Lịch sử đặt phòng
     </h2>
 
-    <!-- 🔍 Bộ lọc -->
     <form method="get" class="row g-2 mb-4">
         <div class="col-md-3">
             <label class="fw-semibold">Từ ngày:</label>
@@ -33,7 +32,7 @@
         <div class="col-md-2">
             <label class="fw-semibold">Trạng thái:</label>
             <select name="status" class="form-select">
-                <option value="">Tất cả</option>
+                <option>Tất cả</option>
                 <option value="confirmed" @(ViewBag.Status == "confirmed" ? "selected" : "")>Đã xác nhận</option>
                 <option value="pending" @(ViewBag.Status == "pending" ? "selected" : "")>Đang chờ</option>
                 <option value="cancelled" @(ViewBag.Status == "cancelled" ? "selected" : "")>Đã hủy</option>
@@ -47,10 +46,17 @@
     </form>
 
     <!-- 📋 Bảng dữ liệu -->
-    <div class="table-responsive shadow-sm">
-        <table class="table table-hover table-bordered align-middle">
-            <thead class="table-dark text-center">
+    <div class="table-responsive shadow-sm rounded-4">
+        <table class="table" id="customer-table">
+            <thead>
                 <tr>
+                    <th>
+                        <div class="form-check form-check-muted m-0">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">
+                            </label>
+                        </div>
+                    </th>
                     <th>#</th>
                     <th>Khách hàng</th>
                     <th>Email</th>
@@ -63,14 +69,13 @@
                     <th>Trạng thái</th>
                     <th>Thanh toán</th>
                     <th>Ngày đặt</th>
+                    <th>Operations</th>
                 </tr>
             </thead>
             <tbody>
                 @if (!Model.Any())
                 {
-                    <tr>
-                        <td colspan="12" class="text-center text-muted py-3">Không có dữ liệu phù hợp</td>
-                    </tr>
+
                 }
                 else
                 {
@@ -93,6 +98,13 @@
                         }
 
                         <tr>
+                            <td>
+                                <div class="form-check form-check-muted m-0">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input">
+                                    </label>
+                                </div>
+                            </td>
                             <td class="text-center fw-bold">@i</td>
                             <td>@b.CustomerName</td>
                             <td>@b.Email</td>
@@ -105,16 +117,18 @@
                             <td class="text-center"><span class="badge bg-@statusClass text-uppercase">@b.Status</span></td>
                             <td class="text-center"><span class="badge bg-@payClass text-uppercase">@b.PaymentStatus</span></td>
                             <td>@(b.CreatedAt?.ToString("dd/MM/yyyy HH:mm"))</td>
+                            <td class="text-center">
+                                <a href="@Url.Action("Show", "Order", new { id = b.Id, area = "Admin" })" type="button"
+                                   class="btn-sm btn-inverse-primary btn-icon">
+                                    <i class="mdi mdi-eye-outline"></i>
+                                </a>
+                            </td>
                         </tr>
                         i++;
                     }
 
                     <!-- Tổng tiền -->
-                    <tr class="fw-bold bg-light">
-                        <td colspan="8" class="text-end">Tổng cộng:</td>
-                        <td class="text-end text-primary">@string.Format("{0:N0} đ", total)</td>
-                        <td colspan="3"></td>
-                    </tr>
+
                 }
             </tbody>
         </table>

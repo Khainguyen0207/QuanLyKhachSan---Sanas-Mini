@@ -11,10 +11,10 @@
     </h2>
 
     <div class="d-flex justify-content-between mb-3">
-        <a href="@Url.Action("Resorts", "Admin")" class="btn btn-outline-primary">
+        <a href="@Url.Action("Resorts", "Resort", new { area = "Admin" })" class="btn btn-outline-primary">
             <i class="bi bi-arrow-left"></i> Quay lại danh sách Resort
         </a>
-        <a href="@Url.Action("CreateRoom", "Admin", new { resortId = ViewBag.ResortId })"
+        <a href="@Url.Action("CreateRoom", "Room", new { resortId = ViewBag.ResortId, area = "Admin"  })"
            class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Thêm phòng mới
         </a>
@@ -65,11 +65,11 @@
                             <td>@room.room_amenities</td>
                             <td>@(room.created_at.HasValue ? room.created_at.Value.ToString("dd/MM/yyyy HH:mm") : "")</td>
                             <td class="text-center">
-                                <a href="@Url.Action("EditRoom", "Admin", new { id = room.id })" type="button"
+                                <a href="@Url.Action("EditRoom", "Room", new { id = room.id, area = "Admin" })" type="button"
                                    class="btn-sm btn-inverse-primary btn-icon">
                                     <i class="mdi mdi-pencil-box-outline"></i>
                                 </a>
-                                <a href="@Url.Action("DeleteRoom", "Admin", new { id = room.id })" type="button" class="btn-sm btn-inverse-danger btn-icon" data-bs-action="modal-confirm-action" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete">
+                                <a href="@Url.Action("DeleteRoom", "Room", new { id = room.id, area = "Admin" })" type="button" class="btn-sm btn-inverse-danger btn-icon" data-bs-action="modal-confirm-action" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete">
                                     <i class="mdi mdi-delete"></i>
                                 </a>
                             </td>

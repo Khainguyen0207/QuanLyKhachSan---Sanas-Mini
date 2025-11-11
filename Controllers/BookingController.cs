@@ -15,6 +15,8 @@ namespace QuanLyKhachSan.Controllers
             db = new QuanLyKhachSanDataContext(conn);
         }
 
+        
+
         // -------------------- [ STEP 1: Trang nhập thông tin đặt phòng ] --------------------
         [HttpGet]
         public ActionResult Book(int roomId = -1)

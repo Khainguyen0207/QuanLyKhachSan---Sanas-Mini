@@ -1,0 +1,98 @@
+﻿@model IEnumerable<QuanLyKhachSan.Models.Customer>
+
+@{
+    ViewBag.Title = "Danh sách Resort";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Customers</h4>
+                    <div class="action float-right">
+                        <button type="reset" class="btn btn-inverse-primary btn-icon-text me-3"
+                                data-bb-toggle="btn-with-href"
+                                data-url="@Url.Action("Create", "Customer", new { area = "Admin"})">
+                            <i class="mdi mdi-plus"></i> Thêm
+                        </button>
+                    </div>
+
+                    <div class="table-responsive shadow-sm rounded-4">
+                        <table class="table" id="customer-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="form-check form-check-muted m-0">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input">
+                                            </label>
+                                        </div>
+                                    </th>
+                                    <th> ID</th>
+                                    <th> Name</th>
+                                    <th> Email</th>
+                                    <th> Cash ( VNĐ )</th>
+                                    <th> Status</th>
+                                    <th> Create Date</th>
+                                    <th> Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (!Model.Any())
+                                {
+
+                                }
+                                else
+                                {
+                                    int i = 1;
+                                    foreach (var r in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="form-check form-check-muted m-0">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input">
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td class="fw-semibold">
+                                                <a href="@Url.Action("EditCustomer", "Customer", new { id = r.id, area = "Admin" })"
+                                                   class="text-decoration-none text-primary fw-bold">
+                                                    @r.id
+                                                </a>
+                                            </td>
+                                            <td>@r.name</td>
+                                            <td>@r.email</td>
+                                            <td class="text-success fw-bold text-end">
+                                                @String.Format("{0:N0}đ", r.cash ?? 0)
+                                            </td>
+                                            <td>
+                                                <span class="badge  @(@r.status == "active" ? "badge-success" : "badge-danger")">@r.status</span>
+                                            </td>
+                                            <td class="text-center">
+                                                @(r.created_at.HasValue ? r.created_at.Value.ToString("dd/MM/yyyy HH:mm:ss") : "")
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="@Url.Action("EditCustomer", "Customer", new { id = r.id, area = "Admin" })" type="button"
+                                                   class="btn-sm btn-inverse-primary btn-icon">
+                                                    <i class="mdi mdi-pencil-box-outline"></i>
+                                                </a>
+                                                <a href="@Url.Action("DeleteCustomer", "Customer", new { id = r.id, area = "Admin" })" type="button" class="btn-sm btn-inverse-danger btn-icon" data-bs-action="modal-confirm-action" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

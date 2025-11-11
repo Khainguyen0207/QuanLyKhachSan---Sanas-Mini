@@ -1335,6 +1335,7 @@
     <Content Include="Views\Room\Index.cshtml" />
     <Content Include="Views\Resort\Index.cshtml" />
     <Content Include="Views\Resort\CreateResort.cshtml" />
+    <Content Include="Web.config.example" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

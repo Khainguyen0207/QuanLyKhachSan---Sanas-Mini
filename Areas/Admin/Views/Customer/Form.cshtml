@@ -1,17 +1,24 @@
-﻿@model QuanLyKhachSan.Models.Resort
+﻿@model QuanLyKhachSan.Models.Customer
 
 @{
-    ViewBag.Title = "Thêm Khách Hàng";
+    ViewBag.Title = "Customers";
     Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
 
-    Dictionary<string, string> form = ViewBag.FormGenerate as Dictionary<string, string>;
+    Dictionary<string, string> form = new Dictionary<string, string>();
 
-    if(form == null)
+
+
+    if (form == null && Model == null)
     {
         form = new Dictionary<string, string>();
 
         form["name"] = "Store";
         form["title"] = "Thêm khách hàng";
+        form["method"] = "POST";
+    } else
+    {
+        form["name"] = "Edit/"+ Model.id;
+        form["title"] = "Sửa khách hàng #" + Model.id;
         form["method"] = "POST";
     }
 }
@@ -19,8 +26,8 @@
 <div class="row">
     <h3 class="card-title">@form["title"]</h3>
 
-    <div class="form-has-data" id="customer-generate" >
-        @using (Html.BeginForm(form["name"], "Customer", form["method"]))
+    <div class="form-has-data" id="customer-generate">
+        @using (Html.BeginForm(form["name"], "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="row flex-row-reverse">
                 <div class="col-md-3 col-12">
@@ -44,14 +51,14 @@
                                     <!-- Name -->
                                     <div class="mb-3 col-md-6">
                                         <label for="name" class="form-label">Họ tên</label>
-                                        <input type="text" class="form-control" id="name" name="name" required maxlength="255">
+                                        <input type="text" class="form-control" id="name" name="name" required maxlength="255" value="@Model.name">
                                         <div class="invalid-feedback">Nhập họ tên</div>
                                     </div>
 
                                     <!-- Email -->
                                     <div class="mb-3 col-md-6">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" required maxlength="255">
+                                        <input type="email" class="form-control" id="email" name="email" required maxlength="255" value="@Model.email">
                                         <div class="invalid-feedback">Email không hợp lệ.</div>
                                     </div>
 
@@ -60,7 +67,7 @@
                                         <label for="password" class="form-label">Mật khẩu</label>
                                         <div class="input-group">
                                             <input type="password" data-fd-toggle="password-toggle" class="form-control" id="password" name="password"
-                                                   required minlength="6" maxlength="255">
+                                                   minlength="6" maxlength="255">
                                             <span class="mdi mdi-eye" data-fd-toggle="password-toggle-btn" style=" position: absolute; z-index: 10; right: 10px; top: 7px; cursor: pointer;"></span>
                                         </div>
                                         <div class="invalid-feedback">Mật khẩu tối thiểu 6 ký tự.</div>
@@ -71,7 +78,7 @@
                                         <label for="password_confirmation" class="form-label">Xác nhận mật khẩu</label>
                                         <div class="input-group">
                                             <input type="password" class="form-control" data-fd-toggle="password-toggle" id="password_confirmation" name="password_confirmation"
-                                                   required minlength="6" maxlength="255">
+                                                   minlength="6" maxlength="255">
                                             <span class="mdi mdi-eye" data-fd-toggle="password-toggle-btn" style=" position: absolute; z-index: 10; right: 10px; top: 7px; cursor: pointer;"></span>
                                         </div>
 
@@ -82,14 +89,14 @@
                                     <div class="mb-3 col-md-6">
                                         <label for="phone" class="form-label">Số điện thoại</label>
                                         <input type="text" class="form-control" id="phone" name="phone"
-                                               pattern="^[0-9]{9,11}$" maxlength="20">
+                                               pattern="^[0-9]{9,11}$" maxlength="20"  value="@Model.phone">
                                         <div class="invalid-feedback">SĐT từ 9-11 số.</div>
                                     </div>
 
                                     <!-- Birthday -->
                                     <div class="mb-3 col-md-6">
                                         <label for="birthday" class="form-label">Ngày sinh</label>
-                                        <input type="date" class="form-control" id="birthday" name="birthday">
+                                        <input type="date" class="form-control" id="birthday" name="birthday" value="@(Model.birthday?.ToString("yyyy-MM-dd"))">
                                         <div class="invalid-feedback">Chọn ngày sinh hợp lệ.</div>
                                     </div>
 
@@ -97,7 +104,7 @@
                                     <div class="mb-3 col-md-6">
                                         <label for="cash" class="form-label">Số dư (VNĐ)</label>
                                         <input type="number" class="form-control" id="cash" name="cash"
-                                               step="0.01" min="0" value="0">
+                                               min="0" value="@String.Format("{0:00}", Model.cash)">
                                     </div>
 
                                     <!-- Status -->
@@ -105,8 +112,8 @@
                                         <label for="status" class="form-label">Trạng thái</label>
 
                                         <select class="form-select" aria-label="Default select example" id="status" name="status" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
-                                            <option value="active" selected>Active</option>
-                                            <option value="locked">Locked</option>
+                                            <option value="active"  @(Model.status == "active" ? "selected" : "")>Active</option>
+                                            <option value="locked"  @(Model.status == "locked" ? "selected" : "")>Locked</option>
                                         </select>
                                     </div>
 
@@ -114,8 +121,8 @@
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label d-block">Giới tính</label>
                                         <select name="gender" class="form-select" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
-                                            <option value="0" selected>Nam</option>
-                                            <option value="1">Nữ</option>
+                                            <option value="0" @(Model.gender == false ? "selected" : "")>Nam</option>
+                                            <option value="1 "@(Model.gender == true ? "selected" : "")>Nữ</option>
                                         </select>
                                     </div>
 
@@ -123,15 +130,28 @@
                                         <label class="form-label d-block">Đối tác</label>
 
                                         <div class="toggle">
-                                            <input type="checkbox" id="mode-toggle" name="is_partner" class="toggle__input">
+                                            <input type="checkbox" id="mode-toggle" class="toggle__input" @(Model.is_partner == true ? "checked" : "")>
                                             <label for="mode-toggle" class="toggle__label"></label>
                                         </div>
+
+                                        <input type="hidden" id="mode-toggle-value" name="is_partner" value="@(Model.is_partner == true ? 1 : 0)">
+
+                                        <script>
+                                            document.querySelector("#mode-toggle").addEventListener("change", function (e) {
+                                                if (e.currentTarget.checked) {
+                                                    document.querySelector("#mode-toggle-value").setAttribute("value", "1")
+                                                } else {
+                                                    document.querySelector("#mode-toggle-value").setAttribute("value", "0")
+                                                }
+                                            });
+
+                                        </script>
                                     </div>
 
                                     <!-- Address -->
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Địa chỉ</label>
-                                        <textarea class="form-control" id="address" name="address" style="resize: vertical;"></textarea>
+                                        <textarea class="form-control" id="address" name="address" style="resize: vertical;"> @Model.address </textarea>
                                     </div>
 
                                 </div>
@@ -139,16 +159,30 @@
                                     <div class="col-md-6 col-12">
                                         <h3 class="mb-4">Ảnh đại diện</h3>
                                         <div class="file-upload-input">
+                                            <div class="file-preview-container">
+                                                @if (!string.IsNullOrEmpty(Model.avatar))
+                                                {
+                                                    <img src="~/Content/Upload/Avatar/@Model.avatar" alt="avatar" style="max-width: 150px"/>
+                                                }
+                                            </div>
                                             <div class="form-input">
-                                                <input type="file" class="form-control" id="images" name="avatar" accept="image/*" multiple="">
+                                                <input type="file" class="form-control" id="upload-image" name="avatar" accept="image/*">
                                                 <small class="form-text text-muted">
                                                     Allowed formats: JPG, PNG, GIF. Max size:
                                                     2MB
                                                 </small>
                                             </div>
-                                            <div class="file-preview-container">
-
-                                            </div>
+                                            <script>
+                                                document.querySelector("#upload-image").addEventListener("change", function (e) {
+                                                    const file = e.currentTarget.files[0];
+                                                    const container = document.querySelector(".file-preview-container");
+                                                    const img = document.createElement("img");
+                                                    img.src = URL.createObjectURL(file)
+                                                    img.style.maxWidth = "150px"
+                                                    container.innerHTML = "";
+                                                    container.appendChild(img);
+                                                })
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -157,7 +191,6 @@
                     </div>
                 </div>
             </div>
-
         }
     </div>
 </div>

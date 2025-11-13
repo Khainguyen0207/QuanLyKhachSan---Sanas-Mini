@@ -1,4 +1,5 @@
 ﻿@using QuanLyKhachSan.Models
+
 @{
     var user = Session["User"] as Customer;
 }
@@ -52,41 +53,43 @@
 <body>
 
     <div id="validation" class="d-flex flex-column gap-2" style="position: absolute;
-        right: 0;
         top: 78px;">
     </div>
     @{
         if (TempData["error"] != null)
         {
-        <script>
+            <script>
                 $(document).ready(() => {
                     $('#validation').append(showError(`@TempData["error"]`, 0));
                 });
-        </script>
+            </script>
         } 
         
         if (TempData["success"] != null)
         {
-<script>
+            <script>
                 $(document).ready(() => {
                     $('#validation').append(showSuccess(`@TempData["success"]`, 'success'));
                 });
-</script>
+            </script>
         }
     }
     <main>
         <div class="container-scroller">
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-                    <a class="sidebar-brand brand-logo" href="@Url.Action("Index", "Admin")"><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
-                    <a class="sidebar-brand brand-logo-mini" href="@Url.Action("Index", "Admin")"><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
+                    <a class="sidebar-brand brand-logo" href=""><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
+                    <a class="sidebar-brand brand-logo-mini" href=""><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
                 </div>
                 <ul class="nav">
                     <li class="nav-item profile">
                         <div class="profile-desc">
                             <div class="profile-pic">
                                 <div class="count-indicator">
-                                    <img class="img-xs rounded-circle " src="@Url.Content("~/Content/assets/images/default-avatar.png")" alt="face15">
+                                     @{ 
+                                         string avt = string.IsNullOrEmpty(user.avatar) ? Url.Content("~/Content/assets/images/default-avatar.png") : Url.Content("~/Content/Upload/Avatar/" + user.avatar);
+                                     }
+                                    <img class="img-xs rounded-circle" src="@avt" alt="face15" style="object-fit: cover;">
                                     <span class="count bg-success"></span>
                                 </div>
                                 <div class="profile-name">
@@ -132,7 +135,15 @@
                         </a>
                     </li>
                     <li class="nav-item menu-items mb-2">
-                        <a class="nav-link" href="@Url.Action("Logout", "Account")">
+                        <a class="nav-link" href="/Homepage/Index">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-web"></i>
+                            </span>
+                            <span class="menu-title">View Website</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items mb-2">
+                        <a class="nav-link" href="/Account/Logout">
                             <span class="menu-icon">
                                 <i class="mdi mdi-logout"></i>
                             </span>
@@ -274,7 +285,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                                     <div class="navbar-profile">
-                                        <img class="img-xs rounded-circle" src="@Url.Content("~/Content/assets/images/default-avatar.png")" alt="">
+                                        <img class="img-xs rounded-circle" src="@avt" alt="face15" style="object-fit: cover;">
                                         <p class="mb-0 d-none d-sm-block navbar-profile-name">@user.name</p>
                                         <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                                     </div>
@@ -293,7 +304,7 @@
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item preview-item" href="@Url.Action("Logout", "Account")">
+                                    <a class="dropdown-item preview-item" href="/Account/Logout">
                                         <div class="preview-thumbnail">
                                             <div class="preview-icon bg-dark rounded-circle">
                                                 <i class="mdi mdi-logout text-danger"></i>

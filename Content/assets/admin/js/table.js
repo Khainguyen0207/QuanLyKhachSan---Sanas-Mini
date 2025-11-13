@@ -1,6 +1,16 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     new DataTable('#customer-table', {
-        order: [[1, 'desc']],
+        columnDefs: [
+            {
+                orderable: false,
+                targets: [0]
+            } // cột nào muốn cấm sort
+        ],
+        order: [
+            [
+                1, 'desc'
+            ]
+        ]
     });
     new DataTable('#room-table', {
         order: [[1, 'desc']],

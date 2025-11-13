@@ -1,4 +1,5 @@
 ﻿@using QuanLyKhachSan.Models
+
 @{
     var user = Session["User"] as Customer;
 }
@@ -78,8 +79,8 @@
         <div class="container-scroller">
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-                    <a class="sidebar-brand brand-logo" href="@Url.Action("Index", "Admin")"><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
-                    <a class="sidebar-brand brand-logo-mini" href="@Url.Action("Index", "Admin")"><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
+                    <a class="sidebar-brand brand-logo" href=""><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
+                    <a class="sidebar-brand brand-logo-mini" href=""><img src="@Url.Content("~/Content/assets/images/theme/images/logo.png")" alt="logo" style="width: auto"></a>
                 </div>
                 <ul class="nav">
                     <li class="nav-item profile">
@@ -132,7 +133,15 @@
                         </a>
                     </li>
                     <li class="nav-item menu-items mb-2">
-                        <a class="nav-link" href="@Url.Action("Logout", "Account")">
+                        <a class="nav-link" href="/Homepage/Index">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-web"></i>
+                            </span>
+                            <span class="menu-title">View Website</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items mb-2">
+                        <a class="nav-link" href="/Account/Logout">
                             <span class="menu-icon">
                                 <i class="mdi mdi-logout"></i>
                             </span>
@@ -293,7 +302,7 @@
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item preview-item" href="@Url.Action("Logout", "Account")">
+                                    <a class="dropdown-item preview-item" href="/Account/Logout">
                                         <div class="preview-thumbnail">
                                             <div class="preview-icon bg-dark rounded-circle">
                                                 <i class="mdi mdi-logout text-danger"></i>

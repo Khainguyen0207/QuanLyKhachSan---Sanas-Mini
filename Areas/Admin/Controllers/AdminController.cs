@@ -15,4 +15,6 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
         private static string conn = ConfigurationManager.ConnectionStrings["QLKSConnectionString"].ConnectionString;
         protected QuanLyKhachSanDataContext db = new QuanLyKhachSanDataContext(conn);
     }
+
+
 }

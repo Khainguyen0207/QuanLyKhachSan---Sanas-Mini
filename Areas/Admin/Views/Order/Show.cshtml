@@ -1,0 +1,131 @@
+﻿@model QuanLyKhachSan.Models.Booking
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Show</h2>
+
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.customer_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resort_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resort_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.room_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.room_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.check_in)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.check_in)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.check_out)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.check_out)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_price_temporary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_price_temporary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payment_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payment_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.created_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.created_at)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.updated_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.updated_at)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phone)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -46,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -56,6 +57,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -129,16 +131,20 @@
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ResortController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
+    <Compile Include="Areas\Admin\Validations\CustomerValidation.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Enums\EnumExtention.cs" />
+    <Compile Include="Enums\CustomerStatusEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AdminAuthorizeAttribute.cs" />
     <Compile Include="Helpers\AuthorizeHelper.cs" />
+    <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Models\AdminBookingVM.cs" />
     <Compile Include="Models\QuanLyKhachSan.designer.cs">
       <AutoGen>True</AutoGen>
@@ -1147,11 +1153,6 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Models\QuanLyKhachSan.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>QuanLyKhachSan.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Content\assets\css\maps\style.css.map" />
     <Content Include="Content\assets\fonts\Assistant\Assistant-Bold.eot" />
     <Content Include="Content\assets\fonts\Assistant\Assistant-Bold.ttf" />
@@ -1297,6 +1298,13 @@
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Create.cshtml" />
+    <Content Include="Models\QuanLyKhachSan.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>QuanLyKhachSan.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Admin\Views\Customer\Form.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Show.cshtml" />
     <None Include="Models\QuanLyKhachSan.dbml.layout">
       <DependentUpon>QuanLyKhachSan.dbml</DependentUpon>
     </None>

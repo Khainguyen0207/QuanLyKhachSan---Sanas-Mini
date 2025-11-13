@@ -76,5 +76,17 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
             return View(data);
         }
 
+        public ActionResult Show(int id)
+        {
+            Booking order = db.Bookings.FirstOrDefault(b => b.id == id);
+
+            if (order == null)
+            {
+                TempData["error"] = "Order not found";
+                return RedirectToAction("Index");
+            }
+           
+            return View(order);
+        }
     }
 }

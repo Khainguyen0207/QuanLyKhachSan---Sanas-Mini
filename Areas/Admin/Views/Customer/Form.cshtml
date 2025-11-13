@@ -27,7 +27,7 @@
     <h3 class="card-title">@form["title"]</h3>
 
     <div class="form-has-data" id="customer-generate">
-        @using (Html.BeginForm(form["name"], "Customer", form["method"]))
+        @using (Html.BeginForm(form["name"], "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="row flex-row-reverse">
                 <div class="col-md-3 col-12">
@@ -159,14 +159,30 @@
                                     <div class="col-md-6 col-12">
                                         <h3 class="mb-4">Ảnh đại diện</h3>
                                         <div class="file-upload-input">
+                                            <div class="file-preview-container">
+                                                @if (!string.IsNullOrEmpty(Model.avatar))
+                                                {
+                                                    <img src="~/Content/Upload/Avatar/@Model.avatar" alt="avatar" style="max-width: 150px"/>
+                                                }
+                                            </div>
                                             <div class="form-input">
-                                                <input type="file" class="form-control" id="images" name="avatar" accept="image/*" multiple="">
+                                                <input type="file" class="form-control" id="upload-image" name="avatar" accept="image/*">
                                                 <small class="form-text text-muted">
                                                     Allowed formats: JPG, PNG, GIF. Max size:
                                                     2MB
                                                 </small>
                                             </div>
-                                            <div class="file-preview-container"></div>
+                                            <script>
+                                                document.querySelector("#upload-image").addEventListener("change", function (e) {
+                                                    const file = e.currentTarget.files[0];
+                                                    const container = document.querySelector(".file-preview-container");
+                                                    const img = document.createElement("img");
+                                                    img.src = URL.createObjectURL(file)
+                                                    img.style.maxWidth = "150px"
+                                                    container.innerHTML = "";
+                                                    container.appendChild(img);
+                                                })
+                                            </script>
                                         </div>
                                     </div>
                                 </div>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -90,6 +91,7 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
         public ActionResult Edit(int id, FormCollection collection)
         {
             Customer customer = db.Customers.FirstOrDefault(r => r.id == id);
+            HttpPostedFileBase file = Request.Files["avatar"];
 
             try
             {
@@ -101,15 +103,45 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
                 }
 
                 Dictionary<string, string> changes = ModelHelper.DirtyModelFromCollection(customer, collection);
-                
-                if (string.IsNullOrEmpty(changes["password"]) || changes["password"].Length < 6)
+                bool issPasswordChange = changes.TryGetValue("password", out string password);
+                bool isAvatarChange = changes.TryGetValue("avatar", out string avatar);
+
+                if (issPasswordChange)
                 {
-                    changes.Remove("password");
+                    if (string.IsNullOrEmpty(password.ToString()) || password.ToString().Length < 6)
+                    {
+                        changes.Remove("password");
+                    }
+                }
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string PathAvatar = PathHelper.GetPathUploadAvatar(customer.avatar);
+
+                    bool isExistAvatar = System.IO.File.Exists(PathAvatar);
+
+                    if (! string.IsNullOrEmpty(customer.avatar) && isExistAvatar)
+                    {
+                        System.IO.File.Delete(PathAvatar);
+                    }
+
+                    string extension = Path.GetExtension(file.FileName);
+                    string fileName;
+
+                    do
+                    {
+                        fileName = BaseHelper.RandomString(20) + extension;
+                        PathAvatar = PathHelper.GetPathUploadAvatar(fileName);
+                    }
+                    while (System.IO.File.Exists(PathAvatar));
+
+                    file.SaveAs(PathAvatar);
+
+                    changes.Add("avatar", fileName);
                 }
 
                 var provider = new DictionaryValueProvider<string>(changes, CultureInfo.CurrentCulture);
                 
-                //changes;
                 TryUpdateModel(customer, provider);
                 db.SubmitChanges();
 
@@ -119,7 +151,7 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
                 TempData["error"] = ex.Message;
             }
 
-            return View("Form", customer);
+            return RedirectToAction("Show", new { customer.id });
         }
 
         //[HttpPost]

@@ -21134,7 +21134,7 @@ div.tagsinput {
 
 .toast.show {
     opacity: 0;
-    animation: appear 1s ease-in forwards;
+    animation: appear .4s ease-in forwards;
 }
 
 @keyframes appear {

@@ -53,26 +53,25 @@
 <body>
 
     <div id="validation" class="d-flex flex-column gap-2" style="position: absolute;
-        right: 0;
         top: 78px;">
     </div>
     @{
         if (TempData["error"] != null)
         {
-        <script>
+            <script>
                 $(document).ready(() => {
                     $('#validation').append(showError(`@TempData["error"]`, 0));
                 });
-        </script>
+            </script>
         } 
         
         if (TempData["success"] != null)
         {
-<script>
+            <script>
                 $(document).ready(() => {
                     $('#validation').append(showSuccess(`@TempData["success"]`, 'success'));
                 });
-</script>
+            </script>
         }
     }
     <main>
@@ -87,7 +86,10 @@
                         <div class="profile-desc">
                             <div class="profile-pic">
                                 <div class="count-indicator">
-                                    <img class="img-xs rounded-circle " src="@Url.Content("~/Content/assets/images/default-avatar.png")" alt="face15">
+                                     @{ 
+                                         string avt = string.IsNullOrEmpty(user.avatar) ? Url.Content("~/Content/assets/images/default-avatar.png") : Url.Content("~/Content/Upload/Avatar/" + user.avatar);
+                                     }
+                                    <img class="img-xs rounded-circle" src="@avt" alt="face15" style="object-fit: cover;">
                                     <span class="count bg-success"></span>
                                 </div>
                                 <div class="profile-name">
@@ -283,7 +285,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                                     <div class="navbar-profile">
-                                        <img class="img-xs rounded-circle" src="@Url.Content("~/Content/assets/images/default-avatar.png")" alt="">
+                                        <img class="img-xs rounded-circle" src="@avt" alt="face15" style="object-fit: cover;">
                                         <p class="mb-0 d-none d-sm-block navbar-profile-name">@user.name</p>
                                         <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                                     </div>

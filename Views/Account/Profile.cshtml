@@ -21,18 +21,10 @@
                 <div class="form-container border h-100 p-3 d-flex flex-column rounded-4">
                     <div class="user-profile-form d-flex flex-column flex-md-row align-items-center justify-content-between p-3 rounded-5">
                         <div class="user-avt flex-shrink-0">
-                            @if (user.avatar == null)
-                            {
-                                <img src=" @Url.Content("~/Content/assets/images/default-avatar.png")" alt=""
-                                     class="rounded-circle img-fluid"
-                                     style="width: 80px; height: 80px; object-fit: cover;">
-                            }
-                            else
-                            {
-                                <img src=" @Url.Content("~/Content/assets/images/" + user.avatar)" alt=""
-                                     class="rounded-circle img-fluid"
-                                     style="width: 80px; height: 80px; object-fit: cover;">
-                            }
+                            @{string avatar = string.IsNullOrEmpty(user.avatar) ? Url.Content("~/Content/assets/images/default-avatar.png") : Url.Content("~/Content/Upload/Avatar/" + user.avatar);}
+                            <img src="@avatar" alt="avatar"
+                                    class="rounded-circle img-fluid"
+                                    style="width: 80px; height: 80px; object-fit: cover;">
                         </div>
                         <div class="user-name text-center text-md-start">
                             <h4 class="mb-2 username">@user.name</h4>

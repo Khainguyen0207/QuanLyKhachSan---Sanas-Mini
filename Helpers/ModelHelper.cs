@@ -101,6 +101,11 @@ namespace QuanLyKhachSan.Helpers
                     {
                         var valueOld = prop.GetValue(model);
 
+                        if (prop.Name == "avatar")
+                        {
+                            var password = value;
+                        }
+
                         if (value == "on" || value == "off")
                         {
                             if (isDirty(valueOld, value == "on"))

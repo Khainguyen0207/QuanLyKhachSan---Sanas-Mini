@@ -144,7 +144,9 @@
     </Compile>
     <Compile Include="Helpers\AdminAuthorizeAttribute.cs" />
     <Compile Include="Helpers\AuthorizeHelper.cs" />
+    <Compile Include="Helpers\BaseHelper.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
+    <Compile Include="Helpers\PathHelper.cs" />
     <Compile Include="Models\AdminBookingVM.cs" />
     <Compile Include="Models\QuanLyKhachSan.designer.cs">
       <AutoGen>True</AutoGen>
@@ -1347,6 +1349,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Upload\Avatar\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

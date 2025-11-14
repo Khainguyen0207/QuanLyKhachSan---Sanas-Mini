@@ -6,10 +6,6 @@
 }
 
 <div class="container-fluid mt-4">
-    <h2 class="fw-bold text-primary mb-4 text-center">
-        Lịch sử đặt phòng
-    </h2>
-
     <form method="get" class="row g-2 mb-4">
         <div class="col-md-3">
             <label class="fw-semibold">Từ ngày:</label>
@@ -57,7 +53,7 @@
                             </label>
                         </div>
                     </th>
-                    <th>#</th>
+                    <th>Order ID</th>
                     <th>Khách hàng</th>
                     <th>Email</th>
                     <th>Điện thoại</th>
@@ -105,7 +101,9 @@
                                     </label>
                                 </div>
                             </td>
-                            <td class="text-center fw-bold">@i</td>
+                            <td class="text-center fw-bold">
+                                <a href="@Url.Action("Show", "Order", new { id = b.Id, area = "Admin" })">@b.Id</a>
+                            </td>
                             <td>@b.CustomerName</td>
                             <td>@b.Email</td>
                             <td>@b.Phone</td>

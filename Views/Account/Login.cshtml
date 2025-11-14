@@ -21,7 +21,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Mật khẩu</label>
-                    <input type="password" class="form-control" id="password" name="password" value="123456" required>
+                    
+                    <div class="input-group">
+                        <input type="password" data-fd-toggle="password-toggle" class="form-control rounded-3" id="password" name="password" value="123456" required>
+                        <span class="fa-solid fa-eye" data-fd-toggle="password-toggle-btn" style=" position: absolute; z-index: 10; right: 10px; top: 10px; cursor: pointer;"></span>
+                    </div>
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" name="remember" id="rememberMe">

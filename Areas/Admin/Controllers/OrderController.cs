@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using QuanLyKhachSan.Helpers;
 using QuanLyKhachSan.Models;
 
 namespace QuanLyKhachSan.Areas.Admin.Controllers
@@ -80,6 +83,11 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
         {
             Booking order = db.Bookings.FirstOrDefault(b => b.id == id);
 
+            if (order.customer_id != null)
+            {
+                ViewBag.Customer = db.Customers.FirstOrDefault(m => m.id == order.customer_id);
+            }
+
             if (order == null)
             {
                 TempData["error"] = "Order not found";
@@ -87,6 +95,26 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
             }
            
             return View(order);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            Booking order = db.Bookings.FirstOrDefault(b => b.id == id);
+
+            if (order == null)
+            {
+                TempData["error"] = "Order not found";
+                return RedirectToAction("Index");
+            }
+
+            Dictionary<string, string> changes = ModelHelper.DirtyModelFromCollection(order, collection);
+            var provider = new DictionaryValueProvider<string>(changes, CultureInfo.CurrentCulture);
+
+            TryUpdateModel(order, provider);
+            db.SubmitChanges();
+
+            return RedirectToAction("Show", new { order.id });
         }
     }
 }

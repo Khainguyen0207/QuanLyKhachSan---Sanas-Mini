@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 9.5" name="QuanLyKhachSan">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.75" name="QuanLyKhachSan">
   <DataContextMoniker Name="/QuanLyKhachSanDataContext" />
   <nestedChildShapes>
     <classShape Id="0edcf7e3-ca31-402d-8046-36a700256daf" absoluteBounds="8.75, 0.75, 2, 2.5401025390625005">
@@ -12,12 +12,6 @@
       <DataClassMoniker Name="/QuanLyKhachSanDataContext/Room" />
       <nestedChildShapes>
         <elementListCompartment Id="81291423-f9c0-4d52-bbf8-8a00343925e5" absoluteBounds="6.265, 6.21, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="6c99b7a3-e58f-45f2-9a8f-469ab3ce8fcb" absoluteBounds="9, 5.5, 2, 3.6939111328124987">
-      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Booking" />
-      <nestedChildShapes>
-        <elementListCompartment Id="0950522c-a292-4ba3-920b-d9a340b44b7d" absoluteBounds="9.015, 5.96, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="579a953b-035b-40f1-b28b-b1c415fa4ecf" absoluteBounds="0.75, 2.5, 2, 3.8862125651041666">
@@ -38,46 +32,52 @@
         <elementListCompartment Id="f3801aa6-884c-4188-9932-47e2eda8a5f7" absoluteBounds="3.515, 6.085, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.25 : 7.40465413411458); (9 : 7.40465413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Room/Room_Booking" />
-      <nodes>
-        <classShapeMoniker Id="bea061a8-6b2e-45a6-b11e-73b6a64d7731" />
-        <classShapeMoniker Id="6c99b7a3-e58f-45f2-9a8f-469ab3ce8fcb" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 3.82774983723958); (6.25 : 3.82774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 3.51143862792969); (6.25 : 3.51143862792969)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/QuanLyKhachSanDataContext/Customer/Customer_Feedback" />
       <nodes>
         <classShapeMoniker Id="579a953b-035b-40f1-b28b-b1c415fa4ecf" />
         <classShapeMoniker Id="17dde80f-0271-436e-bd31-35e4bae00d9c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 7.40465413411458); (6.25 : 7.40465413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 7.40465413411458); (6.25 : 7.40465413411458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/QuanLyKhachSanDataContext/Resort/Resort_Room" />
       <nodes>
         <classShapeMoniker Id="f532d667-db1e-484a-8651-5205d9e3fc3c" />
         <classShapeMoniker Id="bea061a8-6b2e-45a6-b11e-73b6a64d7731" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 5.65625); (9 : 5.65625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Resort/Resort_Booking" />
-      <nodes>
-        <classShapeMoniker Id="f532d667-db1e-484a-8651-5205d9e3fc3c" />
-        <classShapeMoniker Id="6c99b7a3-e58f-45f2-9a8f-469ab3ce8fcb" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 5.625); (4.5 : 4.39787725585937); (6.25 : 4.39787725585937)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.5 : 5.625); (4.5 : 4.39787725585937); (6.25 : 4.39787725585937)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/QuanLyKhachSanDataContext/Resort/Resort_Feedback" />
       <nodes>
         <classShapeMoniker Id="f532d667-db1e-484a-8651-5205d9e3fc3c" />
         <classShapeMoniker Id="17dde80f-0271-436e-bd31-35e4bae00d9c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.00560628255208); (3.5 : 6.00560628255208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.00560628255208); (3.5 : 6.00560628255208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/QuanLyKhachSanDataContext/Customer/Customer_Resort" />
       <nodes>
         <classShapeMoniker Id="579a953b-035b-40f1-b28b-b1c415fa4ecf" />
         <classShapeMoniker Id="f532d667-db1e-484a-8651-5205d9e3fc3c" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6f355a65-e256-447b-b56f-f8b65606e478" absoluteBounds="8.625, 5.625, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Booking" />
+      <nestedChildShapes>
+        <elementListCompartment Id="62b2d312-3550-4f20-ba05-8767d30316ed" absoluteBounds="8.64, 6.085, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 5.65625); (8.625 : 5.65625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Resort/Resort_Booking" />
+      <nodes>
+        <classShapeMoniker Id="f532d667-db1e-484a-8651-5205d9e3fc3c" />
+        <classShapeMoniker Id="6f355a65-e256-447b-b56f-f8b65606e478" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 7.40465413411458); (8.625 : 7.40465413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Room/Room_Booking" />
+      <nodes>
+        <classShapeMoniker Id="bea061a8-6b2e-45a6-b11e-73b6a64d7731" />
+        <classShapeMoniker Id="6f355a65-e256-447b-b56f-f8b65606e478" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

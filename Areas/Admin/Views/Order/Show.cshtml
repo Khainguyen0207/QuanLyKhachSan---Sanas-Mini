@@ -5,127 +5,148 @@
     Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
 }
 
-<h2>Show</h2>
+<style>
+    .value-field {
+        font-size: 1rem;
+    }
 
-<div>
-    <h4>Booking</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.customer_id)
-        </dt>
+    .fw-bold {
+        font-weight: 500 !important;
+    }
+</style>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer_id)
-        </dd>
+<div class="row">
+    <h3 class="card-title">Orders #@Model.id</h3>
+    <div class="row flex-row-reverse">
+        <div class="col-md-3 col-12">
+            <form action="@Url.Action("Edit", "Order", new { id = Model.id })" method="post">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="mb-4">Action</h3>
+                        <button type="submit" class="btn btn-primary btn-icon-text mb-3">
+                            <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit
+                        </button>
+                        <button type="reset" class="btn btn-danger btn-icon-text mb-3" data-bb-toggle="btn-with-href" data-url="@Url.Action("Index", "Order", new { area = "Admin" })">
+                            <i class="mdi mdi-file-cancel btn-icon-prepend"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="mb-4">Status</h3>
+                        <select class="form-select" aria-label="Default select example" id="status" name="status" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
+                            <option value="pending" @(Model.status == "pending" ? "selected" : "")>Pending</option>
+                            <option value="confirmed" @(Model.status == "confirmed" ? "selected" : "")>Confirmed</option>
+                            <option value="cancelled" @(Model.status == "cancelled" ? "selected" : "")>Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="mb-4">Payment</h3>
+                        <select class="form-select" aria-label="Default select example" id="payment_status" name="payment_status" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
+                            <option value="paid" @(Model.payment_status == "paid" ? "selected" : "")>Paid</option>
+                            <option value="unpaid" @(Model.payment_status == "unpaid" ? "selected" : "")>Unpaid</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-9 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <label class="fw-bold">Customer Name</label>
+                            <div class="value-field">@(Model.name == null ? "Cần Xác Nhận" : Model.name)</div>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.resort_id)
-        </dt>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Resort ID</label>
+                            <div class="value-field">
+                                <a class="text-decoration-none text-primary" href="@Url.Action("EditResort", "Resort", new { id = Model.resort_id, area = "Admin" })">@Html.DisplayFor(model => model.Resort.name)</a>
+                            </div>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.resort_id)
-        </dd>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Room ID</label>
+                            <div class="value-field">
+                                <a class="text-decoration-none text-primary" href="@Url.Action("EditRoom", "Room", new { id = Model.resort_id, area = "Admin" })">@Html.DisplayFor(model => model.Room.name)</a>
+                            </div>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.room_id)
-        </dt>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Check-in</label>
+                            <div class="value-field">@Html.DisplayFor(model => model.check_in)</div>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.room_id)
-        </dd>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Check-out</label>
+                            <div class="value-field">@Html.DisplayFor(model => model.check_out)</div>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.check_in)
-        </dt>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Subtotal</label>
+                            <div class="value-field text-primary fw-bold">@string.Format("{0:N0} đ", Model.total_price_temporary)</div>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.check_in)
-        </dd>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Total Amount</label>
+                            <div class="value-field text-primary fw-bold">@string.Format("{0:N0} đ", Model.total_price) </div>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.check_out)
-        </dt>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Status</label>
+                            @{
+                                var statusClass = Model.status == "confirmed" ? "success"
+                                                : Model.status == "pending" ? "warning"
+                                                : "danger";
 
-        <dd>
-            @Html.DisplayFor(model => model.check_out)
-        </dd>
+                                var payClass = Model.payment_status == "paid" ? "success"
+                                            : Model.payment_status == "refund" ? "secondary"
+                                            : "warning text-dark";
+                            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.total_price)
-        </dt>
+                            <div class="text-uppercase">
+                                <span class="badge bg-@statusClass text-uppercase">@Html.DisplayFor(model => model.status)</span>
+                            </div>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.total_price)
-        </dd>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Payment</label>
+                            <div class="value-field text-uppercase">
+                                <span class="badge bg-@payClass text-uppercase">@Html.DisplayFor(model => model.payment_status)</span>
+                            </div>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.total_price_temporary)
-        </dt>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Note</label>
+                            <div class="value-field">@Html.DisplayFor(model => model.note)</div>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.total_price_temporary)
-        </dd>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Created At</label>
+                            <div class="value-field">@Html.DisplayFor(model => model.created_at)</div>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Updated At</label>
+                            <div class="value-field">@Html.DisplayFor(model => model.updated_at)</div>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.status)
-        </dd>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Email</label>
+                            <div class="value-field">@Html.DisplayFor(model => model.email)</div>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.payment_status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.payment_status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.note)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.note)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.created_at)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.created_at)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.updated_at)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.updated_at)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.phone)
-        </dd>
-
-    </dl>
+                        <div class="col-md-4">
+                            <label class="fw-bold">Number Phone</label>
+                            <div class="value-field">@Html.DisplayFor(model => model.phone)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

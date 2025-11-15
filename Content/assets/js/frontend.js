@@ -621,3 +621,25 @@ function validateInput(input) {
 
     return isValid;
 }
+
+$(document).ready(() => {
+    if ($('[data-fd-toggle="password-toggle-btn"]') != undefined) {
+        $('[data-fd-toggle="password-toggle-btn"]').on('click', function () {
+            const $group = $(this).closest('.input-group');
+            const $input = $group.find('input[data-fd-toggle="password-toggle"]');
+            const $button = $group.find('[data-fd-toggle="password-toggle-btn"]');
+
+            const currentType = $input.attr('type');
+
+            if (currentType === 'password') {
+                $input.attr('type', 'text');
+                $button.toggleClass('fa-eye-slash')
+                $button.toggleClass('fa-eye')
+            } else if (currentType === 'text') {
+                $input.attr('type', 'password');
+                $button.toggleClass('fa-eye-slash')
+                $button.toggleClass('fa-eye')
+            }
+        });
+    }
+})

@@ -2,14 +2,12 @@
 
 namespace QuanLyKhachSan.Enums
 {
-    public enum CustomerStatusEnum
+    public enum BaseStatusEnum
     {
         [Description("Active")]
         active = 0,
 
-        [Description("Locked")]
-        locked = 1,
+        [Description("Inactive")]
+        inactive = 1,
     }
-
-    
 }

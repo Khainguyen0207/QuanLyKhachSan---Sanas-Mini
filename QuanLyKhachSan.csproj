@@ -137,6 +137,7 @@
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Enums\BaseStatusEnum.cs" />
     <Compile Include="Enums\EnumExtention.cs" />
     <Compile Include="Enums\CustomerStatusEnum.cs" />
     <Compile Include="Global.asax.cs">
@@ -1288,11 +1289,11 @@
     <Content Include="Content\build\manifest.json" />
     <Content Include="Content\assets\css\admin\style.css.map" />
     <Content Include="Content\assets\css\user\style.css.map" />
-    <Content Include="Areas\Admin\Views\Resort\CreateResort.cshtml" />
+    <Content Include="Areas\Admin\Views\Resort\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Resort\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Resort\EditResort.cshtml" />
+    <Content Include="Areas\Admin\Views\Resort\Show.cshtml" />
     <Content Include="Areas\Admin\Views\Room\RoomList.cshtml" />
     <Content Include="Areas\Admin\Views\Room\CreateRoom.cshtml" />
     <Content Include="Areas\Admin\Views\Room\EditRoom.cshtml" />

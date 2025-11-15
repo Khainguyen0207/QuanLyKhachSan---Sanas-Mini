@@ -1,0 +1,136 @@
+﻿@model QuanLyKhachSan.Models.Customer
+@using QuanLyKhachSan.Enums
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+
+    Dictionary<string, string> form = new Dictionary<string, string>();
+
+    if (Model == null)
+    {
+        form["name"] = "Store";
+        form["title"] = "Create Resort";
+        form["method"] = "POST";
+    }
+    else
+    {
+        form["name"] = "Edit/" + Model.id;
+        form["title"] = "Edit Resort #" + Model.id;
+        form["method"] = "POST";
+    }
+}
+
+<style>
+    textarea {
+        resize: vertical !important;
+    }
+</style>
+
+<div class="row">
+    <h3 class="card-title">@form["title"]</h3>
+
+    <div class="form-has-data" id="customer-generate">
+        @using (Html.BeginForm(form["name"], "Resort", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row flex-row-reverse">
+                <div class="col-md-3 col-12">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="mb-4">Action</h3>
+                            <button type="submit" class="btn btn-primary btn-icon-text mb-3">
+                                <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit
+                            </button>
+                            <button type="reset" class="btn btn-danger btn-icon-text mb-3" data-bb-toggle="btn-with-href"
+                                    data-url="@Url.Action("Index", "Resort", new { area = "Admin" })">
+                                <i class="mdi mdi-file-cancel btn-icon-prepend"></i> Cancel
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="mb-4">Status</h3>
+                            <select class="form-select" aria-label="Default select example" id="status" name="status" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
+                                @foreach (BaseStatusEnum status in Enum.GetValues(typeof(BaseStatusEnum)))
+                                {
+                                    <option value="@status"> @(EnumExtention.GetDescription(status)) </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-section mb-4">
+                                <div class="row">
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="slug" class="form-label">Slug</label>
+                                        <input type="text" id="slug" name="slug" class="form-control" required maxlength="255">
+                                        <div class="invalid-feedback">Vui lòng nhập slug.</div>
+                                    </div>
+
+                                    <!-- Customer ID -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="customer_id" class="form-label">Customer Manager</label>
+                                        <select class="form-select" id="customer_id" name="customer_id" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
+                                            <option value="" selected>Select Manager Resort</option>
+                                            @foreach (QuanLyKhachSan.Models.Customer manager in ViewBag.Managers)
+                                            {
+                                                <option value="@manager.id">@manager.name - @manager.email</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <!-- Name -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="name" class="form-label">Resort Name</label>
+                                        <input type="text" id="name" name="name" class="form-control" required maxlength="255">
+                                        <div class="invalid-feedback">Vui lòng nhập tên.</div>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" id="address" name="address" class="form-control" maxlength="255">
+                                    </div>
+
+                                    <!-- Map -->
+                                    <div class="mb-3 col-12">
+                                        <label for="map" class="form-label">Map (link GG Map)</label>
+                                        <input type="text" id="address" name="address" class="form-control" placeholder="ex: https://maps.app.goo.gl/..." maxlength="255">
+                                    </div>
+
+                                    <!-- General Amenities -->
+                                    <div class="mb-3 col-12">
+                                        <label for="general_amenities" class="form-label">Tiện nghi chung</label>
+                                        <textarea id="general_amenities" name="general_amenities" class="form-control"></textarea>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="mb-3 col-12">
+                                        <label for="description" class="form-label">Mô tả</label>
+                                        <textarea id="description" name="description" class="form-control"></textarea>
+                                    </div>
+
+                                    <!-- Thumbnail -->
+                                    <div class="mb-3 col-12">
+                                        <label for="thumbnail" class="form-label">Thumbnail</label>
+                                        <input type="file" id="thumbnail" name="thumbnail" class="form-control">
+                                    </div>
+
+                                    <!-- Images -->
+                                    <div class="mb-3 col-12">
+                                        <label for="images" class="form-label">Images</label>
+                                        <input type="file" id="thumbnail" name="images[]" class="form-control" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

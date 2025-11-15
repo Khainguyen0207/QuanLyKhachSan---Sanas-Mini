@@ -5,8 +5,76 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 <div class="container-fluid">
     <section class="rooms-section mb-5" style="margin-top: 6rem;">
+        <div class="homepage-section">
+            <form class="booking-form" method="get" action="/Room/ListByResort">
+                <div class="form-group">
+                    <i class="fa fa-map-marker-alt"></i>
+                    <input type="text" class="form-control" name="search" placeholder="Địa điểm..." required="">
+                </div>
+
+                <div class="two-columns">
+                    <div class="form-group">
+                        <i class="fa fa-calendar-alt"></i>
+                        <div class="label-inside">Nhận phòng:</div>
+                        <input type="date" class="form-control" name="checkin_date" placeholder="Thời gian nhận phòng">
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fa fa-calendar-alt"></i>
+                        <div class="label-inside">Trả phòng:</div>
+                        <input type="date" class="form-control" name="checkout_date" placeholder="Thời gian trả phòng">
+                    </div>
+                </div>
+
+                <div class="guest-selector">
+                    <div class="selector-toggle" onclick="toggleGuestBox()">
+                        <i class="fa fa-user" style="font-size: 20px; color: #1da1f2;"></i>
+                        <span id="guestSummary">2 Người lớn, 0 Trẻ em, 1 Phòng</span>
+                        <i class="fa fa-chevron-down arrow"></i>
+                    </div>
+
+                    <div class="guest-box" id="guestBox" style="display: none;">
+                        <div class="row">
+                            <span>
+                                <i class="fa fa-user" style="font-size: 20px; color: #1da1f2;"></i> Người
+                                lớn
+                            </span>
+                            <div class="controls">
+                                <button type="button" onclick="changeValue('adults', -1)">−</button>
+                                <span id="adults">2</span>
+                                <button type="button" onclick="changeValue('adults', 1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <span><i class="fa fa-child" style="font-size: 20px; color: #1da1f2;"></i> Trẻ em</span>
+                            <div class="controls">
+                                <button type="button" onclick="changeValue('children', -1)">−</button>
+                                <span id="children">0</span>
+                                <button type="button" onclick="changeValue('children', 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <span><i class="fa fa-bed" style="font-size: 20px; color: #1da1f2;"></i> Phòng</span>
+                            <div class="controls">
+                                <button type="button" onclick="changeValue('rooms', -1)">−</button>
+                                <span id="rooms">1</span>
+                                <button type="button" onclick="changeValue('rooms', 1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="done-wrapper">
+                            <div class="done" onclick="toggleGuestBox()">Xong</div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="search-btn"><i class="fa fa-search"></i> Tìm kiếm</button>
+            </form>
+        </div>
         <div class="main-display container-fluid row mt-4">
             <div class="filter col-lg-3 col-12">
                 <div class="title">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
         public ActionResult Store(FormCollection collection)
         {
             List<string> errors = new CustomerValidation(collection).Validation();
+            HttpPostedFileBase avatar = Request.Files["avatar"];
 
             if (errors.Count > 0)
             {
@@ -58,6 +60,13 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
             try
             {
                 Customer c = ModelHelper.CreateModelFromCollection<Customer>(collection);
+
+                if (avatar != null && avatar.ContentLength > 0)
+                {
+                    string fileName = FileHelper.UploadFile(avatar, PathHelper.GetUploadFilePath("Avatar"));
+
+                    c.avatar = fileName;
+                }
 
                 db.Customers.InsertOnSubmit(c);
                 db.SubmitChanges();
@@ -97,9 +106,7 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
             {
                 if (customer == null)
                 {
-                    TempData["error"] = "Customer is not found";
-
-                    return RedirectToAction("Index");
+                    throw new Exception("Customer is not found");
                 }
 
                 Dictionary<string, string> changes = ModelHelper.DirtyModelFromCollection(customer, collection);
@@ -116,26 +123,21 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
 
                 if (file != null && file.ContentLength > 0)
                 {
-                    string PathAvatar = PathHelper.GetPathUploadAvatar(customer.avatar);
+                    string fileName = FileHelper.UploadFile(file, PathHelper.GetUploadFilePath("Avatar"));
+
+                    if (string.IsNullOrEmpty(fileName))
+                    {
+                        throw new Exception("Avatar Upload Failed");
+                    }
+
+                    string PathAvatar = PathHelper.GetUploadFilePath("Avatar", customer.avatar);
 
                     bool isExistAvatar = System.IO.File.Exists(PathAvatar);
 
-                    if (! string.IsNullOrEmpty(customer.avatar) && isExistAvatar)
+                    if (!string.IsNullOrEmpty(customer.avatar) && isExistAvatar)
                     {
                         System.IO.File.Delete(PathAvatar);
                     }
-
-                    string extension = Path.GetExtension(file.FileName);
-                    string fileName;
-
-                    do
-                    {
-                        fileName = BaseHelper.RandomString(20) + extension;
-                        PathAvatar = PathHelper.GetPathUploadAvatar(fileName);
-                    }
-                    while (System.IO.File.Exists(PathAvatar));
-
-                    file.SaveAs(PathAvatar);
 
                     changes.Add("avatar", fileName);
                 }
@@ -167,6 +169,7 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
                 }
 
                 Customer customerDeleted = db.Customers.FirstOrDefault(m => m.id == id);
+                string avatar = customerDeleted.avatar;
 
                 if (customerDeleted == null)
                 {
@@ -175,6 +178,15 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
 
                 db.Customers.DeleteOnSubmit(customerDeleted);
                 db.SubmitChanges();
+
+                string PathAvatar = PathHelper.GetUploadFilePath("Avatar", avatar);
+
+                bool isExistAvatar = System.IO.File.Exists(PathAvatar);
+
+                if (! string.IsNullOrEmpty(avatar) && isExistAvatar)
+                {
+                    System.IO.File.Delete(PathAvatar);
+                }
 
                 TempData["success"] = "Customer ID #" + id + " delete successful.";
 

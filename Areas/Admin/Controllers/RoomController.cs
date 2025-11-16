@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using QuanLyKhachSan.Helpers;
 using QuanLyKhachSan.Models;
 
 namespace QuanLyKhachSan.Areas.Admin.Controllers
@@ -10,51 +11,105 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
     public class RoomController : AdminController
     {
         public RoomController() {
-            ViewBag.name = "resort";
+            ViewBag.name = "room";
         }
 
-        public ActionResult RoomList(int resortId)
+        public ActionResult Index(int? resortId = null)
         {
-            var resort = db.Resorts.FirstOrDefault(r => r.id == resortId);
-            if (resort == null) return HttpNotFound();
+            var rooms = new List<Room>();
 
-            ViewBag.ResortName = resort.name;
-            ViewBag.ResortId = resortId;
+            if (resortId == null)
+            {
+                rooms = db.Rooms.ToList();
+            } else
+            {
+                Resort resort = db.Resorts.FirstOrDefault(r => r.id == resortId);
 
-            var rooms = db.Rooms
-                .Where(r => r.resort_id == resortId)
-                .OrderByDescending(r => r.created_at)
-                .ToList();
+                if (resort == null)
+                {
+                    TempData["error"] = "Resort not found";
+
+                    return Redirect(Request.UrlReferrer.ToString());
+                }
+
+                rooms = db.Rooms
+                    .Where(r => r.resort_id == resortId)
+                    .ToList();
+
+                ViewBag.ResortId = resortId;
+            }
+
+            ViewBag.Resorts = db.Resorts.ToList();
 
             return View(rooms);
         }
 
         // ========================== THÊM PHÒNG MỚI ==========================
-        [HttpGet]
-        public ActionResult CreateRoom(int resortId)
+        public ActionResult Create()
         {
-            ViewBag.ResortId = resortId;
-            return View();
+            ViewBag.Resorts = db.Resorts.ToList();
+
+            return View("Form");
         }
+
 
         [HttpPost]
-        public ActionResult CreateRoom(Room room, int resortId)
+        public ActionResult Store(FormCollection collection, HttpPostedFileBase thumbnail, List<HttpPostedFileBase> images)
         {
-            if (ModelState.IsValid)
-            {
-                room.resort_id = resortId;
-                room.created_at = DateTime.Now;
-                room.updated_at = DateTime.Now;
-                db.Rooms.InsertOnSubmit(room);
-                db.SubmitChanges();
+            Room room = ModelHelper.CreateModelFromCollection<Room>(collection);
+            Resort resort = db.Resorts.FirstOrDefault(m => m.id == room.resort_id);
 
-                return RedirectToAction("RoomList", new { resortId = resortId });
+            if (resort == null)
+            {
+                TempData["error"] = "Resort is required";
+                TempData["form"] = room;
+
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
-            ViewBag.ResortId = resortId;
-            return View(room);
-        }
+            if (thumbnail == null)
+            {
+                TempData["error"] = "Thumbnail is required";
+                TempData["form"] = room;
 
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
+            if (images.Count == 0)
+            {
+                TempData["error"] = "Images is required";
+                TempData["form"] = room;
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
+            string thumbnailImage = FileHelper.UploadFile(thumbnail, PathHelper.GetUploadFilePath());
+
+            string pathImages = null;
+
+            foreach (HttpPostedFileBase image in images)
+            {
+                string imageUpload = FileHelper.UploadFile(thumbnail, PathHelper.GetUploadFilePath());
+
+                if (!string.IsNullOrEmpty(imageUpload))
+                {
+                    pathImages += imageUpload + ",";
+                }
+            }
+
+            room.thumbnail = thumbnailImage;
+            room.images = pathImages.TrimEnd(',');
+            room.created_at = DateTime.Now;
+            room.updated_at = DateTime.Now;
+
+            db.Rooms.InsertOnSubmit(room);
+            db.SubmitChanges();
+
+            TempData["success"] = "Room create successful.";
+
+            return RedirectToAction("Index");
+        }
+       
         // ========================== SỬA PHÒNG ==========================
         [HttpGet]
         public ActionResult EditRoom(int id)
@@ -62,7 +117,8 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
             var room = db.Rooms.FirstOrDefault(r => r.id == id);
             if (room == null) return HttpNotFound();
 
-            return View(room);
+            ViewBag.Resorts = db.Resorts.ToList();
+            return View("Form", room);
         }
 
         [HttpPost]

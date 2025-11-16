@@ -131,6 +131,7 @@
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ResortController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
     <Compile Include="Areas\Admin\Validations\CustomerValidation.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Helpers\AdminAuthorizeAttribute.cs" />
     <Compile Include="Helpers\AuthorizeHelper.cs" />
     <Compile Include="Helpers\BaseHelper.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\PathHelper.cs" />
     <Compile Include="Models\AdminBookingVM.cs" />
@@ -1293,9 +1295,7 @@
     <Content Include="Areas\Admin\Views\Resort\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Resort\Show.cshtml" />
-    <Content Include="Areas\Admin\Views\Room\RoomList.cshtml" />
-    <Content Include="Areas\Admin\Views\Room\CreateRoom.cshtml" />
+    <Content Include="Areas\Admin\Views\Resort\Form.cshtml" />
     <Content Include="Areas\Admin\Views\Room\EditRoom.cshtml" />
     <Content Include="Areas\Admin\Views\Room\DeleteRoom.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
@@ -1308,6 +1308,9 @@
     </Content>
     <Content Include="Areas\Admin\Views\Customer\Form.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Show.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Room\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Room\Form.cshtml" />
     <None Include="Models\QuanLyKhachSan.dbml.layout">
       <DependentUpon>QuanLyKhachSan.dbml</DependentUpon>
     </None>
@@ -1351,6 +1354,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Upload\Avatar\" />
+    <Folder Include="Content\Upload\Files\" />
+    <Folder Include="Content\Upload\Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

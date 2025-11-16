@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using QuanLyKhachSan.Helpers;
 using QuanLyKhachSan.Models;
 
 namespace QuanLyKhachSan.Areas.Admin.Controllers
@@ -57,13 +58,15 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
 
             ViewBag.Managers = managers;
 
-            return View();
+            return View("Form");
         }
 
         [HttpPost]
-        public ActionResult Store(Resort resort, string[] successOptions, string[] errorOptions)
+        public ActionResult Store(FormCollection collection, HttpPostedFileBase thumbnail, List<HttpPostedFileBase> images)
         {
-            if (!string.IsNullOrEmpty(resort.name))
+            Resort resort = ModelHelper.CreateModelFromCollection<Resort>(collection);
+
+            if (! string.IsNullOrEmpty(resort.name))
             {
                 resort.slug = resort.name
                     .Trim()
@@ -77,12 +80,55 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
                 resort.slug = "resort-" + Guid.NewGuid().ToString().Substring(0, 8);
             }
 
-            resort.customer_id = resort.customer_id;
+            Customer customer = db.Customers.FirstOrDefault(m => m.id == resort.customer_id);
+
+            if (customer == null)
+            {
+                TempData["error"] = "Customer manager is required";
+                TempData["form"] = resort;
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
+            if (thumbnail == null)
+            {
+                TempData["error"] = "Thumbnail is required";
+                TempData["form"] = resort;
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            
+            if (images.Count == 0)
+            {
+                TempData["error"] = "Images is required";
+                TempData["form"] = resort;
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
+            string thumbnailImage = FileHelper.UploadFile(thumbnail, PathHelper.GetUploadFilePath());
+
+            string pathImages = null;
+
+            foreach (HttpPostedFileBase image in images)
+            {
+                string imageUpload = FileHelper.UploadFile(thumbnail, PathHelper.GetUploadFilePath());
+
+                if (! string.IsNullOrEmpty(imageUpload))
+                {
+                    pathImages += imageUpload + ",";
+                }
+            }
+
+            resort.thumbnail = thumbnailImage;
+            resort.images = pathImages.TrimEnd(',');
             resort.created_at = DateTime.Now;
             resort.updated_at = DateTime.Now;
 
             db.Resorts.InsertOnSubmit(resort);
             db.SubmitChanges();
+
+            TempData["success"] = "Resort create successful.";
 
             return RedirectToAction("Index");
         }
@@ -98,19 +144,13 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Features = new List<string>
-            {
-                "Máy lạnh", "Tivi", "Wi-Fi", "Bồn tắm", "Bàn làm việc",
-                "Ban công", "Tủ lạnh", "Két an toàn", "Máy sấy tóc", "Hồ bơi"
-            };
+            List<Customer> managers = db.Customers
+              .Where(m => m.is_partner == true || m.is_admin == true)
+              .ToList();
 
-            ViewBag.Errors = new List<string>
-            {
-                "Không có bồn tắm", "Không có ban công", "Không có bếp riêng",
-                "Không có máy giặt", "Không có chỗ đậu xe", "Wi-Fi yếu"
-            };
+            ViewBag.Managers = managers;
 
-            return View(resort);
+            return View("Form", resort);
         }
 
         [HttpPost]
@@ -124,6 +164,8 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
             res.updated_at = DateTime.Now;
 
             db.SubmitChanges();
+
+            TempData["success"] = "Edit Resort ID #"+ resort.id + " successful.";
 
             return RedirectToAction("Index");
         }

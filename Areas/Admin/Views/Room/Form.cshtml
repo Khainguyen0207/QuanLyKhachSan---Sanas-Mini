@@ -1,26 +1,27 @@
-﻿@model QuanLyKhachSan.Models.Customer
+﻿@model QuanLyKhachSan.Models.Room
 @using QuanLyKhachSan.Enums
 @using QuanLyKhachSan.Models
 
 @{
-    ViewBag.Title = "Customers";
+    ViewBag.Title = "Rooms";
     Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
 
     Dictionary<string, string> form = new Dictionary<string, string>();
-    Resort resort = TempData["form"] as Resort ?? new Resort();
+    Room room = TempData["form"] as Room ?? new Room();
 
     if (Model == null)
     {
         form["name"] = "Store";
-        form["title"] = "Create Resort";
+        form["title"] = "Create Room";
         form["method"] = "POST";
     }
     else
     {
         form["name"] = "Edit/" + Model.id;
-        form["title"] = "Edit Resort #" + Model.id;
+        form["title"] = "Edit Room #" + Model.id;
         form["method"] = "POST";
 
+        room = Model as Room;
     }
 }
 
@@ -34,7 +35,7 @@
     <h3 class="card-title">@form["title"]</h3>
 
     <div class="form-has-data" id="customer-generate">
-        @using (Html.BeginForm(form["name"], "Resort", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm(form["name"], "Room", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="row flex-row-reverse">
                 <div class="col-md-3 col-12">
@@ -56,7 +57,7 @@
                             <select class="form-select" aria-label="Default select example" id="status" name="status" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
                                 @foreach (BaseStatusEnum status in Enum.GetValues(typeof(BaseStatusEnum)))
                                 {
-                                    <option value="@status" @(resort.status == status.ToString() ? "selected" : null) > @(EnumExtention.GetDescription(status)) </option>
+                                    <option value="@status" @(room.status == status.ToString() ? "selected" : null)> @(EnumExtention.GetDescription(status)) </option>
                                 }
                             </select>
                         </div>
@@ -69,45 +70,60 @@
                                 <div class="row">
                                     <!-- Customer ID -->
                                     <div class="mb-3 col-md-6">
-                                        <label for="customer_id" class="form-label">Customer Manager</label>
-                                        <select class="form-select" id="customer_id" name="customer_id" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
-                                            <option value="" selected>Select Manager Resort</option>
-                                            @foreach (QuanLyKhachSan.Models.Customer manager in ViewBag.Managers)
+                                        <label for="resort_id" class="form-label">Customer Manager</label>
+                                        <select class="form-select" id="resort_id" name="resort_id" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
+                                            <option value="" selected>Select Resort</option>
+
+                                            @foreach (QuanLyKhachSan.Models.Resort resort in ViewBag.Resorts)
                                             {
-                                                <option value="@manager.id">@manager.name - @manager.email</option>
+                                                <option value="@resort.id">@resort.name</option>
                                             }
                                         </select>
                                     </div>
 
-                                    <!-- Name -->
+                                    <!-- Tên phòng -->
                                     <div class="mb-3 col-md-6">
-                                        <label for="name" class="form-label">Resort Name</label>
-                                        <input type="text" id="name" name="name" class="form-control" required maxlength="255" value="@resort.name">
-                                        <div class="invalid-feedback">Vui lòng nhập tên.</div>
+                                        <label class="form-label">Tên phòng</label>
+                                        <input type="text" name="name" class="form-control" placeholder="Nhập tên phòng..." value="@(room.name)" required />
                                     </div>
 
-                                    <!-- Address -->
+                                    <!-- Giá -->
                                     <div class="mb-3 col-md-6">
-                                        <label for="address" class="form-label">Address</label>
-                                        <input type="text" id="address" name="address" class="form-control" maxlength="255" value="@resort.address">
+                                        <label class="form-label">Giá (VNĐ / đêm)</label>
+                                        <input type="number" name="price" class="form-control" min="0" value="@String.Format("{0:00}", room.price)" placeholder="VD: 1500000" required />
                                     </div>
 
-                                    <!-- Map -->
+                                    <!-- Số lượng -->
                                     <div class="mb-3 col-md-6">
-                                        <label for="map" class="form-label">Map (link GG Map)</label>
-                                        <input type="text" id="map" name="map" class="form-control" placeholder="ex: https://maps.app.goo.gl/..." maxlength="255" value="@resort.map">
+                                        <label class="form-label">Số lượng phòng</label>
+                                        <input type="number" name="quantity" class="form-control" min="1" value="@(room.quantity ?? 0)" required />
                                     </div>
 
-                                    <!-- General Amenities -->
-                                    <div class="mb-3 col-12">
-                                        <label for="general_amenities" class="form-label">General Amenities</label>
-                                        <textarea id="general_amenities" name="general_amenities" class="form-control" @resort.general_amenities></textarea>
+                                    <!-- Số lượng người lớn -->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="number_of_adults" class="form-label">Số lượng người lớn</label>
+                                        <input type="number" name="number_of_adults" id="number_of_adults" class="form-control" min="1" value="@(room.number_of_adults ?? 0)" required />
                                     </div>
+
+
+                                    <!-- Số lượng trẻ em-->
+                                    <div class="mb-3 col-md-6">
+                                        <label for="number_of_children" class="form-label">Số lượng trẻ em</label>
+                                        <input type="number" id="number_of_children" name="number_of_children" class="form-control" min="1" value="@(room.number_of_children ?? 0)" required />
+                                    </div>
+
 
                                     <!-- Description -->
                                     <div class="mb-3 col-12">
                                         <label for="description" class="form-label">Description</label>
-                                        <textarea id="description" name="description" class="form-control">@resort.description</textarea>
+                                        <textarea id="description" name="description" class="form-control">@room.description</textarea>
+                                    </div>
+
+                                    <!-- Tiện nghi -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Tiện nghi phòng</label>
+                                        <textarea name="room_amenities" class="form-control" rows="3"
+                                                  placeholder="VD: Máy lạnh, Tivi, Wifi, Bàn làm việc">@room.room_amenities</textarea>
                                     </div>
 
                                     <!-- Thumbnail -->

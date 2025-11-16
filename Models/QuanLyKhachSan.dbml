@@ -12,25 +12,6 @@
       <Column Name="updated_at" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Rooms" Member="Rooms">
-    <Type Name="Room">
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="resort_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="images" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="room_amenities" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="number_of_adults" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="number_of_children" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="created_at" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="updated_at" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="thumbnail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Room_Booking" Member="Bookings" ThisKey="id" OtherKey="room_id" Type="Booking" />
-      <Association Name="Resort_Room" Member="Resort" ThisKey="resort_id" OtherKey="id" Type="Resort" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Customers" Member="Customers">
     <Type Name="Customer">
       <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -84,8 +65,8 @@
       <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="phone" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Association Name="Room_Booking" Member="Room" ThisKey="room_id" OtherKey="id" Type="Room" IsForeignKey="true" />
       <Association Name="Resort_Booking" Member="Resort" ThisKey="resort_id" OtherKey="id" Type="Resort" IsForeignKey="true" />
+      <Association Name="Room_Booking" Member="Room" ThisKey="room_id" OtherKey="id" Type="Room" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Resorts" Member="Resorts">
@@ -103,10 +84,30 @@
       <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="thumbnail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="status" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Association Name="Resort_Room" Member="Rooms" ThisKey="id" OtherKey="resort_id" Type="Room" />
       <Association Name="Resort_Feedback" Member="Feedbacks" ThisKey="id" OtherKey="resort_id" Type="Feedback" />
       <Association Name="Resort_Booking" Member="Bookings" ThisKey="id" OtherKey="resort_id" Type="Booking" />
+      <Association Name="Resort_Room" Member="Rooms" ThisKey="id" OtherKey="resort_id" Type="Room" />
       <Association Name="Customer_Resort" Member="Customer" ThisKey="customer_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rooms" Member="Rooms">
+    <Type Name="Room">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="resort_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="images" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="room_amenities" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="number_of_adults" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="number_of_children" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="created_at" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="updated_at" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="thumbnail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Room_Booking" Member="Bookings" ThisKey="id" OtherKey="room_id" Type="Booking" />
+      <Association Name="Resort_Room" Member="Resort" ThisKey="resort_id" OtherKey="id" Type="Resort" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

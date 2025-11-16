@@ -1,4 +1,4 @@
-﻿@model QuanLyKhachSan.Models.Customer
+﻿@model QuanLyKhachSan.Models.Resort
 @using QuanLyKhachSan.Enums
 @using QuanLyKhachSan.Models
 
@@ -18,9 +18,10 @@
     else
     {
         form["name"] = "Edit/" + Model.id;
-        form["title"] = "Edit Resort #" + Model.id;
+        form["title"] = "Edit Resort ID #" + Model.id;
         form["method"] = "POST";
 
+        resort = Model as Resort;
     }
 }
 
@@ -56,7 +57,7 @@
                             <select class="form-select" aria-label="Default select example" id="status" name="status" style=" border: 1px solid var(--text-table-color); border-radius: 2px;">
                                 @foreach (BaseStatusEnum status in Enum.GetValues(typeof(BaseStatusEnum)))
                                 {
-                                    <option value="@status" @(resort.status == status.ToString() ? "selected" : null) > @(EnumExtention.GetDescription(status)) </option>
+                                    <option value="@status" @(resort.status == status.ToString() ? "selected" : null)> @(EnumExtention.GetDescription(status)) </option>
                                 }
                             </select>
                         </div>
@@ -74,7 +75,7 @@
                                             <option value="" selected>Select Manager Resort</option>
                                             @foreach (QuanLyKhachSan.Models.Customer manager in ViewBag.Managers)
                                             {
-                                                <option value="@manager.id">@manager.name - @manager.email</option>
+                                                <option value="@manager.id" @(resort.customer_id == manager.id ? "selected" : null)>@manager.name - @manager.email</option>
                                             }
                                         </select>
                                     </div>
@@ -101,7 +102,7 @@
                                     <!-- General Amenities -->
                                     <div class="mb-3 col-12">
                                         <label for="general_amenities" class="form-label">General Amenities</label>
-                                        <textarea id="general_amenities" name="general_amenities" class="form-control" @resort.general_amenities></textarea>
+                                        <textarea id="general_amenities" name="general_amenities" class="form-control"> @resort.general_amenities</textarea>
                                     </div>
 
                                     <!-- Description -->

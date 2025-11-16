@@ -86,9 +86,9 @@
                         <div class="profile-desc">
                             <div class="profile-pic">
                                 <div class="count-indicator">
-                                     @{ 
-                                         string avt = string.IsNullOrEmpty(user.avatar) ? Url.Content("~/Content/assets/images/default-avatar.png") : Url.Content("~/Content/Upload/Avatar/" + user.avatar);
-                                     }
+                                    @{
+                                        string avt = string.IsNullOrEmpty(user.avatar) ? Url.Content("~/Content/assets/images/default-avatar.png") : Url.Content("~/Content/Upload/Avatar/" + user.avatar);
+                                    }
                                     <img class="img-xs rounded-circle" src="@avt" alt="face15" style="object-fit: cover;">
                                     <span class="count bg-success"></span>
                                 </div>
@@ -121,7 +121,7 @@
                     <li class="nav-item menu-items mb-2 @(ViewBag.name != null && ViewBag.name == "order" ? "active" : "")">
                         <a class="nav-link" href="@Url.Action("Index", "Order", new { area = "Admin" })">
                             <span class="menu-icon">
-                                <i class="mdi mdi-sofa"></i>
+                                <i class="mdi mdi-text-box"></i>
                             </span>
                             <span class="menu-title">Orders</span>
                         </a>
@@ -129,9 +129,25 @@
                     <li class="nav-item menu-items mb-2 @(ViewBag.name != null && ViewBag.name == "resort" ? "active" : "")">
                         <a class="nav-link" href="@Url.Action("Index", "Resort", new { area = "Admin" })">
                             <span class="menu-icon">
-                                <i class="mdi mdi-sofa"></i>
+                                <i class="mdi mdi-home-city"></i>
                             </span>
                             <span class="menu-title">Resorts</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items mb-2 @(ViewBag.name != null && ViewBag.name == "room" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action("Index", "Room", new { area = "Admin" })">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-bed-empty"></i>
+                            </span>
+                            <span class="menu-title">Rooms</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items mb-2 @(ViewBag.name != null && ViewBag.name == "sys-setting" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action("Index", "Setting", new {area = "Admin"})">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-cog"></i>
+                            </span>
+                            <span class="menu-title">System Settings</span>
                         </a>
                     </li>
                     <li class="nav-item menu-items mb-2">

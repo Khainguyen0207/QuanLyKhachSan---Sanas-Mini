@@ -35,7 +35,7 @@
                             <div class="amount justify-content-between">
                                 <div class="amount-total">
                                     <span class="total">Tổng cộng</span>
-                                    <span>@ViewBag.Total     VNĐ</span>
+                                    <span>@string.Format("{0:0}", ViewBag.Total) VNĐ</span>
                                 </div>
                                 <span>
                                     <img src="@Url.Content("~/Content/assets/icon-images/circle-checked.png")" alt="circle-checked" style="max-width: 40px;">

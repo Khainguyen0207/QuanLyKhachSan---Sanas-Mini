@@ -47,14 +47,11 @@
         {
             foreach (var room in Model)
             {
-                var imageList = room.images != null ? room.images.Split(',') : new string[0];
-                var firstImage = imageList.Length > 0 ? imageList[0].Trim('[', ']', '"', ' ') : "default.jpg";
-
                 <div class="col-md-4 mb-4">
                     <a href="@Url.Action("Details", "Room", new { id = room.id })"
                        class="text-decoration-none text-dark">
                         <div class="card shadow-sm h-100 hover-card">
-                            <img src="@Url.Content("~/Content/Images/" + firstImage)"
+                            <img src="@Url.Content("~/Content/Images/" + room.thumbnail)"
                                  class="card-img-top" style="height:230px; object-fit:cover;" />
                             <div class="card-body">
                                 <h5 class="fw-bold">@room.name</h5>

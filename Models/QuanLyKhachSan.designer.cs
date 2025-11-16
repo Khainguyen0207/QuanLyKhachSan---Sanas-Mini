@@ -33,9 +33,6 @@ namespace QuanLyKhachSan.Models
     partial void InsertBlog(Blog instance);
     partial void UpdateBlog(Blog instance);
     partial void DeleteBlog(Blog instance);
-    partial void InsertRoom(Room instance);
-    partial void UpdateRoom(Room instance);
-    partial void DeleteRoom(Room instance);
     partial void InsertCustomer(Customer instance);
     partial void UpdateCustomer(Customer instance);
     partial void DeleteCustomer(Customer instance);
@@ -48,6 +45,9 @@ namespace QuanLyKhachSan.Models
     partial void InsertResort(Resort instance);
     partial void UpdateResort(Resort instance);
     partial void DeleteResort(Resort instance);
+    partial void InsertRoom(Room instance);
+    partial void UpdateRoom(Room instance);
+    partial void DeleteRoom(Room instance);
     #endregion
 		
 		public QuanLyKhachSanDataContext(string connection) : 
@@ -82,14 +82,6 @@ namespace QuanLyKhachSan.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Room> Rooms
-		{
-			get
-			{
-				return this.GetTable<Room>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Customer> Customers
 		{
 			get
@@ -119,6 +111,14 @@ namespace QuanLyKhachSan.Models
 			get
 			{
 				return this.GetTable<Resort>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Room> Rooms
+		{
+			get
+			{
+				return this.GetTable<Room>();
 			}
 		}
 	}
@@ -374,425 +374,6 @@ namespace QuanLyKhachSan.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Rooms")]
-	public partial class Room : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _id;
-		
-		private long _resort_id;
-		
-		private string _name;
-		
-		private System.Nullable<decimal> _price;
-		
-		private System.Nullable<int> _quantity;
-		
-		private string _description;
-		
-		private string _images;
-		
-		private string _room_amenities;
-		
-		private System.Nullable<int> _number_of_adults;
-		
-		private System.Nullable<int> _number_of_children;
-		
-		private System.Nullable<System.DateTime> _created_at;
-		
-		private System.Nullable<System.DateTime> _updated_at;
-		
-		private string _thumbnail;
-		
-		private EntitySet<Booking> _Bookings;
-		
-		private EntityRef<Resort> _Resort;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(long value);
-    partial void OnidChanged();
-    partial void Onresort_idChanging(long value);
-    partial void Onresort_idChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnpriceChanging(System.Nullable<decimal> value);
-    partial void OnpriceChanged();
-    partial void OnquantityChanging(System.Nullable<int> value);
-    partial void OnquantityChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OnimagesChanging(string value);
-    partial void OnimagesChanged();
-    partial void Onroom_amenitiesChanging(string value);
-    partial void Onroom_amenitiesChanged();
-    partial void Onnumber_of_adultsChanging(System.Nullable<int> value);
-    partial void Onnumber_of_adultsChanged();
-    partial void Onnumber_of_childrenChanging(System.Nullable<int> value);
-    partial void Onnumber_of_childrenChanged();
-    partial void Oncreated_atChanging(System.Nullable<System.DateTime> value);
-    partial void Oncreated_atChanged();
-    partial void Onupdated_atChanging(System.Nullable<System.DateTime> value);
-    partial void Onupdated_atChanged();
-    partial void OnthumbnailChanging(string value);
-    partial void OnthumbnailChanged();
-    #endregion
-		
-		public Room()
-		{
-			this._Bookings = new EntitySet<Booking>(new Action<Booking>(this.attach_Bookings), new Action<Booking>(this.detach_Bookings));
-			this._Resort = default(EntityRef<Resort>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resort_id", DbType="BigInt NOT NULL")]
-		public long resort_id
-		{
-			get
-			{
-				return this._resort_id;
-			}
-			set
-			{
-				if ((this._resort_id != value))
-				{
-					if (this._Resort.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onresort_idChanging(value);
-					this.SendPropertyChanging();
-					this._resort_id = value;
-					this.SendPropertyChanged("resort_id");
-					this.Onresort_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(255)")]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> price
-		{
-			get
-			{
-				return this._price;
-			}
-			set
-			{
-				if ((this._price != value))
-				{
-					this.OnpriceChanging(value);
-					this.SendPropertyChanging();
-					this._price = value;
-					this.SendPropertyChanged("price");
-					this.OnpriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
-		public System.Nullable<int> quantity
-		{
-			get
-			{
-				return this._quantity;
-			}
-			set
-			{
-				if ((this._quantity != value))
-				{
-					this.OnquantityChanging(value);
-					this.SendPropertyChanging();
-					this._quantity = value;
-					this.SendPropertyChanged("quantity");
-					this.OnquantityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NVarChar(MAX)")]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_images", DbType="NVarChar(MAX)")]
-		public string images
-		{
-			get
-			{
-				return this._images;
-			}
-			set
-			{
-				if ((this._images != value))
-				{
-					this.OnimagesChanging(value);
-					this.SendPropertyChanging();
-					this._images = value;
-					this.SendPropertyChanged("images");
-					this.OnimagesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_room_amenities", DbType="NVarChar(MAX)")]
-		public string room_amenities
-		{
-			get
-			{
-				return this._room_amenities;
-			}
-			set
-			{
-				if ((this._room_amenities != value))
-				{
-					this.Onroom_amenitiesChanging(value);
-					this.SendPropertyChanging();
-					this._room_amenities = value;
-					this.SendPropertyChanged("room_amenities");
-					this.Onroom_amenitiesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_number_of_adults", DbType="Int")]
-		public System.Nullable<int> number_of_adults
-		{
-			get
-			{
-				return this._number_of_adults;
-			}
-			set
-			{
-				if ((this._number_of_adults != value))
-				{
-					this.Onnumber_of_adultsChanging(value);
-					this.SendPropertyChanging();
-					this._number_of_adults = value;
-					this.SendPropertyChanged("number_of_adults");
-					this.Onnumber_of_adultsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_number_of_children", DbType="Int")]
-		public System.Nullable<int> number_of_children
-		{
-			get
-			{
-				return this._number_of_children;
-			}
-			set
-			{
-				if ((this._number_of_children != value))
-				{
-					this.Onnumber_of_childrenChanging(value);
-					this.SendPropertyChanging();
-					this._number_of_children = value;
-					this.SendPropertyChanged("number_of_children");
-					this.Onnumber_of_childrenChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_at", DbType="DateTime")]
-		public System.Nullable<System.DateTime> created_at
-		{
-			get
-			{
-				return this._created_at;
-			}
-			set
-			{
-				if ((this._created_at != value))
-				{
-					this.Oncreated_atChanging(value);
-					this.SendPropertyChanging();
-					this._created_at = value;
-					this.SendPropertyChanged("created_at");
-					this.Oncreated_atChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_updated_at", DbType="DateTime")]
-		public System.Nullable<System.DateTime> updated_at
-		{
-			get
-			{
-				return this._updated_at;
-			}
-			set
-			{
-				if ((this._updated_at != value))
-				{
-					this.Onupdated_atChanging(value);
-					this.SendPropertyChanging();
-					this._updated_at = value;
-					this.SendPropertyChanged("updated_at");
-					this.Onupdated_atChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thumbnail", DbType="NVarChar(MAX)")]
-		public string thumbnail
-		{
-			get
-			{
-				return this._thumbnail;
-			}
-			set
-			{
-				if ((this._thumbnail != value))
-				{
-					this.OnthumbnailChanging(value);
-					this.SendPropertyChanging();
-					this._thumbnail = value;
-					this.SendPropertyChanged("thumbnail");
-					this.OnthumbnailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_Booking", Storage="_Bookings", ThisKey="id", OtherKey="room_id")]
-		public EntitySet<Booking> Bookings
-		{
-			get
-			{
-				return this._Bookings;
-			}
-			set
-			{
-				this._Bookings.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resort_Room", Storage="_Resort", ThisKey="resort_id", OtherKey="id", IsForeignKey=true)]
-		public Resort Resort
-		{
-			get
-			{
-				return this._Resort.Entity;
-			}
-			set
-			{
-				Resort previousValue = this._Resort.Entity;
-				if (((previousValue != value) 
-							|| (this._Resort.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Resort.Entity = null;
-						previousValue.Rooms.Remove(this);
-					}
-					this._Resort.Entity = value;
-					if ((value != null))
-					{
-						value.Rooms.Add(this);
-						this._resort_id = value.id;
-					}
-					else
-					{
-						this._resort_id = default(long);
-					}
-					this.SendPropertyChanged("Resort");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Bookings(Booking entity)
-		{
-			this.SendPropertyChanging();
-			entity.Room = this;
-		}
-		
-		private void detach_Bookings(Booking entity)
-		{
-			this.SendPropertyChanging();
-			entity.Room = null;
 		}
 	}
 	
@@ -1600,9 +1181,9 @@ namespace QuanLyKhachSan.Models
 		
 		private string _name;
 		
-		private EntityRef<Room> _Room;
-		
 		private EntityRef<Resort> _Resort;
+		
+		private EntityRef<Room> _Room;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1644,8 +1225,8 @@ namespace QuanLyKhachSan.Models
 		
 		public Booking()
 		{
-			this._Room = default(EntityRef<Room>);
 			this._Resort = default(EntityRef<Resort>);
+			this._Room = default(EntityRef<Room>);
 			OnCreated();
 		}
 		
@@ -1977,40 +1558,6 @@ namespace QuanLyKhachSan.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_Booking", Storage="_Room", ThisKey="room_id", OtherKey="id", IsForeignKey=true)]
-		public Room Room
-		{
-			get
-			{
-				return this._Room.Entity;
-			}
-			set
-			{
-				Room previousValue = this._Room.Entity;
-				if (((previousValue != value) 
-							|| (this._Room.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Room.Entity = null;
-						previousValue.Bookings.Remove(this);
-					}
-					this._Room.Entity = value;
-					if ((value != null))
-					{
-						value.Bookings.Add(this);
-						this._room_id = value.id;
-					}
-					else
-					{
-						this._room_id = default(long);
-					}
-					this.SendPropertyChanged("Room");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resort_Booking", Storage="_Resort", ThisKey="resort_id", OtherKey="id", IsForeignKey=true)]
 		public Resort Resort
 		{
@@ -2041,6 +1588,40 @@ namespace QuanLyKhachSan.Models
 						this._resort_id = default(long);
 					}
 					this.SendPropertyChanged("Resort");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_Booking", Storage="_Room", ThisKey="room_id", OtherKey="id", IsForeignKey=true)]
+		public Room Room
+		{
+			get
+			{
+				return this._Room.Entity;
+			}
+			set
+			{
+				Room previousValue = this._Room.Entity;
+				if (((previousValue != value) 
+							|| (this._Room.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Room.Entity = null;
+						previousValue.Bookings.Remove(this);
+					}
+					this._Room.Entity = value;
+					if ((value != null))
+					{
+						value.Bookings.Add(this);
+						this._room_id = value.id;
+					}
+					else
+					{
+						this._room_id = default(long);
+					}
+					this.SendPropertyChanged("Room");
 				}
 			}
 		}
@@ -2098,11 +1679,11 @@ namespace QuanLyKhachSan.Models
 		
 		private string _status;
 		
-		private EntitySet<Room> _Rooms;
-		
 		private EntitySet<Feedback> _Feedbacks;
 		
 		private EntitySet<Booking> _Bookings;
+		
+		private EntitySet<Room> _Rooms;
 		
 		private EntityRef<Customer> _Customer;
 		
@@ -2140,9 +1721,9 @@ namespace QuanLyKhachSan.Models
 		
 		public Resort()
 		{
-			this._Rooms = new EntitySet<Room>(new Action<Room>(this.attach_Rooms), new Action<Room>(this.detach_Rooms));
 			this._Feedbacks = new EntitySet<Feedback>(new Action<Feedback>(this.attach_Feedbacks), new Action<Feedback>(this.detach_Feedbacks));
 			this._Bookings = new EntitySet<Booking>(new Action<Booking>(this.attach_Bookings), new Action<Booking>(this.detach_Bookings));
+			this._Rooms = new EntitySet<Room>(new Action<Room>(this.attach_Rooms), new Action<Room>(this.detach_Rooms));
 			this._Customer = default(EntityRef<Customer>);
 			OnCreated();
 		}
@@ -2411,19 +1992,6 @@ namespace QuanLyKhachSan.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resort_Room", Storage="_Rooms", ThisKey="id", OtherKey="resort_id")]
-		public EntitySet<Room> Rooms
-		{
-			get
-			{
-				return this._Rooms;
-			}
-			set
-			{
-				this._Rooms.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resort_Feedback", Storage="_Feedbacks", ThisKey="id", OtherKey="resort_id")]
 		public EntitySet<Feedback> Feedbacks
 		{
@@ -2447,6 +2015,19 @@ namespace QuanLyKhachSan.Models
 			set
 			{
 				this._Bookings.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resort_Room", Storage="_Rooms", ThisKey="id", OtherKey="resort_id")]
+		public EntitySet<Room> Rooms
+		{
+			get
+			{
+				return this._Rooms;
+			}
+			set
+			{
+				this._Rooms.Assign(value);
 			}
 		}
 		
@@ -2504,18 +2085,6 @@ namespace QuanLyKhachSan.Models
 			}
 		}
 		
-		private void attach_Rooms(Room entity)
-		{
-			this.SendPropertyChanging();
-			entity.Resort = this;
-		}
-		
-		private void detach_Rooms(Room entity)
-		{
-			this.SendPropertyChanging();
-			entity.Resort = null;
-		}
-		
 		private void attach_Feedbacks(Feedback entity)
 		{
 			this.SendPropertyChanging();
@@ -2538,6 +2107,461 @@ namespace QuanLyKhachSan.Models
 		{
 			this.SendPropertyChanging();
 			entity.Resort = null;
+		}
+		
+		private void attach_Rooms(Room entity)
+		{
+			this.SendPropertyChanging();
+			entity.Resort = this;
+		}
+		
+		private void detach_Rooms(Room entity)
+		{
+			this.SendPropertyChanging();
+			entity.Resort = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Rooms")]
+	public partial class Room : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private long _resort_id;
+		
+		private string _name;
+		
+		private System.Nullable<decimal> _price;
+		
+		private System.Nullable<int> _quantity;
+		
+		private string _description;
+		
+		private string _images;
+		
+		private string _room_amenities;
+		
+		private System.Nullable<int> _number_of_adults;
+		
+		private System.Nullable<int> _number_of_children;
+		
+		private System.Nullable<System.DateTime> _created_at;
+		
+		private System.Nullable<System.DateTime> _updated_at;
+		
+		private string _thumbnail;
+		
+		private string _status;
+		
+		private EntitySet<Booking> _Bookings;
+		
+		private EntityRef<Resort> _Resort;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onresort_idChanging(long value);
+    partial void Onresort_idChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnpriceChanging(System.Nullable<decimal> value);
+    partial void OnpriceChanged();
+    partial void OnquantityChanging(System.Nullable<int> value);
+    partial void OnquantityChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnimagesChanging(string value);
+    partial void OnimagesChanged();
+    partial void Onroom_amenitiesChanging(string value);
+    partial void Onroom_amenitiesChanged();
+    partial void Onnumber_of_adultsChanging(System.Nullable<int> value);
+    partial void Onnumber_of_adultsChanged();
+    partial void Onnumber_of_childrenChanging(System.Nullable<int> value);
+    partial void Onnumber_of_childrenChanged();
+    partial void Oncreated_atChanging(System.Nullable<System.DateTime> value);
+    partial void Oncreated_atChanged();
+    partial void Onupdated_atChanging(System.Nullable<System.DateTime> value);
+    partial void Onupdated_atChanged();
+    partial void OnthumbnailChanging(string value);
+    partial void OnthumbnailChanged();
+    partial void OnstatusChanging(string value);
+    partial void OnstatusChanged();
+    #endregion
+		
+		public Room()
+		{
+			this._Bookings = new EntitySet<Booking>(new Action<Booking>(this.attach_Bookings), new Action<Booking>(this.detach_Bookings));
+			this._Resort = default(EntityRef<Resort>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resort_id", DbType="BigInt NOT NULL")]
+		public long resort_id
+		{
+			get
+			{
+				return this._resort_id;
+			}
+			set
+			{
+				if ((this._resort_id != value))
+				{
+					if (this._Resort.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onresort_idChanging(value);
+					this.SendPropertyChanging();
+					this._resort_id = value;
+					this.SendPropertyChanged("resort_id");
+					this.Onresort_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(255)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> price
+		{
+			get
+			{
+				return this._price;
+			}
+			set
+			{
+				if ((this._price != value))
+				{
+					this.OnpriceChanging(value);
+					this.SendPropertyChanging();
+					this._price = value;
+					this.SendPropertyChanged("price");
+					this.OnpriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
+		public System.Nullable<int> quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				if ((this._quantity != value))
+				{
+					this.OnquantityChanging(value);
+					this.SendPropertyChanging();
+					this._quantity = value;
+					this.SendPropertyChanged("quantity");
+					this.OnquantityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NVarChar(MAX)")]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_images", DbType="NVarChar(MAX)")]
+		public string images
+		{
+			get
+			{
+				return this._images;
+			}
+			set
+			{
+				if ((this._images != value))
+				{
+					this.OnimagesChanging(value);
+					this.SendPropertyChanging();
+					this._images = value;
+					this.SendPropertyChanged("images");
+					this.OnimagesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_room_amenities", DbType="NVarChar(MAX)")]
+		public string room_amenities
+		{
+			get
+			{
+				return this._room_amenities;
+			}
+			set
+			{
+				if ((this._room_amenities != value))
+				{
+					this.Onroom_amenitiesChanging(value);
+					this.SendPropertyChanging();
+					this._room_amenities = value;
+					this.SendPropertyChanged("room_amenities");
+					this.Onroom_amenitiesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_number_of_adults", DbType="Int")]
+		public System.Nullable<int> number_of_adults
+		{
+			get
+			{
+				return this._number_of_adults;
+			}
+			set
+			{
+				if ((this._number_of_adults != value))
+				{
+					this.Onnumber_of_adultsChanging(value);
+					this.SendPropertyChanging();
+					this._number_of_adults = value;
+					this.SendPropertyChanged("number_of_adults");
+					this.Onnumber_of_adultsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_number_of_children", DbType="Int")]
+		public System.Nullable<int> number_of_children
+		{
+			get
+			{
+				return this._number_of_children;
+			}
+			set
+			{
+				if ((this._number_of_children != value))
+				{
+					this.Onnumber_of_childrenChanging(value);
+					this.SendPropertyChanging();
+					this._number_of_children = value;
+					this.SendPropertyChanged("number_of_children");
+					this.Onnumber_of_childrenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_at", DbType="DateTime")]
+		public System.Nullable<System.DateTime> created_at
+		{
+			get
+			{
+				return this._created_at;
+			}
+			set
+			{
+				if ((this._created_at != value))
+				{
+					this.Oncreated_atChanging(value);
+					this.SendPropertyChanging();
+					this._created_at = value;
+					this.SendPropertyChanged("created_at");
+					this.Oncreated_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_updated_at", DbType="DateTime")]
+		public System.Nullable<System.DateTime> updated_at
+		{
+			get
+			{
+				return this._updated_at;
+			}
+			set
+			{
+				if ((this._updated_at != value))
+				{
+					this.Onupdated_atChanging(value);
+					this.SendPropertyChanging();
+					this._updated_at = value;
+					this.SendPropertyChanged("updated_at");
+					this.Onupdated_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thumbnail", DbType="NVarChar(MAX)")]
+		public string thumbnail
+		{
+			get
+			{
+				return this._thumbnail;
+			}
+			set
+			{
+				if ((this._thumbnail != value))
+				{
+					this.OnthumbnailChanging(value);
+					this.SendPropertyChanging();
+					this._thumbnail = value;
+					this.SendPropertyChanged("thumbnail");
+					this.OnthumbnailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_Booking", Storage="_Bookings", ThisKey="id", OtherKey="room_id")]
+		public EntitySet<Booking> Bookings
+		{
+			get
+			{
+				return this._Bookings;
+			}
+			set
+			{
+				this._Bookings.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resort_Room", Storage="_Resort", ThisKey="resort_id", OtherKey="id", IsForeignKey=true)]
+		public Resort Resort
+		{
+			get
+			{
+				return this._Resort.Entity;
+			}
+			set
+			{
+				Resort previousValue = this._Resort.Entity;
+				if (((previousValue != value) 
+							|| (this._Resort.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Resort.Entity = null;
+						previousValue.Rooms.Remove(this);
+					}
+					this._Resort.Entity = value;
+					if ((value != null))
+					{
+						value.Rooms.Add(this);
+						this._resort_id = value.id;
+					}
+					else
+					{
+						this._resort_id = default(long);
+					}
+					this.SendPropertyChanged("Resort");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Bookings(Booking entity)
+		{
+			this.SendPropertyChanging();
+			entity.Room = this;
+		}
+		
+		private void detach_Bookings(Booking entity)
+		{
+			this.SendPropertyChanging();
+			entity.Room = null;
 		}
 	}
 }

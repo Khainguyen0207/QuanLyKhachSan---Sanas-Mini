@@ -56,7 +56,12 @@
                                                 </label>
                                             </div>
                                         </td>
-                                        <td class="text-center fw-bold">@r.Id</td>
+                                        <td class="text-center fw-bold">
+                                            <a href="@Url.Action("Show", "Resort", new { id = r.Id, area = "Admin" })"
+                                               class="text-decoration-none text-primary fw-bold">
+                                                @r.Id
+                                            </a>
+                                        </td>
                                         <td class="fw-semibold">
                                             <a href="@Url.Action("RoomList", "Room", new { resortId = r.Id, area = "Admin" })"
                                                class="text-decoration-none text-primary fw-bold">

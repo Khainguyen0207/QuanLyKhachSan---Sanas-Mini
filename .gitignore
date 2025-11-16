@@ -85,3 +85,8 @@ Thumbs.db
 .DS_Store
 *.swp
 *.lnk
+
+
+Content/Upload/Avatar/
+Content/Upload/Images/
+Content/Upload/Files/

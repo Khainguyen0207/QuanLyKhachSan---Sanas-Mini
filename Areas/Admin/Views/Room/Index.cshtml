@@ -1,0 +1,103 @@
+﻿@model IEnumerable<QuanLyKhachSan.Models.Room>
+
+@{
+    ViewBag.Title = "Danh sách phòng";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Rooms</h4>
+                <form action="@Url.Action("Index", "Room", new { area = "Admin" })" method="get" class="row g-2 mb-4">
+                    <div class="col-md-3">
+                        <label class="fw-semibold">Resort:</label>
+                        <select name="resortId" class="form-select">
+                            <option value="">Tất cả</option>
+                            @foreach (QuanLyKhachSan.Models.Resort resort in ViewBag.Resorts)
+                            {
+                                <option value="@resort.id" @(ViewBag.ResortId != null && ViewBag.ResortId == resort.id ? "selected" : "")>@resort.name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-1 d-grid align-items-end">
+                        <button type="submit" class="btn btn-primary mt-4">
+                            <i class="bi bi-funnel"></i> Lọc
+                        </button>
+                    </div>
+                </form>
+                <div class="action float-right">
+                    <button type="reset" class="btn btn-inverse-primary btn-icon-text me-3"
+                            data-bb-toggle="btn-with-href"
+                            data-url="@Url.Action("Create", "Room", new { area = "Admin"})">
+                        <i class="mdi mdi-plus"></i> Thêm
+                    </button>
+                </div>
+
+                <div class="table-responsive rounded-4" style="box-shadow: none !important;">
+                    <table class="table" id="customer-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check form-check-muted m-0">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input">
+                                        </label>
+                                    </div>
+                                </th>
+                                <th>ID</th>
+                                <th>Tên phòng</th>
+                                <th>Giá (đ/đêm)</th>
+                                <th>Số lượng</th>
+                                <th>Resort</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var data = Model.Any();
+                            }
+                            @if (Model.Any())
+                            {
+                                int i = 0;
+
+                                foreach (var room in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="form-check form-check-muted m-0">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input">
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td class="text-center fw-bold">@room.id</td>
+                                        <td class="fw-semibold">@room.name</td>
+                                        <td class="text-end text-primary fw-bold">@String.Format("{0:N0} đ", room.price)</td>
+                                        <td class="text-center">@room.quantity</td>
+                                        <td>@room.Resort.name</td>
+                                        <td>@(room.created_at.HasValue ? room.created_at.Value.ToString("dd/MM/yyyy HH:mm") : "")</td>
+                                        <td class="text-center">
+                                            <a href="@Url.Action("EditRoom", "Room", new { id = room.id, area = "Admin" })" type="button"
+                                               class="btn-sm btn-inverse-primary btn-icon">
+                                                <i class="mdi mdi-pencil-box-outline"></i>
+                                            </a>
+                                            <a href="@Url.Action("DeleteRoom", "Room", new { id = room.id, area = "Admin" })" type="button" class="btn-sm btn-inverse-danger btn-icon" data-bs-action="modal-confirm-action" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete">
+                                                <i class="mdi mdi-delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

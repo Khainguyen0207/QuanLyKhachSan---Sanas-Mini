@@ -96,7 +96,7 @@
                                 images = clean.Split(',').Select(x => x.Trim()).ToList();
                             }
                         }
-                        <img src="@Url.Content("~/Content/assets/images/room/" + images.FirstOrDefault() ?? "default.jpg")" alt="">
+                        <img src="@Url.Content("~/Content/Upload/Images/" + room.thumbnail ?? "default.jpg")" alt="">
                         <div>
                             <h3 class="py-1 name-room">@resort.name</h3>
                             <div class="stars py-1">

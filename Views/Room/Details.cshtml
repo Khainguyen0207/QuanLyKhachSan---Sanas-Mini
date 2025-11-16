@@ -56,7 +56,7 @@
                                                 images = clean.Split(',').Select(x => x.Trim()).ToList();
                                             }
                                         }
-                                        <img src="@Url.Content("~/Content/assets/images/room/" + images.FirstOrDefault() ?? "default.jpg")" alt="">
+                                        <img src="@Url.Content("~/Content/Upload/Images/" + images.FirstOrDefault() ?? "default.jpg")" alt="">
                                     </a>
                                 </div>
                                 <div class="ovv-left-fr2">
@@ -67,7 +67,7 @@
                                             break;
                                         }
 
-                                        <img src="@Url.Content("~/Content/assets/images/room/" + images[i])" alt="images[i]">
+                                        <img src="@Url.Content("~/Content/Upload/Images/" + images[i])" alt="images[i]">
                                     }
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                                                 break;
                                             }
 
-                                            <img src="@Url.Content("~/Content/assets/images/room/" + images[i])" alt="image">
+                                            <img src="@Url.Content("~/Content/Upload/Images/" + images[i])" alt="image">
                                         }
                                     }
                                 }
@@ -91,7 +91,7 @@
                         </div>
                         <div class="ovv-right">
                             <div class="ovv-map">
-                                <img src="@Url.Content("/content/assets/images/room/image (22).png")" alt="image (22)">
+                                <img src="@Url.Content("/Content/Upload/Images/image (22).png")" alt="image (22)">
                                 <div class="map-link">
                                     <a href="@resort.map">Xem trên bản đồ</a>
                                 </div>
@@ -125,7 +125,7 @@
             <div class="di-content">
                 <div class="intro-content">
                     <div class="intro-slide">
-                        <img src="@Url.Content("~/Content/assets/images/room/" + images.FirstOrDefault() ?? "default.jpg")" alt="">
+                        <img src="@Url.Content("~/Content/Upload/Images/" + images.FirstOrDefault() ?? "default.jpg")" alt="">
                     </div>
 
                     <div class="intro-para">
@@ -207,7 +207,7 @@
                                     RoomImages = clean.Split(',').Select(x => x.Trim()).ToList();
                                 }
                             }
-                            <img src="@Url.Content("~/Content/assets/images/room/" + RoomImages.FirstOrDefault() ?? "default.jpg")" style="width: 100%;" alt="">
+                            <img src="@Url.Content("~/Content/Upload/Images/" + RoomImages.FirstOrDefault() ?? "default.jpg")" style="width: 100%;" alt="">
                           
                         </div>
                         <div class="col-6 col-md-3">
@@ -220,7 +220,7 @@
                                     {
                                         break;
                                     }
-                                    <img src="@Url.Content("~/Content/assets/images/room/" + img)" alt=""
+                                    <img src="@Url.Content("~/Content/Upload/Images/" + img)" alt=""
                                          style="width: 100%;" class="mb-2">
                                     ida++;
                                 }

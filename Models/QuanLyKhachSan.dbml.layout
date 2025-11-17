@@ -1,83 +1,83 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.75" name="QuanLyKhachSan">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 9.875" name="QuanLyKhachSan">
   <DataContextMoniker Name="/QuanLyKhachSanDataContext" />
   <nestedChildShapes>
-    <classShape Id="0edcf7e3-ca31-402d-8046-36a700256daf" absoluteBounds="8.75, 0.75, 2, 2.5401025390625005">
+    <classShape Id="ab0b5085-e63d-4929-a0a5-a3f3bb3cc437" absoluteBounds="8.75, 0.75, 2, 2.5401025390625005">
       <DataClassMoniker Name="/QuanLyKhachSanDataContext/Blog" />
       <nestedChildShapes>
-        <elementListCompartment Id="b4296c66-b072-425f-928b-1d1abd86e334" absoluteBounds="8.765, 1.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f535d86d-ab0d-4c11-85df-eaf1e6ce7110" absoluteBounds="8.765, 1.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="579a953b-035b-40f1-b28b-b1c415fa4ecf" absoluteBounds="0.75, 2.5, 2, 3.8862125651041666">
-      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Customer" />
-      <nestedChildShapes>
-        <elementListCompartment Id="e61380f5-18e9-4116-b010-a11ccf41c47b" absoluteBounds="0.765, 2.96, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="17dde80f-0271-436e-bd31-35e4bae00d9c" absoluteBounds="6.25, 2.75, 2, 2.1554996744791666">
-      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Feedback" />
-      <nestedChildShapes>
-        <elementListCompartment Id="857c5f17-cc89-48d0-ad78-970bb93413a0" absoluteBounds="6.265, 3.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(2.75 : 3.51143862792969); (6.25 : 3.51143862792969)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Customer/Customer_Feedback" />
-      <nodes>
-        <classShapeMoniker Id="579a953b-035b-40f1-b28b-b1c415fa4ecf" />
-        <classShapeMoniker Id="17dde80f-0271-436e-bd31-35e4bae00d9c" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="6f355a65-e256-447b-b56f-f8b65606e478" absoluteBounds="8.625, 5.625, 2, 3.8862125651041666">
-      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Booking" />
-      <nestedChildShapes>
-        <elementListCompartment Id="62b2d312-3550-4f20-ba05-8767d30316ed" absoluteBounds="8.64, 6.085, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="c667f90f-e273-4945-b71f-87af8cc41cfe" absoluteBounds="3.375, 5.5, 2, 3.3093082682291666">
-      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Resort" />
-      <nestedChildShapes>
-        <elementListCompartment Id="2a5bbc3a-086d-4847-9f16-e618c6d0e154" absoluteBounds="3.3899999999999997, 5.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(4.375 : 5.5); (4.375 : 4.39787725585937); (6.25 : 4.39787725585937)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Resort/Resort_Feedback" />
-      <nodes>
-        <classShapeMoniker Id="c667f90f-e273-4945-b71f-87af8cc41cfe" />
-        <classShapeMoniker Id="17dde80f-0271-436e-bd31-35e4bae00d9c" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.375 : 5.78125); (8.625 : 5.78125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Resort/Resort_Booking" />
-      <nodes>
-        <classShapeMoniker Id="c667f90f-e273-4945-b71f-87af8cc41cfe" />
-        <classShapeMoniker Id="6f355a65-e256-447b-b56f-f8b65606e478" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 5.94310628255208); (3.375 : 5.94310628255208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Customer/Customer_Resort" />
-      <nodes>
-        <classShapeMoniker Id="579a953b-035b-40f1-b28b-b1c415fa4ecf" />
-        <classShapeMoniker Id="c667f90f-e273-4945-b71f-87af8cc41cfe" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="6243338b-8b3c-42be-8f68-cede2cf5a0c3" absoluteBounds="6, 6, 2, 3.5016097005208326">
+    <classShape Id="4f03f05a-1b85-4f83-ba96-9aba8790a3fb" absoluteBounds="6.25, 5.75, 2, 3.5016097005208318">
       <DataClassMoniker Name="/QuanLyKhachSanDataContext/Room" />
       <nestedChildShapes>
-        <elementListCompartment Id="86aec2a4-dc62-4753-b74e-84c1704a54b6" absoluteBounds="6.015, 6.46, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5f62567f-f4c0-4bd4-b925-88155be1e946" absoluteBounds="6.265, 6.21, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8 : 7.75080485026042); (8.625 : 7.75080485026042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <classShape Id="0afa602d-67a5-4895-a6b3-ad50e881b883" absoluteBounds="9, 5.5, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Booking" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8471e90b-88db-4160-8878-ccd2f1a3f79a" absoluteBounds="9.015, 5.96, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6991336a-dc48-4e23-a217-6835e08d4663" absoluteBounds="0.75, 2.625, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Customer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fc13bd08-5a36-44ad-bd13-f0b77e4ebb0a" absoluteBounds="0.765, 3.085, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="dc57ad28-3795-4d2c-aa7a-1c2df250e7fa" absoluteBounds="6.25, 2.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Feedback" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a7adb2f9-a207-452f-a564-0f5fb9863368" absoluteBounds="6.265, 3.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4c31c745-88c6-4c7b-b07f-93bdf096c146" absoluteBounds="3.5, 5.75, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/QuanLyKhachSanDataContext/Resort" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b6fa413f-5413-4bd9-ad26-460cb267a090" absoluteBounds="3.515, 6.21, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.25 : 7.50080485026042); (9 : 7.50080485026042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/QuanLyKhachSanDataContext/Room/Room_Booking" />
       <nodes>
-        <classShapeMoniker Id="6243338b-8b3c-42be-8f68-cede2cf5a0c3" />
-        <classShapeMoniker Id="6f355a65-e256-447b-b56f-f8b65606e478" />
+        <classShapeMoniker Id="4f03f05a-1b85-4f83-ba96-9aba8790a3fb" />
+        <classShapeMoniker Id="0afa602d-67a5-4895-a6b3-ad50e881b883" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.375 : 7.40465413411458); (6 : 7.40465413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 3.82774983723958); (6.25 : 3.82774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Customer/Customer_Feedback" />
+      <nodes>
+        <classShapeMoniker Id="6991336a-dc48-4e23-a217-6835e08d4663" />
+        <classShapeMoniker Id="dc57ad28-3795-4d2c-aa7a-1c2df250e7fa" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 7.40465413411458); (6.25 : 7.40465413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/QuanLyKhachSanDataContext/Resort/Resort_Room" />
       <nodes>
-        <classShapeMoniker Id="c667f90f-e273-4945-b71f-87af8cc41cfe" />
-        <classShapeMoniker Id="6243338b-8b3c-42be-8f68-cede2cf5a0c3" />
+        <classShapeMoniker Id="4c31c745-88c6-4c7b-b07f-93bdf096c146" />
+        <classShapeMoniker Id="4f03f05a-1b85-4f83-ba96-9aba8790a3fb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 9.05930826822917); (4.5 : 9.3501611328125); (9 : 9.3501611328125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Resort/Resort_Booking" />
+      <nodes>
+        <classShapeMoniker Id="4c31c745-88c6-4c7b-b07f-93bdf096c146" />
+        <classShapeMoniker Id="0afa602d-67a5-4895-a6b3-ad50e881b883" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 5.75); (4.5 : 4.39787725585937); (6.25 : 4.39787725585937)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Resort/Resort_Feedback" />
+      <nodes>
+        <classShapeMoniker Id="4c31c745-88c6-4c7b-b07f-93bdf096c146" />
+        <classShapeMoniker Id="dc57ad28-3795-4d2c-aa7a-1c2df250e7fa" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 6.13060628255208); (3.5 : 6.13060628255208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QuanLyKhachSanDataContext/Customer/Customer_Resort" />
+      <nodes>
+        <classShapeMoniker Id="6991336a-dc48-4e23-a217-6835e08d4663" />
+        <classShapeMoniker Id="4c31c745-88c6-4c7b-b07f-93bdf096c146" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

@@ -115,12 +115,27 @@
                                     <div class="mb-3 col-12">
                                         <label for="thumbnail" class="form-label">Thumbnail</label>
                                         <input type="file" id="thumbnail" name="thumbnail" class="form-control" accept="image/*">
+                                        @if (resort.thumbnail != null)
+                                        {
+                                            <div class="row mt-2">
+                                                <img src="@Url.Content("~/Content/Upload/Images/" + resort.thumbnail)" style="max-width: 100px" alt="Thumbnail" />
+                                            </div>
+                                        }
                                     </div>
 
                                     <!-- Images -->
                                     <div class="mb-3 col-12">
                                         <label for="images" class="form-label">Images</label>
                                         <input type="file" id="images" name="images" class="form-control" accept="image/*" multiple>
+                                        @if (resort.images != null)
+                                        {
+                                            <div class="row" style="row-gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                                                @foreach (string img in resort.images.Split(','))
+                                                {
+                                                    <img src="@Url.Content("~/Content/Upload/Images/" + img)" style="max-width: 100px" alt="images" />
+                                                }
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>

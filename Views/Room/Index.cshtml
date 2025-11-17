@@ -13,21 +13,47 @@
             <form class="booking-form" method="get" action="/Room/ListByResort">
                 <div class="form-group">
                     <i class="fa fa-map-marker-alt"></i>
-                    <input type="text" class="form-control" name="search" placeholder="Địa điểm..." required="">
+                    <input type="text" class="form-control" name="search" placeholder="Địa điểm...">
                 </div>
 
                 <div class="two-columns">
                     <div class="form-group">
                         <i class="fa fa-calendar-alt"></i>
                         <div class="label-inside">Nhận phòng:</div>
-                        <input type="date" class="form-control" name="checkin_date" placeholder="Thời gian nhận phòng">
+                        <input type="date" class="form-control" name="checkin_date" placeholder="Thời gian nhận phòng" @ViewBag.CheckIn>
                     </div>
 
                     <div class="form-group">
                         <i class="fa fa-calendar-alt"></i>
                         <div class="label-inside">Trả phòng:</div>
-                        <input type="date" class="form-control" name="checkout_date" placeholder="Thời gian trả phòng">
+                        <input type="date" class="form-control" name="checkout_date" placeholder="Thời gian trả phòng" value="@ViewBag.CheckOut">
                     </div>
+
+                    @*<script>
+                        const date = new Date();
+                        const inputCheckin = document.querySelector('input[name="checkin_date"]');
+                        const inputCheckout = document.querySelector('input[name="checkout_date"]');
+
+                        const now = new Date(date);
+                        now.setDate(now.getDate() + 1);
+                        const formatted = now.toISOString().split('T')[0];
+
+                        inputCheckin.setAttribute("min", formatted);
+                        inputCheckin.value = formatted
+
+                        getDateCheckout();
+
+                        inputCheckin.addEventListener("change", function () {
+                            getDateCheckout()
+                        })
+
+                        function getDateCheckout() {
+                            const dateMin = new Date(inputCheckin.value).toISOString().split('T')[0];
+
+                            inputCheckout.setAttribute("min", dateMin)
+                            inputCheckout.value = dateMin
+                        }
+                    </script>*@
                 </div>
 
                 <div class="guest-selector">

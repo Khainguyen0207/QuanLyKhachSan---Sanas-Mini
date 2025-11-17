@@ -26,11 +26,41 @@ namespace QuanLyKhachSan.Controllers
         }
 
         // -------------------- [ GET: Danh sách phòng theo resort ] --------------------
-        public ActionResult ListByResort(int resortId = -1, string search = null, string sort = null, int page = 1, string priceRange = null)
+        public ActionResult ListByResort(FormCollection form)
         {
+            int? resortId = null;
+            if (int.TryParse(form["resortId"], out int tmpResort))
+                resortId = tmpResort;
+
+            string search = form["search"];
+            string sort = form["sort"];
+
+            int page = 1;
+            int.TryParse(form["page"], out page);
+
+            string priceRange = form["priceRange"];
+
+            // check-in: DateTime
+            DateTime checkin_date = DateTime.MinValue;
+            DateTime.TryParse(form["checkin_date"], out checkin_date);
+
+            // check-out: string
+            DateTime checkout_date = DateTime.MinValue;
+            DateTime.TryParse(form["checkout_date"], out checkout_date);
+
+            if (checkin_date == DateTime.MinValue)
+            {
+                checkin_date = DateTime.Now.AddDays(1);
+            }
+
+            if (checkout_date == DateTime.MinValue)
+            {
+                checkout_date = DateTime.Now.AddDays(1);
+            }
+
             var rooms = db.Rooms.AsQueryable();
 
-            if (resortId != -1)
+            if (resortId != null)
             {
                 var resorts = db.Resorts.Where(m => m.id == resortId).FirstOrDefault();
 
@@ -124,12 +154,30 @@ namespace QuanLyKhachSan.Controllers
             return View(room);
         }
 
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(int page = 1, string checkin_date = null, string checkout_date = null)
         {
 
             if (page < 1)
             {
                 page = 1;
+            }
+
+            // check-in: DateTime
+            DateTime checkin = DateTime.MinValue;
+            DateTime.TryParse(checkin_date, out checkin);
+
+            // check-out: string
+            DateTime checkout = DateTime.MinValue;
+            DateTime.TryParse(checkout_date, out checkout);
+
+            if (checkin == DateTime.MinValue)
+            {
+                checkin = DateTime.Now.AddDays(1);
+            }
+
+            if (checkout == DateTime.MinValue)
+            {
+                checkout = DateTime.Now.AddDays(1);
             }
 
             List<Room> query = db.Rooms
@@ -151,6 +199,8 @@ namespace QuanLyKhachSan.Controllers
 
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
+            ViewBag.CheckIn = checkin.ToString("yyyy-MM-dd");
+            ViewBag.CheckOut = checkout.ToString("yyyy-MM-dd");
 
             return View(dataRooms);
         }

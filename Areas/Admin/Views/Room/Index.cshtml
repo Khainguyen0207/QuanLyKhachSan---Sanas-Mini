@@ -81,11 +81,11 @@
                                         <td>@room.Resort.name</td>
                                         <td>@(room.created_at.HasValue ? room.created_at.Value.ToString("dd/MM/yyyy HH:mm") : "")</td>
                                         <td class="text-center">
-                                            <a href="@Url.Action("EditRoom", "Room", new { id = room.id, area = "Admin" })" type="button"
+                                            <a href="@Url.Action("Show", "Room", new { id = room.id, area = "Admin" })" type="button"
                                                class="btn-sm btn-inverse-primary btn-icon">
                                                 <i class="mdi mdi-pencil-box-outline"></i>
                                             </a>
-                                            <a href="@Url.Action("DeleteRoom", "Room", new { id = room.id, area = "Admin" })" type="button" class="btn-sm btn-inverse-danger btn-icon" data-bs-action="modal-confirm-action" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete">
+                                            <a href="@Url.Action("Delete", "Room", new { id = room.id, area = "Admin" })" type="button" class="btn-sm btn-inverse-danger btn-icon" data-bs-action="modal-confirm-action" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
                                         </td>

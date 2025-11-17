@@ -1296,8 +1296,6 @@
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Resort\Form.cshtml" />
-    <Content Include="Areas\Admin\Views\Room\EditRoom.cshtml" />
-    <Content Include="Areas\Admin\Views\Room\DeleteRoom.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Create.cshtml" />

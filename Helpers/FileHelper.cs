@@ -12,7 +12,13 @@ namespace QuanLyKhachSan.Helpers
         {
             try
             {
+                if (file.FileName == null)
+                {
+                    return null;
+                }
+
                 string extension = Path.GetExtension(file.FileName);
+
                 string fileName;
                 string PathAvatar;
 
@@ -31,6 +37,26 @@ namespace QuanLyKhachSan.Helpers
             {
                 Console.WriteLine(ex.Message);
                 return null;
+            }
+        }
+
+        public static bool DeleteFile(string fileName, string RootPath)
+        {
+            try
+            {
+                var data = RootPath + fileName;
+                string filePath = PathHelper.GetUploadFilePath(RootPath, fileName);
+
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                return File.Exists(filePath);
+            } catch(Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return false;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -112,43 +113,129 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
        
         // ========================== SỬA PHÒNG ==========================
         [HttpGet]
-        public ActionResult EditRoom(int id)
+        public ActionResult Show(int id)
         {
             var room = db.Rooms.FirstOrDefault(r => r.id == id);
-            if (room == null) return HttpNotFound();
+
+            if (room == null) 
+                return HttpNotFound();
 
             ViewBag.Resorts = db.Resorts.ToList();
             return View("Form", room);
         }
 
         [HttpPost]
-        public ActionResult EditRoom(Room updatedRoom)
+        public ActionResult Edit(int id, FormCollection collection, HttpPostedFileBase thumbnail, List<HttpPostedFileBase> images)
         {
-            var room = db.Rooms.FirstOrDefault(r => r.id == updatedRoom.id);
-            if (room == null) return HttpNotFound();
+            List<string> deletedImages = new List<string>();
+            var room = db.Rooms.FirstOrDefault(r => r.id == id);
 
-            room.name = updatedRoom.name;
-            room.price = updatedRoom.price;
-            room.quantity = updatedRoom.quantity;
-            room.room_amenities = updatedRoom.room_amenities;
+            if (room == null) 
+                return HttpNotFound();
+
+            Dictionary<string, string> changes = ModelHelper.DirtyModelFromCollection(room, collection);
+            bool isChangeResort = changes.TryGetValue("resort_id", out string resort_id);
+
+            if (isChangeResort && string.IsNullOrEmpty(resort_id))
+            {
+                Resort r = db.Resorts.FirstOrDefault(m => m.id == int.Parse(resort_id));
+
+                if (r == null)
+                {
+                    TempData["error"] = "Resort is required";
+                    TempData["form"] = room;
+
+                    return Redirect(Request.UrlReferrer.ToString());
+                }
+            }
+
+            if (thumbnail != null)
+            {
+                string thumbnailImage = FileHelper.UploadFile(thumbnail, PathHelper.GetUploadFilePath());
+
+                if (! string.IsNullOrEmpty(thumbnailImage))
+                {
+                    deletedImages.Add(room.thumbnail);
+
+                    room.thumbnail = thumbnailImage;
+                }
+            }
+
+            if (images.Count > 0 && images[0] != null)
+            {
+                string pathImages = null;
+
+                foreach (HttpPostedFileBase image in images)
+                {
+                    string imageUpload = FileHelper.UploadFile(image, PathHelper.GetUploadFilePath());
+
+                    if (!string.IsNullOrEmpty(imageUpload))
+                    {
+                        pathImages += imageUpload + ",";
+                    }
+                }
+
+                deletedImages.AddRange(room.images.Split(',', (char) StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
+
+                room.images = pathImages.TrimEnd(',');
+            }
+
+            var provider = new DictionaryValueProvider<string>(changes, CultureInfo.CurrentCulture);
             room.updated_at = DateTime.Now;
 
+            TryUpdateModel(room, provider);
             db.SubmitChanges();
 
-            return RedirectToAction("RoomList", new { resortId = room.resort_id });
+            foreach (string item in deletedImages)
+            {
+                DeleteFile(item);
+            }
+
+            TempData["success"] = "Edit Room ID #"+ room.id +" successful.";
+
+            return RedirectToAction("Index");
         }
 
         // ========================== XOÁ PHÒNG ==========================
-        public ActionResult DeleteRoom(int id)
+        public ActionResult Delete(int id)
         {
             var room = db.Rooms.FirstOrDefault(r => r.id == id);
             if (room == null) return HttpNotFound();
 
-            long resortId = room.resort_id;  // ✅ Đúng kiểu dữ liệu long
+            long resortId = room.resort_id;
+            int orders = db.Bookings.Where(m => m.room_id == room.id).Count();
+
+            if (orders > 0)
+            {
+                TempData["error"] = "This room is now available for reservation.";
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
+            List<string> deletedImages = new List<string>();
+
+            deletedImages.Add(room.thumbnail);
+
+            deletedImages.AddRange(room.images.Split(',', (char)StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
+
             db.Rooms.DeleteOnSubmit(room);
             db.SubmitChanges();
 
-            return RedirectToAction("RoomList", new { resortId = resortId });
+            foreach (string image in deletedImages)
+            {
+                DeleteFile(image);
+            }
+
+            TempData["success"] = "Delete Room ID #" + room.id + " successful.";
+
+            return RedirectToAction("Index");
+        }
+
+        private bool DeleteFile(string fileName)
+        {
+            string root = "Images";
+
+            return FileHelper.DeleteFile(fileName, root);
         }
     }
 }

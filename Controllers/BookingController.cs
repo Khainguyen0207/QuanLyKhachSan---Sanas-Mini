@@ -40,7 +40,7 @@ namespace QuanLyKhachSan.Controllers
 
         // -------------------- [ STEP 2: Xác nhận thông tin & kiểm tra trùng email/phone ] --------------------
         [HttpPost]
-        public ActionResult Confirm(int roomId, DateTime checkin, DateTime checkout, string email, string phone)
+        public ActionResult Confirm(int roomId, DateTime checkin, DateTime checkout, string email, string phone, string name)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -64,14 +64,14 @@ namespace QuanLyKhachSan.Controllers
             ViewBag.Total = total;
             ViewBag.Email = email;
             ViewBag.Phone = phone;
-
+            ViewBag.Name = name;
 
             return View();
         }
 
         // -------------------- [ STEP 3: Thanh toán & lưu DB ] --------------------
         [HttpPost]
-        public ActionResult Success(int roomId, DateTime checkin, DateTime checkout, double total, string email, string phone)
+        public ActionResult Success(int roomId, DateTime checkin, DateTime checkout, double total, string email, string phone, string name)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -96,21 +96,20 @@ namespace QuanLyKhachSan.Controllers
                 room_id = roomId,
                 check_in = checkin,
                 check_out = checkout,
-                total_price = (decimal)total,
+                total_price = (decimal) total,
                 total_price_temporary = (decimal)total,
-                status = "confirmed",
+                status = "pending",
                 payment_status = "unpaid",
                 note = "Thanh toán sau",
                 email = email,
                 phone = phone,
+                name = name,
                 created_at = DateTime.Now,
                 updated_at = DateTime.Now
             };
 
 
             db.Bookings.InsertOnSubmit(newBooking);
-            room.quantity -= 1;
-
             db.SubmitChanges();
 
             // ✅ Gửi dữ liệu ra View thành công

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -154,18 +155,61 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Resort resort)
+        public ActionResult Edit(int id, FormCollection collection, HttpPostedFileBase thumbnail, List<HttpPostedFileBase> images)
         {
-            var res = db.Resorts.FirstOrDefault(r => r.id == resort.id);
-            if (res == null) return HttpNotFound();
+            List<string> deletedImages = new List<string>();
 
-            res.name = resort.name;
-            res.address = resort.address;
+            var res = db.Resorts.FirstOrDefault(r => r.id == id);
+
+            if (res == null) 
+                return HttpNotFound();
+
+            Dictionary<string, string> changes = ModelHelper.DirtyModelFromCollection(res, collection);
+
+            if (thumbnail != null)
+            {
+                string thumbnailImage = FileHelper.UploadFile(thumbnail, PathHelper.GetUploadFilePath());
+
+                if (!string.IsNullOrEmpty(thumbnailImage))
+                {
+                    deletedImages.Add(res.thumbnail);
+
+                    res.thumbnail = thumbnailImage;
+                }
+            }
+
+            if (images.Count > 0 && images[0] != null)
+            {
+                string pathImages = null;
+
+                foreach (HttpPostedFileBase image in images)
+                {
+                    string imageUpload = FileHelper.UploadFile(image, PathHelper.GetUploadFilePath());
+
+                    if (!string.IsNullOrEmpty(imageUpload))
+                    {
+                        
+                        pathImages += imageUpload + ",";
+                    }
+                }
+
+                deletedImages.AddRange(res.images.Split(',', (char) StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
+
+                res.images = pathImages.TrimEnd(',');
+            }
+
+            var provider = new DictionaryValueProvider<string>(changes, CultureInfo.CurrentCulture);
             res.updated_at = DateTime.Now;
 
+            TryUpdateModel(res, provider);
             db.SubmitChanges();
 
-            TempData["success"] = "Edit Resort ID #"+ resort.id + " successful.";
+            foreach (string image in deletedImages)
+            {
+                FileHelper.DeleteFile(image, "Images");
+            }
+
+            TempData["success"] = "Edit Room ID #" + res.id + " successful.";
 
             return RedirectToAction("Index");
         }
@@ -192,8 +236,17 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
 
+                List<string> deletedImages = new List<string>();
+                deletedImages.Add(resort.thumbnail);
+                deletedImages.AddRange(resort.images.Split(',', (char)StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
+
                 db.Resorts.DeleteOnSubmit(resort);
                 db.SubmitChanges();
+
+                foreach (string image in deletedImages)
+                {
+                    FileHelper.DeleteFile(image, "Images");
+                }
 
                 TempData["success"] = "Resort delete ID #" + resort.id + " successfully.";
             }

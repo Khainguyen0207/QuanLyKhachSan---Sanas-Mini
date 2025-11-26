@@ -76,7 +76,7 @@
 
                                             @foreach (QuanLyKhachSan.Models.Resort resort in ViewBag.Resorts)
                                             {
-                                                <option value="@resort.id">@resort.name</option>
+                                                <option value="@resort.id" @(room.resort_id == resort.id ? "selected" : "")>@resort.name</option>
                                             }
                                         </select>
                                     </div>
@@ -96,20 +96,20 @@
                                     <!-- Số lượng -->
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label">Số lượng phòng</label>
-                                        <input type="number" name="quantity" class="form-control" min="1" value="@(room.quantity ?? 0)" required />
+                                        <input type="number" name="quantity" class="form-control" min="0" value="@room.quantity" required />
                                     </div>
 
                                     <!-- Số lượng người lớn -->
                                     <div class="mb-3 col-md-6">
                                         <label for="number_of_adults" class="form-label">Số lượng người lớn</label>
-                                        <input type="number" name="number_of_adults" id="number_of_adults" class="form-control" min="1" value="@(room.number_of_adults ?? 0)" required />
+                                        <input type="number" name="number_of_adults" id="number_of_adults" class="form-control" min="1" value="@room.number_of_adults" required />
                                     </div>
 
 
                                     <!-- Số lượng trẻ em-->
                                     <div class="mb-3 col-md-6">
                                         <label for="number_of_children" class="form-label">Số lượng trẻ em</label>
-                                        <input type="number" id="number_of_children" name="number_of_children" class="form-control" min="1" value="@(room.number_of_children ?? 0)" required />
+                                        <input type="number" id="number_of_children" name="number_of_children" class="form-control" min="1" value="@room.number_of_children" required />
                                     </div>
 
 
@@ -121,21 +121,38 @@
 
                                     <!-- Tiện nghi -->
                                     <div class="mb-3">
-                                        <label class="form-label">Tiện nghi phòng</label>
-                                        <textarea name="room_amenities" class="form-control" rows="3"
-                                                  placeholder="VD: Máy lạnh, Tivi, Wifi, Bàn làm việc">@room.room_amenities</textarea>
+                                        <label class="form-label d-block">Tiện nghi phòng</label>
+                                        <input name="room_amenities" class="tagify-input-fogdev d-flex rounded-1" rows="3" 
+                                                  placeholder="VD: Máy lạnh, Tivi, Wifi, Bàn làm việc" value="@room.room_amenities">
                                     </div>
 
                                     <!-- Thumbnail -->
                                     <div class="mb-3 col-12">
                                         <label for="thumbnail" class="form-label">Thumbnail</label>
                                         <input type="file" id="thumbnail" name="thumbnail" class="form-control" accept="image/*">
+
+                                        @if (room.thumbnail != null)
+                                        {
+                                            <div class="row mt-2">
+                                                <img src="@Url.Content("~/Content/Upload/Images/" + room.thumbnail)" style="max-width: 100px" alt="Thumbnail" />
+                                            </div>
+                                        }
                                     </div>
 
                                     <!-- Images -->
                                     <div class="mb-3 col-12">
                                         <label for="images" class="form-label">Images</label>
                                         <input type="file" id="images" name="images" class="form-control" accept="image/*" multiple>
+
+                                        @if (room.images != null)
+                                        {
+                                            <div class="row" style="row-gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                                                @foreach (string img in room.images.Split(','))
+                                                {
+                                                    <img src="@Url.Content("~/Content/Upload/Images/" + img)" style="max-width: 100px" alt="images" />
+                                                }
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>

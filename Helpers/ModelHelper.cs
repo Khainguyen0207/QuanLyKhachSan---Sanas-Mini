@@ -116,7 +116,9 @@ namespace QuanLyKhachSan.Helpers
                             continue;
                         }
 
-                        if (value == "0" || value == "1")
+                        var targetType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+                        
+                        if (targetType == typeof(bool))
                         {
                             if (isDirty(valueOld, value == "1"))
                             {

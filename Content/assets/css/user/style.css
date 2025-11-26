@@ -410,7 +410,7 @@ body header nav .btn-primary:hover {
   transition: 0.3s ease-in-out;
 }
 body header nav .navbar-brand .navbar-logo {
-  max-width: 50px;
+  max-width: 40px;
   width: 100%;
 }
 body header nav #navbarNav {
@@ -421,7 +421,7 @@ body header nav .navbar-nav {
 }
 body header nav .navbar-nav .nav-item .nav-link {
   position: relative;
-  font-size: 24px;
+  font-size: 1.25rem;
   font-weight: 500;
   color: var(--bs-white);
 }

@@ -1,4 +1,5 @@
 ﻿using QuanLyKhachSan.Models;
+using QuanLyKhachSan.Requests;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,56 +19,96 @@ namespace QuanLyKhachSan.Controllers
     public class RoomController : BaseController
     {
         QuanLyKhachSanDataContext db;
-        private int PerPage = 12;
+        private const int PerPage = 12;
+
         public RoomController()
         {
             string conn = ConfigurationManager.ConnectionStrings["QLKSConnectionString"].ConnectionString;
             db = new QuanLyKhachSanDataContext(conn);
         }
 
-        // -------------------- [ GET: Danh sách phòng theo resort ] --------------------
-        public ActionResult ListByResort(int resortId = -1, string search = null, string sort = null, int page = 1, string priceRange = null)
+        public ActionResult Index(ResortFilterRequest filter)
         {
+            // check-in: DateTime
+            DateTime checkin = filter.CheckinDate ?? DateTime.Now.AddDays(1);
+            // check-out: DateTime
+            DateTime checkout = filter.CheckoutDate ?? checkin.AddDays(1);
+         
             var rooms = db.Rooms.AsQueryable();
 
-            if (resortId != -1)
+            // -------------------- [ Lọc theo resort ] --------------------
+            if (filter.ResortId.HasValue)
             {
-                var resorts = db.Resorts.Where(m => m.id == resortId).FirstOrDefault();
+                var resort = db.Resorts.FirstOrDefault(m => m.id == filter.ResortId.Value);
 
-                if (resorts == null)
+                if (resort == null)
                 {
                     return HttpNotFound();
                 }
 
-                rooms = rooms.Where(r => r.resort_id == resortId && r.quantity > 0).AsQueryable();
+                rooms = rooms.Where(r => r.resort_id == filter.ResortId.Value && r.quantity > 0);
+            }
+
+            // -------------------- [ Tìm kiếm theo tên / mô tả / địa chỉ ] --------------------
+            if (! string.IsNullOrWhiteSpace(filter.Search))
+            {
+                string keyword = filter.Search.Trim();
+                rooms = rooms.Where(r =>
+                    r.name.Contains(keyword) ||
+                    r.description.Contains(keyword) ||
+                    r.Resort.address.Contains(keyword)
+                );
             }
             
-            // -------------------- [ Tìm kiếm theo tên / mô tả ] --------------------
-            if (!string.IsNullOrEmpty(search))
+            // -------------------- [ Lọc theo khoảng giá ] --------------------
+            if (! string.IsNullOrWhiteSpace(filter.PriceRange))
             {
-                rooms = rooms.Where(r => r.name.Contains(search) || r.description.Contains(search) || r.Resort.address.Contains(search));
+                var parts = filter.PriceRange.Split('-');
+
+                if (parts.Length >= 1)
+                {
+                    int from;
+                    int to;
+
+                    // parse mềm, tránh văng exception
+                    int.TryParse(parts[0].Trim(), out from);
+
+                    if (parts.Length > 1 && int.TryParse(parts[parts.Length - 1].Trim(), out to))
+                    {
+                        if (from == to)
+                        {
+                            rooms = rooms.Where(r => r.price >= from);
+                        }
+                        else
+                        {
+                            rooms = rooms.Where(r => r.price >= from && r.price <= to);
+                        }
+                    }
+                    else
+                    {
+                        rooms = rooms.Where(r => r.price >= from);
+                    }
+                }
             }
 
-            if (!string.IsNullOrEmpty(priceRange))
+            // -------------------- [ Lọc theo khoảng giá ] --------------------
+            if (filter.Adults.HasValue)
             {
-                string[] range = priceRange.Trim().Split('-');
-                
-                int from = int.Parse(range[0]);
-                int to = int.Parse(range[range.Length - 1]);
-
-                if (from == to)
-                {
-                    rooms = rooms.Where(r => r.price >= from);
-
-                }
-                else
-                {
-                    rooms = rooms.Where(r => r.price >= from && r.price <= to);
-                }
+                rooms = rooms.Where(m => m.number_of_adults >= filter.Adults);
+            } 
+            
+            if (filter.Children.HasValue)
+            {
+                rooms = rooms.Where(m => m.number_of_children >= filter.Children);
+            }
+            
+            if (filter.Quantity.HasValue)
+            {
+                rooms = rooms.Where(m => m.quantity >= filter.Quantity);
             }
 
-            // -------------------- [ Sắp xếp theo giá hoặc tên ] --------------------
-            switch (sort)
+            // -------------------- [ Sắp xếp ] --------------------
+            switch (filter.Sort)
             {
                 case "price_asc":
                     rooms = rooms.OrderBy(r => r.price);
@@ -75,42 +116,53 @@ namespace QuanLyKhachSan.Controllers
                 case "price_desc":
                     rooms = rooms.OrderByDescending(r => r.price);
                     break;
-                case "name_asc":
-                    rooms = rooms.OrderBy(r => r.name);
-                    break;
-                case "name_desc":
-                    rooms = rooms.OrderByDescending(r => r.name);
-                    break;
                 default:
                     rooms = rooms.OrderBy(r => r.id);
                     break;
             }
 
             // -------------------- [ Phân trang ] --------------------
-            int totalItems = rooms.Count();
-            int totalPages = (int)Math.Floor((double)totalItems / PerPage);
 
-            var dataRooms = rooms.Skip((page - 1) * PerPage).Take(PerPage).ToList().Select(room =>
-            {
-                return new RoomViewModel
+            rooms = rooms.Where(m => m.quantity > 0).ToList().AsQueryable();
+
+            int totalItems = rooms.Count();
+            int totalPages = (int) Math.Ceiling((double) totalItems / PerPage);
+
+            int currentPage = filter.Page < 1 ? 1 : filter.Page;
+
+            var dataRooms = rooms
+                .Skip((currentPage - 1) * PerPage)
+                .Take(PerPage)
+                .ToList()
+                .Select(room => new RoomViewModel
                 {
                     Room = room,
-                    address = room.Resort.address,
-                };
-            }).ToList();
+                    address = room.Resort.address
+                })
+                .ToList();
 
-            // -------------------- [ Truyền dữ liệu sang View ] --------------------
-            ViewBag.Search = search;
-            ViewBag.Sort = sort;
-            ViewBag.CurrentPage = page;
+            ViewBag.Rooms = rooms;
+            ViewBag.Search = filter.Search;
+            ViewBag.Sort = filter.Sort;
+            ViewBag.CurrentPage = currentPage;
             ViewBag.TotalPages = totalPages;
+            ViewBag.PriceRange = filter.PriceRange;
+            ViewBag.CheckIn = checkin.ToString("yyyy-MM-dd");
+            ViewBag.CheckOut = checkout.ToString("yyyy-MM-dd");
+            ViewBag.ResortId = filter.ResortId;
+            ViewBag.adults = filter.Adults;
+            ViewBag.children = filter.Children;
+            ViewBag.quantity = filter.Quantity;
 
-            return View("Index", dataRooms);
+
+            return View(dataRooms);
         }
+
 
         // -------------------- [ GET: Chi tiết phòng ] --------------------
         public ActionResult Details(int id = -1)
         {
+            //, DateTime checkin, DateTime checkout
             var room = db.Rooms.FirstOrDefault(r => r.id == id);
 
             if (room == null)
@@ -122,45 +174,6 @@ namespace QuanLyKhachSan.Controllers
             ViewBag.Resort = resort;
 
             return View(room);
-        }
-
-        public ActionResult Index(int page = 1)
-        {
-
-            if (page < 1)
-            {
-                page = 1;
-            }
-
-            List<Room> query = db.Rooms
-                .Where(m => m.quantity > 0)
-                .OrderBy(p => p.id).ToList();
-
-            var dataRooms = query.Skip((page - 1) * PerPage).Take(PerPage).Select(room => 
-            {   
-                return new RoomViewModel
-                {
-                    Room = room,
-                    address = room.Resort.address,
-                };
-            }).ToList();
-
-
-            int totalItems = query.Count();
-            int totalPages = (int)Math.Floor((double) totalItems / PerPage);
-
-            ViewBag.CurrentPage = page;
-            ViewBag.TotalPages = totalPages;
-
-            return View(dataRooms);
-        }
-
-        
-        public string GetFirstImage(string images)
-        {
-            if (string.IsNullOrEmpty(images)) return "default.jpg";
-            var clean = images.Replace("[", "").Replace("]", "").Replace("\"", "");
-            return clean.Split(',').Select(x => x.Trim()).FirstOrDefault() ?? "default.jpg";
         }
     }
 }

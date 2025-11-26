@@ -64,14 +64,14 @@
                         <div class="col-md-4">
                             <label class="fw-bold">Resort ID</label>
                             <div class="value-field">
-                                <a class="text-decoration-none text-primary" href="@Url.Action("EditResort", "Resort", new { id = Model.resort_id, area = "Admin" })">@Html.DisplayFor(model => model.Resort.name)</a>
+                                <a class="text-decoration-none text-primary" href="@Url.Action("Show", "Resort", new { id = Model.resort_id, area = "Admin" })">@Html.DisplayFor(model => model.Resort.name)</a>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <label class="fw-bold">Room ID</label>
                             <div class="value-field">
-                                <a class="text-decoration-none text-primary" href="@Url.Action("EditRoom", "Room", new { id = Model.resort_id, area = "Admin" })">@Html.DisplayFor(model => model.Room.name)</a>
+                                <a class="text-decoration-none text-primary" href="@Url.Action("Show", "Room", new { id = Model.resort_id, area = "Admin" })">@Html.DisplayFor(model => model.Room.name)</a>
                             </div>
                         </div>
 

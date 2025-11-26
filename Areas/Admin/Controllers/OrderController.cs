@@ -55,8 +55,8 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
                 orderby b.created_at descending
                 select new AdminBookingVM
                 {
-                    Id = (int)b.id,
-                    CustomerName = c != null ? c.name : "Khách vãng lai",
+                    Id = (int) b.id,
+                    CustomerName = b.name != null ? b.name : "Chưa Cập Nhật",
                     Email = b.email,
                     Phone = b.phone,
                     ResortName = r != null ? r.name : "Không xác định",

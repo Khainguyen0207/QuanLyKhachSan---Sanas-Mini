@@ -160,6 +160,7 @@
     <Compile Include="Models\ResortViewModel.cs" />
     <Compile Include="Models\RoomViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\ResortFilterRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets\admin\js\app.js" />
@@ -167,9 +168,12 @@
     <Content Include="Content\assets\admin\js\form.js" />
     <Content Include="Content\assets\admin\js\script.js" />
     <Content Include="Content\assets\admin\js\table.js" />
+    <Content Include="Content\assets\admin\js\tagify.js" />
     <Content Include="Content\assets\admin\js\toast.js" />
     <Content Include="Content\assets\css\admin\style.css" />
     <Content Include="Content\assets\css\style.css" />
+    <Content Include="Content\assets\css\theme.css" />
+    <Content Include="Content\assets\css\user\room-detail.css" />
     <Content Include="Content\assets\css\user\style.css" />
     <Content Include="Content\assets\icon-images\baoche.png" />
     <Content Include="Content\assets\icon-images\circle-checked.png" />
@@ -603,6 +607,9 @@
     <Content Include="Content\assets\libs\fontawesome\solid.min.css" />
     <Content Include="Content\assets\libs\fontawesome\solid.min.js" />
     <Content Include="Content\assets\libs\jquery\jquery-3.7.1.min.js" />
+    <Content Include="Content\assets\libs\tagify\css\tagify.css" />
+    <Content Include="Content\assets\libs\tagify\js\tagify.js" />
+    <Content Include="Content\assets\libs\tagify\js\tagify.polyfills.min.js" />
     <Content Include="Content\assets\vendors\chart.js\Chart.min.js" />
     <Content Include="Content\assets\vendors\codemirror\ambiance.css" />
     <Content Include="Content\assets\vendors\codemirror\codemirror.css" />
@@ -1296,8 +1303,6 @@
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Resort\Form.cshtml" />
-    <Content Include="Areas\Admin\Views\Room\EditRoom.cshtml" />
-    <Content Include="Areas\Admin\Views\Room\DeleteRoom.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Create.cshtml" />
@@ -1339,7 +1344,6 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Room\ListByResort.cshtml" />
     <Content Include="Views\Room\Details.cshtml" />
     <Content Include="Views\Booking\Book.cshtml" />
     <Content Include="Views\Booking\Confirm.cshtml" />
@@ -1350,6 +1354,7 @@
     <Content Include="Views\Resort\Index.cshtml" />
     <Content Include="Views\Resort\CreateResort.cshtml" />
     <Content Include="Web.config.example" />
+    <Content Include="Views\Room\DetailRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

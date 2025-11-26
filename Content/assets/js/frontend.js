@@ -115,11 +115,17 @@ $(document).ready(function () {
 
     window.changeValue = function (type, delta) {
         const element = $(`#${type}`);
+        const input = $(`input[name="${type}"]`);
+      
         let value = parseInt(element.text());
 
-        value = Math.max(0, value + delta);
+        if (type !== 'children') {
+            value = Math.max(1, value + delta);
+        } else {
+            value = Math.max(0, value + delta);
+        }
 
-        if (type === 'rooms') {
+        if (type === 'quantity') {
             const adults = parseInt($('#adults').text());
             if (value > adults) {
                 showMessage("Số phòng không được vượt quá số người lớn!");
@@ -135,6 +141,8 @@ $(document).ready(function () {
         }
 
         element.text(value);
+        input.val(value);
+
         updateGuestSummary();
         updateChildrenAgeInputs();
     };
@@ -142,7 +150,7 @@ $(document).ready(function () {
     window.updateGuestSummary = function () {
         const adults = $('#adults').text();
         const children = $('#children').text();
-        const rooms = $('#rooms').text();
+        const rooms = $('#quantity').text();
         $('#guestSummary').text(`${adults} Người lớn, ${children} Trẻ em, ${rooms} Phòng`);
     };
 
@@ -538,35 +546,39 @@ window.toggleBookingDetails = function (index) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('button.btn-pay[data-action="order-information-form-submit"]').addEventListener('click', function (event) {
-        event.preventDefault();
+    const btnPay = document.querySelector('button.btn-pay[data-action="order-information-form-submit"]');
 
-        const form = document.querySelector('form[data-bs-toggle="order-information-form"]');
-        let isValid = true;
-        const inputs = form.querySelectorAll('input, select, textarea');
+    if (btnPay) {
+        btnPay.addEventListener('click', function (event) {
+            event.preventDefault();
 
-        inputs.forEach(input => {
-            if (! validateInput(input)) {
-                isValid = false;
-            }
-        });
-       
-        if (isValid) {
-            const urlParams = new URLSearchParams(window.location.search);
+            const form = document.querySelector('form[data-bs-toggle="order-information-form"]');
+            let isValid = true;
+            const inputs = form.querySelectorAll('input, select, textarea');
 
-            urlParams.forEach((value, key) => {
-                if (!form.querySelector(`[name="${key}"]`)) {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = value;
-                    form.appendChild(input);
+            inputs.forEach(input => {
+                if (!validateInput(input)) {
+                    isValid = false;
                 }
             });
 
-            form.submit();
-        }
-    });
+            if (isValid) {
+                const urlParams = new URLSearchParams(window.location.search);
+
+                urlParams.forEach((value, key) => {
+                    if (!form.querySelector(`[name="${key}"]`)) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = value;
+                        form.appendChild(input);
+                    }
+                });
+
+                form.submit();
+            }
+        });
+    }
 });
 
 function validateInput(input) {

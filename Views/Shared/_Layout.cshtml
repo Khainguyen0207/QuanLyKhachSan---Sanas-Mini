@@ -29,74 +29,103 @@
             text-overflow: ellipsis;
             max-width: 100px;
         }
+
+        header.site-menu-header {
+            position: sticky;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            top: 0;
+            z-index: 60;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 6px 18px rgba(10, 10, 10, 0.04);
+            transition: all 220ms ease;
+        }
+
+        header.site-menu-header.shrink .navbar {
+            padding: 5px 0;
+            box-shadow: 0 8px 26px rgba(10, 10, 10, 0.08)
+
+
+        }
+
+            header.site-menu-header.shrink {
+                background-color: rgba(0, 0, 0, .4) !important;
+                border: 2px solid white;
+                border-radius: 20px;
+                margin: 10px;
+                top: 10px;
+            }
+
+            
     </style>
+
+    @RenderSection("Styles", required: false)
 </head>
 <body>
-    <header>
+    <header id="main-menu" class="site-menu-header bg-dark">
         <div class="container">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg navbar-light px-2 mx-md-0 justify-content-between fixed-top"
-                     style="z-index: 100;" data-bs-toggle="main-menu">
+            <nav class="navbar navbar-expand-lg navbar-light px-2 mx-md-0 justify-content-between"
+                 style="z-index: 100; background-color: initial;">
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
-                            aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <a class="navbar-brand" href="/">
-                        <img src="~/Content/assets/images/logo.png" alt="Sanas Logo" class="navbar-logo">
-                    </a>
-                    <a href="auth/login.html" class="btn btn-primary ms-3 d-block d-lg-none" data-action="login">
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/assets/images/logo.png" alt="Sanas Logo" class="navbar-logo" style="max-width: 40px">
+                </a>
+                <a href="auth/login.html" class="btn btn-primary ms-3 d-block d-lg-none" data-action="login">
+                    <i class="fa-solid fa-user me-2"></i>
+                    <span id="login-small">Đăng nhập</span>
+                </a>
+
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                </div>
+
+                <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                     aria-labelledby="offcanvasDarkNavbarLabel">
+                    <div class="offcanvas-header">
+                        <a class="navbar-brand" href="/">
+                            <img src="~/Content/assets/images/logo.png" alt="Sanas Logo" class="navbar-logo" style="max-width: 40px">
+                        </a>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">@Html.ActionLink("Home", "Index", "HomePage", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Rooms", "Index", "Room", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item"><a href="#footer-info" class="nav-link">About</a></li>
+                            <li class="nav-item"><a href="#footer-info" class="nav-link">Contact</a></li>
+                            <li class="nav-item"><a href="Admin" class="nav-link">Admin</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                @if (Session["User"] == null)
+                {
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-primary ms-3 d-none d-lg-block" data-action="login">
                         <i class="fa-solid fa-user me-2"></i>
-                        <span id="login-small">Đăng nhập</span>
+                        <span id="login">Đăng nhập</span>
                     </a>
+                }
+                else
+                {
+                    var user = (QuanLyKhachSan.Models.Customer)Session["User"];
 
-
-                    <div class="collapse navbar-collapse" id="navbarNav">
-
-                    </div>
-
-                    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-                         aria-labelledby="offcanvasDarkNavbarLabel">
-                        <div class="offcanvas-header">
-                            <a class="navbar-brand" href="/">
-                                <img src="~/Content/assets/images/logo.png" alt="Sanas Logo" class="navbar-logo">
-                            </a>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item">@Html.ActionLink("Home", "Index", "HomePage", new { area = "" }, new { @class = "nav-link" })</li>
-                                <li class="nav-item">@Html.ActionLink("Rooms", "Index", "Room", new { area = "" }, new { @class = "nav-link" })</li>
-                                <li class="nav-item"><a href="#footer-info" class="nav-link">About</a></li>
-                                <li class="nav-item"><a href="#footer-info" class="nav-link">Contact</a></li>
-                                <li class="nav-item"><a href="Admin" class="nav-link">Admin</a></li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    @if (Session["User"] == null)
-                    {
-                        <a href="@Url.Action("Login", "Account")" class="btn btn-primary ms-3 d-none d-lg-block" data-action="login">
-                            <i class="fa-solid fa-user me-2"></i>
-                            <span id="login">Đăng nhập</span>
-                        </a>
-                    }
-                    else
-                    {
-                        var user = (QuanLyKhachSan.Models.Customer) Session["User"];
-
-                        <a href="@Url.Action("Profile", "Account")" class="truncate-single-line btn btn-primary ms-3 d-none d-lg-block" data-action="login">
-                            <i class="fa-solid fa-user me-2"></i>
-                            <span>@user.name</span>
-                        </a>
-                    }
-                </nav>
-            </div>
+                    <a href="@Url.Action("Profile", "Account")" class="truncate-single-line btn btn-primary ms-3 d-none d-lg-block" data-action="login">
+                        <i class="fa-solid fa-user me-2"></i>
+                        <span>@user.name</span>
+                    </a>
+                }
+            </nav>
         </div>
     </header>
+    @RenderSection("MenuSecondary", required: false)
+
     <main class="overflow-x-hidden">
         @RenderBody()
     </main>
@@ -153,6 +182,18 @@
         <script src="~/Content/assets/libs/jquery/jquery-3.7.1.min.js"></script>
 
         <script type="module" src="@Url.Content("~/Content/assets/js/script.js")"></script>
+        <script>
+            // Sticky header shrink on scroll + active nav highlighting + reveal
+            const header = document.getElementById('main-menu');
+
+            function onScroll() {
+                if (window.scrollY > 60)
+                    header.classList.add('shrink');
+                else
+                    header.classList.remove('shrink');
+            }
+            window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+        </script>
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

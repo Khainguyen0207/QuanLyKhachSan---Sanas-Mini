@@ -5,449 +5,747 @@
     var resort = ViewBag.Resort as QuanLyKhachSan.Models.Resort;
 }
 
-<div class="container-fluid room-detail-section">
-    <div class="rd-content" style="margin-top: 6rem;">
-        <div class="rd-main-container mb-3">
-            <a href="#" id="scroll">
-                <span class="position-relative">
-                    <i class="fa-solid fa-arrow-up"></i>
-                </span>
-            </a>
-            <div class="rd-content">
-                <div class="rd-body-nav">
-                    <ul class="nav-list">
-                        <li><a href="#rd-overview">Tổng quan</a></li>
-                        <li><a href="#rd-detail-info">Thông tin chi tiết</a></li>
-                        <li><a href="#convenient-info">Tiện nghi</a></li>
-                        <li><a href="#room-available">Đặt lịch</a></li>
-                        <li><a href="#rating">Đánh giá</a></li>
-                    </ul>
+@section Styles {
+    <link rel="stylesheet" href="~/Content/assets/css/user/room-detail.css">
+
+    <style>
+        header.site-header {
+            position: sticky;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            top: 60px;
+            z-index: 60;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 6px 18px rgba(10, 10, 10, 0.04);
+            transition: all 220ms ease;
+            padding: 20px 0
+        }
+
+            header.site-header.shrink {
+                padding: 9px 0;
+                box-shadow: 0 8px 26px rgba(10, 10, 10, 0.08)
+            }
+
+        .nav-wrap {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--container-pad);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+            .brand h1 {
+                font-size: 18px;
+                margin: 0;
+                letter-spacing: 0.2px
+            }
+
+            .brand .sub {
+                font-size: 12px;
+                color: var(--muted)
+            }
+
+        nav.anchor-nav {
+            display: flex;
+            background-color: rgba(0, 0, 0, 0);
+            gap: 8px
+        }
+
+            nav.anchor-nav a {
+                padding: 10px 14px;
+                border-radius: 10px;
+                color: var(--muted);
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 14px;
+                transition: all var(--transition)
+            }
+
+                nav.anchor-nav a.active {
+                    color: var(--accent);
+                    background: var(--soft);
+                    box-shadow: var(--shadow-sm);
+                }
+
+        #main-menu {
+            /*            display: none;*/
+        }
+
+        header.site-menu-header.shrink {
+            --bs-bg-opacity: 1;
+            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            top: 0;
+        }
+
+            header.site-menu-header.shrink .navbar {
+                padding: .5rem 0;
+            }
+    </style>
+}
+@section MenuSecondary {
+    <header class="site-header bg-white" id="siteHeader">
+        <div class="nav-wrap" style="flex-wrap: wrap">
+            <div class="brand">
+                <img src="@Url.Content("~/Content/Upload/Images/" + resort.thumbnail)" alt="Alternate Text" style=" border-radius: 10px;  max-height: 40px;" />
+                <div>
+                    <h1>Sanas </h1>
+                    <div class="sub">@resort.name — @Model.name</div>
                 </div>
-                <div id="rd-overview">
-                    <div class="ovv-title">
-                        @resort.name
-                        <span class="text-warning star">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+            </div>
+
+            <nav class="anchor-nav" aria-label="Main navigation">
+                <a href="#rd-overview" class="active">Tổng quan</a>
+                <a href="#rd-detail-info" class="">Thông tin</a>
+                <a href="#convenient-info" class="">Tiện nghi</a>
+                <a href="#room-available" class="">Đặt lịch</a>
+                <a href="#rating" class="">Đánh giá</a>
+            </nav>
+        </div>
+    </header>
+}
+
+<div class="container room-detail-section">
+    <main class="page-wrapper">
+        <div class="container">
+            <!-- OVERVIEW -->
+            <section id="rd-overview" class="rd-section reveal" data-section>
+                <div class="overview-main-info">
+                    <div class="overview-title">
+                        <h1 id="resort-name">@resort.name</h1>
+                        <div class="overview-stars" aria-label="5 sao">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+                    <div class="overview-meta">
+                        <span class="meta-pill">
+                            <span class="meta-pill-icon">📍</span>
+                            <span id="resort-address">@resort.address.</span>
                         </span>
+                        <a id="resort-map-link" href="@resort.map" target="_blank" class="meta-link">
+                            Xem trên bản đồ
+                        </a>
                     </div>
+                </div>
 
-                    <div class="rd-addr">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span class="address">@(resort.name ?? "Địa chỉ resort") </span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span class="address">@(resort.address ?? "Địa chỉ resort") </span> - <a href="@resort.map" class="text-primary">Xem trên bản đồ</a>
-                    </div>
-
-                    <div class="ovv-info row">
-                        <div class="ovv-left">
-                            <div class="ovv-left-top">
-                                <div class="ovv-left-fr1 ">
-                                    <a href="#">
-                                        @{
-                                            List<string> images = new List<string>();
-
-                                            if (!string.IsNullOrEmpty(resort.images))
-                                            {
-                                                var clean = resort.images.Replace("[", "").Replace("]", "").Replace("\"", "");
-                                                images = clean.Split(',').Select(x => x.Trim()).ToList();
-                                            }
-                                        }
-                                        <img src="@Url.Content("~/Content/Upload/Images/" + images.FirstOrDefault() ?? "default.jpg")" alt="">
-                                    </a>
-                                </div>
-                                <div class="ovv-left-fr2">
-                                    @for (int i = 0; i < images.Count; i++)
-                                    {
-                                        if (i == 3)
-                                        {
-                                            break;
-                                        }
-
-                                        <img src="@Url.Content("~/Content/Upload/Images/" + images[i])" alt="images[i]">
-                                    }
-                                </div>
-                            </div>
-                            <div class="ovv-left-bot ">
-                                @{
-                                    if (images.Count > 3)
-                                    {
-                                        for (int i = 4; i < images.Count; i++)
-                                        {
-                                            if (i == 8)
-                                            {
-                                                break;
-                                            }
-
-                                            <img src="@Url.Content("~/Content/Upload/Images/" + images[i])" alt="image">
-                                        }
-                                    }
-                                }
-
+                <div class="overview-grid">
+                    <!-- GALLERY -->
+                    <div class="gallery" id="resort-gallery">
+                        <div class="gallery-main">
+                            <img src="@Url.Content("~/Content/Upload/Images/" + resort.thumbnail)" alt="Ảnh resort chính" id="resort-main-image" data-lightbox />
+                            <div class="gallery-badge">
+                                <span>Thư viện hình ảnh</span>
+                                <span id="resort-image-count">@resort.images.Split(',').Length ảnh</span>
                             </div>
                         </div>
-                        <div class="ovv-right">
-                            <div class="ovv-map">
-                                <img src="@Url.Content("/Content/Upload/Images/image (22).png")" alt="image (22)">
-                                <div class="map-link">
-                                    <a href="@resort.map">Xem trên bản đồ</a>
+                        <div class="gallery-thumbs" id="resort-thumbs">
+                            @foreach (string img in resort.images.Split(','))
+                            {
+                                <img src="@Url.Content("~/Content/Upload/Images/" + img)" alt="Ảnh resort" data-lightbox />
+                            }
+                        </div>
+                    </div>
+
+                    <!-- SIDE CARD -->
+                    <aside class="overview-side">
+                        <article class="card">
+                            <div class="card-header">
+                                <div>
+                                    <h3 class="card-title">Tổng quan</h3>
+                                    <p class="card-subtitle">Không gian nghỉ dưỡng riêng tư, sang trọng bên bờ biển.</p>
                                 </div>
                             </div>
-                            <div class="ovv-card card ">
-                                <div class="ovv-card-header card-header text-center">
-                                    Tổng quan
+                            <div class="card-body">
+                                <p id="resort-description">@resort.description</p>
+                            </div>
+                            <div class="card-actions">
+                                <div class="card-actions-left">
+                                    <a id="resort-hotline" href="tel:@resort.Customer.phone" class="rd-btn-primary">
+                                        ☎ Hotline +@resort.Customer.phone
+                                    </a>
+                                    <button class="rd-btn-ghost" type="button">
+                                        ✉ Gửi yêu cầu
+                                    </button>
                                 </div>
-                                <div class="ovv-card-bd card-body mb-0">
-                                    <h5 class="card-title"></h5>
-                                    <p class="card-text">
-                                        @(resort.description ?? "Chưa có mô tả cho nơi nghĩ dưỡng này")
-                                    </p>
+                            </div>
+                        </article>
 
-                                    <div class="ovv-contact">
-                                        <a href="tel: @resort.Customer.phone" class="btn-contact btn btn-primary">Hotline: <strong>@resort.Customer.phone</strong></a>
-                                        <a href="#" class="btn-contact btn btn-primary"><i class="fa-solid fa-heart"></i></a>
-                                        <a href="#" class="btn-contact btn btn-primary"><i class="fa-solid fa-share-nodes"></i></a>
+                        <article class="mini-map">
+                            <div class="mini-map-thumb"></div>
+                            <div class="mini-map-info">
+                                <span>Vị trí & khu vực</span>
+                                <a id="mini-map-link" href="@resort.map" target="_blank">Mở bản đồ & lộ trình ›</a>
+                            </div>
+                        </article>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- DETAIL INFO -->
+            <section id="rd-detail-info" class="rd-section reveal" data-section>
+                <div class="section-header">
+                    <h2 class="section-title" id="detail-resort-title">@resort.name</h2>
+                    <p class="section-subtitle">Không gian & câu chuyện phía sau khu nghỉ dưỡng.</p>
+                </div>
+
+                <div class="detail-grid">
+                    <div class="detail-hero">
+                        <img src="@Url.Content("~/Content/Upload/Images/" + resort.thumbnail)" alt="Ảnh tổng thể resort" id="detail-hero-image" data-lightbox>
+                        <div class="detail-hero-label">
+                            <span>🌊 View trực diện</span>
+                        </div>
+                    </div>
+                    <div class="detail-text" id="detail-description">
+                        @resort.description
+                    </div>
+                </div>
+            </section>
+
+            <section id="convenient-info" class="rd-section reveal" data-section>
+                <div class="section-header">
+                    <h2 class="section-title">Tiện ích</h2>
+                    <p class="section-subtitle">
+                        Những dịch vụ và tiện nghi đã được chuẩn hóa theo tiêu chuẩn nghỉ dưỡng cao cấp.
+                    </p>
+                </div>
+
+                <div class="amenities-grid">
+                    <article class="amenity-card">
+                        <div class="amenity-header">
+                            <div class="amenity-icon">🏛</div>
+                            <div>
+                                <h3 class="amenity-title">Tiện nghi công cộng</h3>
+                                <p class="card-subtitle">Không gian chung cho mọi khoảnh khắc.</p>
+                            </div>
+                        </div>
+                        <ul class="amenity-list" id="amenity-general"></ul>
+                    </article>
+
+                    <article class="amenity-card">
+                        <div class="amenity-header">
+                            <div class="amenity-icon">🛎</div>
+                            <div>
+                                <h3 class="amenity-title">Dịch vụ resort</h3>
+                                <p class="card-subtitle">Đội ngũ chăm sóc 24/7 chuẩn hospitality.</p>
+                            </div>
+                        </div>
+                        <ul class="amenity-list" id="amenity-services"></ul>
+                    </article>
+
+                    <article class="amenity-card">
+                        <div class="amenity-header">
+                            <div class="amenity-icon">📶</div>
+                            <div>
+                                <h3 class="amenity-title">Kết nối & công nghệ</h3>
+                                <p class="card-subtitle">Online trọn vẹn dù bạn đang offline với thế giới.</p>
+                            </div>
+                        </div>
+                        <ul class="amenity-list" id="amenity-connectivity"></ul>
+                    </article>
+                </div>
+            </section>
+            <!-- ROOM AVAILABLE -->
+            <section id="room-available" class="rd-section reveal" data-section>
+                <div class="section-header">
+                    <h2 class="section-title">Phòng được chọn</h2>
+                    <p class="section-subtitle">Tuỳ chọn phòng hiện tại của bạn.</p>
+                </div>
+
+                <div class="room-grid">
+                    <div class="room-gallery">
+                        <div class="room-gallery-main">
+                            <img src="@Url.Content("~/Content/Upload/Images/" + Model.thumbnail)" alt="Ảnh phòng chính" id="room-main-image" data-lightbox>
+                        </div>
+                        <div class="room-gallery-thumbs" id="room-thumbs">
+                            @foreach (string img in Model.images.Split(','))
+                            {
+                                <img src="@Url.Content("~/Content/Upload/Images/" + img)" alt="Ảnh resort" data-lightbox />
+                            }
+                        </div>
+                    </div>
+
+                    <article class="room-info-card">
+                        <div class="room-header">
+                            <div>
+                                <h3 class="room-name" id="room-name">@Model.name</h3>
+                                <div class="room-meta">
+                                    <div class="room-meta-item">
+                                        <span>📐</span>
+                                        <span id="room-area">45 m²</span>
+                                    </div>
+                                    <div class="room-meta-item">
+                                        <span>👥</span>
+                                        <span id="room-capacity">@Model.number_of_adults người lớn · @Model.number_of_children trẻ em</span>
+                                    </div>
+                                    <div class="room-meta-item">
+                                        <span class="room-meta-badge">Bao gồm tiện nghi cơ bản</span>
                                     </div>
                                 </div>
                             </div>
+                            <span class="room-tag">@Model.name</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="rd-detail-info" class="mb-3 py-4">
-            <h3 class="text-center mb-3">
-                @resort.name
-            </h3>
-            <div class="di-content">
-                <div class="intro-content">
-                    <div class="intro-slide">
-                        <img src="@Url.Content("~/Content/Upload/Images/" + images.FirstOrDefault() ?? "default.jpg")" alt="">
-                    </div>
 
-                    <div class="intro-para">
-                        <p>
-                            @(resort.description ?? "Chưa có mô tả cho nơi nghĩ dưỡng này")
+                        <p class="room-desc" id="room-description">
+                            @Model.description
                         </p>
-                    </div>
-                </div>
 
-                <div id="convenient-info" class="mb-3">
-                    <div class="detail-info-title">
-                        Tiện ích
-                    </div>
-
-                    <div class="detail-board" style=" justify-items: center;">
-                        <div class="utilities-list">
-                            <div class="utilities-header">
-                                <img class="me-2" src="~/Content/assets/icon-images/image (14).png" alt="">
-                                <div class="utilities-list-title">
-                                    Tiện nghi công cộng
-                                </div>
-                            </div>
-
-                            <ul class="uti-list">
-                                @foreach (string item in resort.general_amenities.Split(','))
-                                {
-                                    <li>@item</li>
-                                }
-                            </ul>
-                        </div>
-
-                        <div class="utilities-list">
-                            <div class="utilities-header">
-                                <img class="me-2" src="~/Content/assets/icon-images/image (16).png" alt="">
-                                <div class="utilities-list-title">
-                                    Dịch vụ resort
-                                </div>
-                            </div>
-
-                            <ul class="uti-list">
-                                <li>Lễ tân 24h</li>
-                                <li>Bảo vệ 24h</li>
-                                <li>Dịch vụ giặt ủi</li>
-                            </ul>
-                        </div>
-
-                        <div class="utilities-list">
-                            <div class="utilities-header">
-                                <img class="me-2" src="~/Content/assets/icon-images/image (18).png" alt="">
-                                <div class="utilities-list-title">
-                                    Kết nối mạng
-                                </div>
-                            </div>
-
-                            <ul class="uti-list">
-                                <li>Wifi tốc độ cao</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      
-     </div>
-            <div id="room-available" class="mb-3">
-                <div class="detail-info-title">
-                    Phòng được chọn
-                </div>
-
-                <div class="room-detail">
-                    <div class="main-img row g-2 main-img main-img1">
-                        <div class="biggest-img col-sm-4 col-md-6">
-                            @{
-                                List<string> RoomImages = new List<string>();
-
-                                if (!string.IsNullOrEmpty(@Model.images))
-                                {
-                                    var clean = @Model.images.Replace("[", "").Replace("]", "").Replace("\"", "");
-                                    RoomImages = clean.Split(',').Select(x => x.Trim()).ToList();
-                                }
-                            }
-                            <img src="@Url.Content("~/Content/Upload/Images/" + RoomImages.FirstOrDefault() ?? "default.jpg")" style="width: 100%;" alt="">
-                          
-                        </div>
-                        <div class="col-6 col-md-3">
-                            @{
-                                int ida = 0;
-
-                                foreach (string img in RoomImages)
-                                {
-                                    if(ida == 2)
-                                    {
-                                        break;
-                                    }
-                                    <img src="@Url.Content("~/Content/Upload/Images/" + img)" alt=""
-                                         style="width: 100%;" class="mb-2">
-                                    ida++;
-                                }
-                            }
-
-                        </div>
-                        <div class="room-info col-6 col-md-3">
-                            <div>
-                                <i class="fa-solid fa-ruler"></i> 45.0 m²
-                            </div>
-                            <div>
-                                <i class="fas fa-smoking-ban"></i> @Model.description
-                            </div>
-                            <div>
-                                <i class="fas fa-wind"></i>  @Model.room_amenities
-                            </div>
-                            <div class="room-price">
-                                <p>Giá chỉ từ</p>
-                                <p class="price1">@string.Format("{0:N0}đ / đêm", Model.price)</p>
-                            </div>
-                        </div>
-                        <div class="room-table">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Loại Phòng</th>
-                                        <th class="text-center">Sức chứa</th>
-                                        <th>Tiện ích</th>
-                                        <th>Giá tham khảo (VNĐ/đêm)</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <a href="#" class="name-room">@Model.name</a>
-                                        </td>
-                                        <td class="text-center capacity" data-quantity="2">
-                                            Trẻ em: @Model.number_of_adults <br>
-                                            Người lớn: @Model.number_of_children
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center mb-1">
-                                                <img src="@Url.Content("/Content/assets/icon-images/tick-success.png")"
-                                                     alt="tick-success" style="max-width: 24px;" class="me-2">
-                                                <span class="utilities">
-                                                    @Model.room_amenities
-                                                </span>
-                                            </div>
-
-                                            <div class="d-flex align-items-center mb-1">
-                                                <img src="@Url.Content("/Content/assets/icon-images/tick-success.png")"
-                                                     alt="tick-success" style="max-width: 24px;" class="me-2">
-                                                <span>@Model.description</span>
-                                            </div>
-                                        </td>
-                                        <td class="text-end cp-res">
-                                            <div class="cp-text badge text-bg-primary mb-1 coupon" data-coupon="200000">
-                                                +COUPON 200K
-                                            </div>
-                                            <p class="price1 mb-0" data-price="2500000">
-                                                @string.Format("{0:N0}đ / đêm", Model.price)
-                                            </p>
-                                            <p class="text-secondary mb-0">Chưa bao gồm thuế và phí</p>
-                                        </td>
-                                        <td class="text-center room-pick">
-                                            @if (Model.quantity > 0)
-                                            {
-                                                <a href="@Url.Action("Book", "Booking", new { roomId = Model.id })" class="btn mt-3 text-white">
-                                                    <i class="bi bi-calendar-check"></i> Chọn
-                                                </a>
-                                            }
-                                            else
-                                            {
-                                                <button class="btn btn-secondary btn-lg mt-3" disabled>
-                                                    <i class="bi bi-x-circle"></i> Hết phòng
-                                                </button>
-                                            }
-                                            <p class="text-danger mb-0">Còn @Model.quantity phòng</p>
-                                        </td>
-                                    </tr>
-                                   
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="rating" class="mb-3">
-                <div class="detail-info-title">
-                    Đánh giá chất lượng của @Model.name
-                </div>
-                <div class="rating-content">
-                    <div class="rating-point">
-                        <p class="fs-1 mb-1">
-                            9.4/10
-                            <span class="text-warning star fs-5" style="margin-bottom: 30px;">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
+                        <div class="room-amenities-inline" id="room-amenities-inline">
+                            <span>Giường King size nệm cao cấp</span>
+                            <span>Ban công riêng hướng biển</span>
+                            <span>Mini bar với selection snack &amp; drink</span>
+                            <span style="display: none;" class="span-hidden-holder">
+                                <span>Smart TV 55" tích hợp ứng dụng giải trí</span>
+                                <span>Máy sấy tóc &amp; gương trang điểm</span>
+                                <span>Bàn làm việc &amp; ghế ergonomics</span>
                             </span>
-                        </p>
-                        <p class="fs-3 text-primary">
-                            Xuất sắc
-                        </p>
-                        <p class="fs-4 text-secondary">
-                            Dựa trên 1,508 đánh giá từ người dùng Sanas
-                        </p>
-                    </div>
+                            <span class="room-amenities-more">
+                            <span>+3 tiện nghi khác</span></span>
+                        </div>
 
-                    <div class="rating-detail">
-                        <div class="row rate-bar">
-                            <div class="rating-data fs-5">
-                                <div>
-                                    Dịch vụ
-                                    <span class="text-warning star">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                    </span>
-                                </div>
-                                <div class="side right text-primary">
-                                    <div>9.7</div>
-                                </div>
+                        <div class="room-detail-table">
+                            <div class="room-detail-col">
+                                <h4>Chi tiết phòng</h4>
+                                <ul class="room-detail-list" id="room-detail-list">
+                                    <li>Loại phòng: @Model.name</li>
+                                    <li>Sức chứa tối đa: @Model.number_of_adults người lớn, @Model.number_of_children trẻ em</li>
+                                    @{
+                                        var tags = Json.Decode(Model.room_amenities) as System.Web.Helpers.DynamicJsonArray;
+
+                                        if (tags != null)
+                                        {
+                                            foreach (dynamic tag in tags)
+                                            {
+                                                <li>@tag.value</li>
+                                            }
+                                        }
+                                    }
+                                </ul>
                             </div>
 
-                            <div class="middle">
-                                <div class="bar-container">
-                                    <div class="bar-5"></div>
-                                </div>
-                            </div>
-
-                            <div class="rating-data fs-5">
-                                <div>
-                                    Đáng giá tiền
-                                    <span class="text-warning star">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
-                                    </span>
-                                </div>
-                                <div class="side right text-primary">
-                                    <div>9.6</div>
-                                </div>
-                            </div>
-
-                            <div class="middle">
-                                <div class="bar-container">
-                                    <div class="bar-4"></div>
-                                </div>
-                            </div>
-
-                            <div class="rating-data fs-5">
-                                <div>
-                                    Vị trí
-                                    <span class="text-warning star">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                    </span>
-                                </div>
-                                <div class="side right text-primary">
-                                    <div>9.8</div>
-                                </div>
-                            </div>
-
-                            <div class="middle">
-                                <div class="bar-container">
-                                    <div class="bar-3"></div>
-                                </div>
-                            </div>
-
-                            <div class="rating-data fs-5">
-                                <div>
-                                    Cơ sở vật chất
-                                    <span class="text-warning star">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                    </span>
-                                </div>
-                                <div class="side right text-primary">
-                                    <div>9.5</div>
-                                </div>
-                            </div>
-
-                            <div class="middle">
-                                <div class="bar-container">
-                                    <div class="bar-2"></div>
-                                </div>
-                            </div>
-
-                            <div class="rating-data fs-5">
-                                <div>
-                                    Vệ sinh
-                                    <span class="text-warning star">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                    </span>
-                                </div>
-                                <div class="side right text-primary">
-                                    <div>9.9</div>
-                                </div>
-                            </div>
-
-                            <div class="middle">
-                                <div class="bar-container">
-                                    <div class="bar-1"></div>
+                            <div class="room-price-block">
+                                <div class="room-price-main" id="room-price">@string.Format("{0:N0}đ / đêm", Model.price)</div>
+                                <div class="room-price-caption">Chưa bao gồm thuế và các khoản phụ thu.</div>
+                                <div class="room-price-badge">
+                                    <span>+ COUPON 200K</span>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="room-footer">
+                            <div class="room-cta">
+                                <button class="btn-primary-lg" id="room-book-btn">
+                                    <span>Đặt phòng</span>
+                                    <span>›</span>
+                                </button>
+                                <button class="rd-btn-ghost" type="button">
+                                    Xem chính sách hủy
+                                </button>
+                            </div>
+                            <div class="room-qty-text" id="room-quantity-text">
+                                Còn @Model.quantity phòng trên hệ thống.
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+            <!-- RATING -->
+            <section id="rating" class="rd-section reveal" data-section>
+                <div class="section-header">
+                    <h2 class="section-title">Đánh giá & trải nghiệm</h2>
+                    <p class="section-subtitle">
+                        Điểm số được tổng hợp từ các lượt lưu trú đã xác minh, không phải nhận xét "ảo".
+                    </p>
+                </div>
+
+                <div class="rating-grid">
+                    <div class="rating-summary">
+                        <div class="rating-score-row">
+                            <div class="rating-score-main" id="rating-overall-score">9.0<span>/10</span></div>
+                        </div>
+                        <div class="rating-label" id="rating-overall-label">Xuất sắc</div>
+                        <p class="rating-text" id="rating-total-text">Dựa trên ... đánh giá</p>
+                        <div class="rating-stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                    </div>
+
+                    <div class="rating-detail-list" id="rating-categories">
+                        <!-- JS -->
                     </div>
                 </div>
-            </div>
+            </section>
+        </div>
+    </main>
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-inner">
+            <img src="" alt="Xem ảnh lớn" id="lightbox-image">
+            <button class="lightbox-close" type="button" id="lightbox-close">×</button>
         </div>
     </div>
+</div>
+
+@section Scripts {
+    <script>
+        // =========================
+        // MOCK DATA
+        // =========================
+        const resort = {
+            generalAmenities: [
+                "Hồ bơi ngoài trời với khu lounge",
+                "Nhà hàng hải sản & fine-dining",
+                "Bãi biển riêng có ghế tắm nắng",
+                "Bãi đỗ xe miễn phí trong khuôn viên",
+                "Quầy bar nhìn thẳng ra biển"
+            ],
+            services: [
+                "Lễ tân 24h & hỗ trợ check-in sớm",
+                "Bảo vệ 24h & kiểm soát ra vào",
+                "Dịch vụ giặt ủi trong ngày",
+                "Dịch vụ đưa đón sân bay (phụ phí)"
+            ],
+            connectivity: [
+                "Wifi tốc độ cao phủ toàn khu nghỉ dưỡng",
+                "Khu lounge làm việc yên tĩnh",
+                "Ổ cắm & cổng sạc đa chuẩn tại khu vực chung"
+            ],
+        };
+
+        const room = {
+            id: 1,
+            name: "Phòng Deluxe Hướng Biển",
+            description: "Phòng rộng rãi với ban công hướng biển, nội thất gỗ sáng màu và tone be chủ đạo. " +
+                "Giường king-size, khu làm việc nhỏ và sofa thư giãn, phù hợp cho cặp đôi hoặc gia đình nhỏ.",
+            roomAmenities: [
+                "Giường King size nệm cao cấp",
+                "Ban công riêng hướng biển",
+                "Mini bar với selection snack & drink",
+                "Smart TV 55\" tích hợp ứng dụng giải trí",
+                "Máy sấy tóc & gương trang điểm",
+                "Bàn làm việc & ghế ergonomics"
+            ],
+            images: [
+                "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1200",
+                "https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1200",
+                "https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?auto=compress&cs=tinysrgb&w=1200",
+                "https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            ],
+            pricePerNight: 2500000,
+            quantity: 4,
+            numberOfAdults: 2,
+            numberOfChildren: 1,
+            area: 45 // m2
+        };
+
+        const rating = {
+            overallScore: 9.4,
+            overallLabel: "Xuất sắc",
+            totalReviewsText: "Dựa trên 1,508 đánh giá từ khách đã lưu trú",
+            categories: [
+                { name: "Dịch vụ", score: 9.7 },
+                { name: "Đáng giá tiền", score: 9.6 },
+                { name: "Vị trí", score: 9.8 },
+                { name: "Cơ sở vật chất", score: 9.5 },
+                { name: "Vệ sinh", score: 9.9 }
+            ]
+        };
+
+        // =========================
+        // HELPERS
+        // =========================
+        function formatCurrencyVND(value) {
+            if (typeof value !== "number") return value;
+            return value.toLocaleString("vi-VN") + " đ";
+        }
+
+        function setupSmoothScroll() {
+            const navLinks = document.querySelectorAll(".rd-nav-link");
+            const header = document.getElementById("rd-header");
+
+            navLinks.forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const targetSelector = link.getAttribute("data-target");
+                    const targetEl = document.querySelector(targetSelector);
+                    if (!targetEl) return;
+
+                    const headerRect = header.getBoundingClientRect();
+                    const headerHeight = headerRect.height;
+
+                    const targetTop = targetEl.getBoundingClientRect().top + window.scrollY;
+                    const offsetTop = targetTop - headerHeight - 12;
+
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: "smooth"
+                    });
+                });
+            });
+
+            const headerBookBtn = document.getElementById("header-book-btn");
+            const roomSection = document.getElementById("room-available");
+            if (headerBookBtn && roomSection) {
+                headerBookBtn.addEventListener("click", () => {
+                    const headerHeight = header.getBoundingClientRect().height;
+                    const targetTop = roomSection.getBoundingClientRect().top + window.scrollY;
+                    const offsetTop = targetTop - headerHeight - 12;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: "smooth"
+                    });
+                });
+            }
+        }
+
+        function setupStickyHeader() {
+            const header = document.getElementById("rd-header");
+            const threshold = 24;
+
+            //window.addEventListener("scroll", () => {
+            //    if (window.scrollY > threshold) {
+            //        header.classList.add("is-scrolled");
+            //    } else {
+            //        //header.classList.remove("is-scrolled");
+            //    }
+            //});
+        }
+
+        function setupSectionHighlight() {
+            const sections = document.querySelectorAll("section[data-section]");
+            const navLinks = document.querySelectorAll(".rd-nav-link");
+
+            const sectionMap = {};
+            sections.forEach(sec => {
+                sectionMap["#" + sec.id] = sec;
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = "#" + entry.target.id;
+                        navLinks.forEach(link => {
+                            const target = link.getAttribute("data-target");
+                            link.classList.toggle("is-active", target === id);
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.45
+            });
+
+            sections.forEach(sec => observer.observe(sec));
+        }
+
+        function setupScrollReveal() {
+            const revealEls = document.querySelectorAll(".reveal");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("reveal-visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            revealEls.forEach(el => observer.observe(el));
+        }
+
+        function setupLightbox() {
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightbox-image");
+            const lightboxClose = document.getElementById("lightbox-close");
+
+            function openLightbox(src, alt) {
+                lightboxImg.src = src;
+                lightboxImg.alt = alt || "Xem ảnh lớn";
+                lightbox.classList.add("is-visible");
+                document.body.style.overflow = "hidden";
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove("is-visible");
+                document.body.style.overflow = "";
+            }
+
+            document.addEventListener("click", (e) => {
+                const target = e.target;
+                if (target.matches("[data-lightbox]")) {
+                    const src = target.getAttribute("src");
+                    const alt = target.getAttribute("alt");
+                    openLightbox(src, alt);
+                }
+            });
+
+            lightboxClose.addEventListener("click", closeLightbox);
+
+            lightbox.addEventListener("click", (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && lightbox.classList.contains("is-visible")) {
+                    closeLightbox();
+                }
+            });
+        }
+
+
+        function renderAmenities() {
+            const generalList = document.getElementById("amenity-general");
+            const servicesList = document.getElementById("amenity-services");
+            const connList = document.getElementById("amenity-connectivity");
+
+            generalList.innerHTML = resort.generalAmenities
+                .map(item => `<li>${item}</li>`)
+                .join("");
+
+            servicesList.innerHTML = resort.services
+                .map(item => `<li>${item}</li>`)
+                .join("");
+
+            connList.innerHTML = resort.connectivity
+                .map(item => `<li>${item}</li>`)
+                .join("");
+        }
+
+
+        function renderRating() {
+            const scoreEl = document.getElementById("rating-overall-score");
+            const labelEl = document.getElementById("rating-overall-label");
+            const totalTextEl = document.getElementById("rating-total-text");
+            const categoriesEl = document.getElementById("rating-categories");
+
+            scoreEl.innerHTML = `${rating.overallScore}<span>/10</span>`;
+            labelEl.textContent = rating.overallLabel;
+            totalTextEl.textContent = rating.totalReviewsText;
+
+            categoriesEl.innerHTML = "";
+            rating.categories.forEach(cat => {
+                const row = document.createElement("div");
+                row.className = "rating-item";
+
+                const nameSpan = document.createElement("div");
+                nameSpan.className = "rating-item-name";
+                nameSpan.textContent = cat.name;
+
+                const bar = document.createElement("div");
+                bar.className = "rating-item-bar";
+                const barFill = document.createElement("div");
+                barFill.className = "rating-item-bar-fill";
+                barFill.style.width = "0%";
+                bar.appendChild(barFill);
+
+                const scoreSpan = document.createElement("div");
+                scoreSpan.className = "rating-item-score";
+                scoreSpan.textContent = cat.score.toFixed(1);
+
+                row.appendChild(nameSpan);
+                row.appendChild(bar);
+                row.appendChild(scoreSpan);
+                categoriesEl.appendChild(row);
+
+                // animate bar
+                requestAnimationFrame(() => {
+                    const percent = Math.max(0, Math.min(100, (cat.score / 10) * 100));
+                    barFill.style.width = percent + "%";
+                });
+            });
+        }
+
+        // =========================
+        // INIT
+        // =========================
+        document.addEventListener("DOMContentLoaded", () => {
+            renderAmenities();
+            renderRating();
+
+            setupSmoothScroll();
+            setupStickyHeader();
+            setupSectionHighlight();
+            setupScrollReveal();
+            setupLightbox();
+
+            const moreSpan = document.querySelector(".room-amenities-more");
+
+            if (moreSpan) {
+                moreSpan.className = "room-amenities-more";
+                const hiddenHolder = document.querySelector("span.span-hidden-holder");
+
+                moreSpan.addEventListener("click", () => {
+                    const isHidden = hiddenHolder.style.display === "none";
+                    hiddenHolder.style.display = isHidden ? "inline" : "none";
+                    moreSpan.firstElementChild.textContent = isHidden
+                        ? "Ẩn bớt"
+                        : `Tiện nghi khác`;
+                });
+
+            }
+        });
+
+        
+    </script>
+
+    <script>
+        // Sticky header shrink on scroll + active nav highlighting + reveal
+        const headerMenuSecondary = document.getElementById('siteHeader');
+        const navLinks = document.querySelectorAll('nav.anchor-nav a');
+        const sections = Array.from(document.querySelectorAll('main section'));
+
+        function onScroll() {
+            if (window.scrollY > 60)
+                headerMenuSecondary.classList.add('shrink');
+            else
+                headerMenuSecondary.classList.remove('shrink');
+        }
+        window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.rd-section').forEach(s => io.observe(s));
+
+        // Active nav link
+        const ioActive = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.id; const link = document.querySelector('nav.anchor-nav a[href="#' + id + '"]');
+                if (entry.isIntersecting) { navLinks.forEach(n => n.classList.remove('active')); if (link) link.classList.add('active'); }
+            });
+        }, { threshold: 0.45 });
+        sections.forEach(s => ioActive.observe(s));
+
+        // Smooth scroll via JS for older browsers and to account for offset
+        document.querySelectorAll('nav.anchor-nav a').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault(); const target = document.querySelector(a.getAttribute('href'));
+                if (!target) return; const top = target.getBoundingClientRect().top + window.scrollY - 18; window.scrollTo({ top, behavior: 'smooth' });
+            });
+        });
+
+        // Scroll reveal for elements with .reveal
+        const revealIO = new IntersectionObserver((es) => { es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); revealIO.unobserve(en.target); } }); }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(r => revealIO.observe(r));
+
+    </script>
+}
+

@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <div class="container-fluid">
     <section class="hero-section">
         <div class="hero-banner">
@@ -28,7 +26,7 @@
         </div>
     </section>
     <section class="homepage-section">
-        <form class="booking-form" method="get" action="@Url.Action("ListByResort", "Room")">
+        <form class="booking-form" method="get" action="@Url.Action("Index", "Room")">
             <div class="form-group">
                 <i class="fa fa-map-marker-alt"></i>
                 <input type="text" class="form-control" name="search" placeholder="Địa điểm..." required />
@@ -79,9 +77,9 @@
                     <div class="row">
                         <span><i class="fa fa-bed" style="font-size: 20px; color: #1da1f2;"></i> Phòng</span>
                         <div class="controls">
-                            <button type="button" onclick="changeValue('rooms', -1)">−</button>
-                            <span id="rooms">1</span>
-                            <button type="button" onclick="changeValue('rooms', 1)">+</button>
+                            <button type="button" onclick="changeValue('quantity', -1)">−</button>
+                            <span id="quantity">1</span>
+                            <button type="button" onclick="changeValue('quantity', 1)">+</button>
                         </div>
                     </div>
 
@@ -306,7 +304,7 @@
                                     <p class="fw-bold" style="color: #f47c0e;">Từ: @string.Format("{0:N0}đ - {1:N0}đ", item.MinPrice, item.MaxPrice) VNĐ</p>
 
                                     <div class="text-end">
-                                        <a href="@Url.Action("ListByResort", "Room", new { resortId = resort.id })" class="see-more btn btn-primary rounded-4">Xem chi tiết</a>
+                                        <a href="@Url.Action("Index", "Room", new { resortId = resort.id })" class="see-more btn btn-primary rounded-4">Xem chi tiết</a>
                                     </div>
                                 </div>
                             </div>

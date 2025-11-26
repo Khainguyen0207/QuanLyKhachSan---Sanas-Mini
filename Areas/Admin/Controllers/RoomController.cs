@@ -228,7 +228,7 @@ namespace QuanLyKhachSan.Areas.Admin.Controllers
 
             TempData["success"] = "Delete Room ID #" + room.id + " successful.";
 
-            return RedirectToAction("Index");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         private bool DeleteFile(string fileName)

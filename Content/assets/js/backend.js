@@ -95,35 +95,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Payment
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('button.btn-pay[data-action="order-information-form-submit"]').addEventListener('click', function (event) {
-        event.preventDefault();
+    const btnPay = document.querySelector('button.btn-pay[data-action="order-information-form-submit"]');
+    if (btnPay) {
+        btnPay.addEventListener('click', function (event) {
+            event.preventDefault();
 
-        const form = document.querySelector('form[data-bs-toggle="order-information-form"]');
-        let isValid = true;
-        const inputs = form.querySelectorAll('input, select, textarea');
+            const form = document.querySelector('form[data-bs-toggle="order-information-form"]');
+            let isValid = true;
+            const inputs = form.querySelectorAll('input, select, textarea');
 
-        inputs.forEach(input => {
-            if (!validateInput(input)) {
-                isValid = false;
-            }
-        });
-
-        if (isValid) {
-            const urlParams = new URLSearchParams(window.location.search);
-
-            urlParams.forEach((value, key) => {
-                if (!form.querySelector(`[name="${key}"]`)) {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = value;
-                    form.appendChild(input);
+            inputs.forEach(input => {
+                if (!validateInput(input)) {
+                    isValid = false;
                 }
             });
 
-            form.submit();
-        }
-    });
+            if (isValid) {
+                const urlParams = new URLSearchParams(window.location.search);
+
+                urlParams.forEach((value, key) => {
+                    if (!form.querySelector(`[name="${key}"]`)) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = value;
+                        form.appendChild(input);
+                    }
+                });
+
+                form.submit();
+            }
+        });
+    }
+   
 
     document.querySelector('button.btn-pay[data-action="order-processing-form-submit"]').addEventListener('click', function (event) {
         event.preventDefault();

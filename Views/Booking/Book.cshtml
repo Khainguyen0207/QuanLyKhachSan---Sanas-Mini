@@ -46,26 +46,14 @@
                             <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
                         </div>
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Ngày nhận phòng</label>
-                                    <input type="date" name="checkin" class="form-control" required />
-                                    <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Ngày trả phòng</label>
-
-                                    <input type="date" name="checkout" class="form-control" required />
-                                    <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="phoneNumber">Số điện thoại</label>
                             <input type="number" class="form-control" name="phone"
                                    placeholder="Nhập số điện thoại của bạn" required>
                             <p class="text-danger ps-2 validation-message" style="font-size: 14px;"></p>
                         </div>
+
+                        <input type="hidden" name="checkin" value="@ViewBag.CheckIn" />
+                        <input type="hidden" name="checkout" value="@ViewBag.CheckOut" />
 
                         @if (ViewBag.Error != null)
                         {
@@ -212,9 +200,6 @@
                     const inputCheckout = document.querySelector('input[name="checkout"]');
 
                     const now = date.toISOString().split('T')[0];
-                    inputCheckin.setAttribute("min", now);
-                    inputCheckin.value = now
-
                     getDateCheckout();
 
                     inputCheckin.addEventListener("change", function () {
@@ -235,13 +220,6 @@
                         let total = (daysDiff == 0 ? 1 : daysDiff ) * priceOfDay * 0.9;
                         totalDom.textContent = total.toLocaleString();
                     })
-
-                    function getDateCheckout() {
-                        const dateMin = new Date(inputCheckin.value).toISOString().split('T')[0];
-
-                        inputCheckout.setAttribute("min", dateMin)
-                        inputCheckout.value = dateMin
-                    }
                 </script>
             </section>
         </div>

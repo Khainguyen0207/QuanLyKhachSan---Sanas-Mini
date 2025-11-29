@@ -25,6 +25,12 @@ namespace QuanLyKhachSan.Helpers
                 do
                 {
                     fileName = BaseHelper.RandomString(20) + extension;
+
+                    if (! Directory.Exists(RootPath))
+                    {
+                        Directory.CreateDirectory(RootPath);
+                    }
+
                     PathAvatar = RootPath + fileName;
                 }
                 while (File.Exists(PathAvatar));

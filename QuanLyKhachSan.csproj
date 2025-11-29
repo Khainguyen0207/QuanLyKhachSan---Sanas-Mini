@@ -1352,6 +1352,7 @@
     <Content Include="Views\Room\DetailRoom.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\Detail.cshtml" />
+    <None Include="Web.config.example" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

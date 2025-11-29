@@ -4,6 +4,13 @@
 
 Tài liệu này hướng dẫn quá trình cài đặt, restore NuGet packages, xử lý lỗi sai đường dẫn `packages`, và cấu hình file môi trường sau khi clone project.
 
+Sau khi clone về
+copy web.example.config đổi tên thành web.config sau đó cấu hình đúng với SQL Server của máy
+
+```powershell
+copy /Y web.example.config web.config
+```
+
 ---
 
 ## 1. Restore NuGet Packages

@@ -163,6 +163,7 @@
     <Compile Include="Requests\ResortFilterRequest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="Content\assets\admin\js\app.js" />
     <Content Include="Content\assets\admin\js\button-action.js" />
     <Content Include="Content\assets\admin\js\form.js" />
@@ -1319,6 +1320,7 @@
     <None Include="Models\QuanLyKhachSan.dbml.layout">
       <DependentUpon>QuanLyKhachSan.dbml</DependentUpon>
     </None>
+    <Content Include="README.md" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -1358,9 +1360,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Upload\Avatar\" />
-    <Folder Include="Content\Upload\Files\" />
-    <Folder Include="Content\Upload\Images\" />
+    <Folder Include="Content\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,0 +1,201 @@
+﻿@{
+    var id = ViewBag.Id;
+    ViewBag.Title = "Chi tiết khuyến mãi";
+}
+
+<style>
+    .promo-banner {
+        width: 100%;
+        height: 350px;
+        border-radius: 20px;
+        object-fit: cover;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+    }
+
+    .section-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: #0F294D;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    .time-box {
+        background: #E8F4FF;
+        padding: 18px;
+        border-radius: 14px;
+        border-left: 6px solid #1BA0E2;
+        box-shadow: 0px 4px 18px rgba(0,0,0,0.08);
+        font-size: 17px;
+        line-height: 1.5;
+        margin-bottom: 35px;
+    }
+
+    .sub-banner {
+        height: 180px;
+        object-fit: cover;
+        border-radius: 16px;
+        transition: 0.3s;
+    }
+
+        .sub-banner:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+    .voucher-card {
+        border-radius: 14px;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        transition: 0.25s ease;
+        height: 100%;
+    }
+
+        .voucher-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+    .voucher-title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .coupon-input {
+        border: 1px solid #cbd6e2;
+        padding: 10px;
+        border-radius: 8px;
+        width: 100%;
+        margin-top: 15px;
+        font-weight: 600;
+        color: #084B83;
+        background: #F6FAFF;
+    }
+
+    .copy-btn {
+        background: #1BA0E2;
+        color: white;
+        border: none;
+        padding: 8px 22px;
+        border-radius: 10px;
+        transition: 0.2s;
+    }
+
+        .copy-btn:hover {
+            background: #007FCA;
+        }
+</style>
+
+<div class="container py-4">
+
+    <h1 class="text-center fw-bold mb-4" style="color:#0A3D62;">
+        🎉 Chương trình khuyến mãi HOT #@id – Giảm giá cực sốc!
+    </h1>
+
+    <img src="https://picsum.photos/1200/450?random=@id"
+         class="promo-banner mb-4" />
+
+    <div class="time-box">
+        ⏳ <strong>Thời gian áp dụng:</strong> <br />
+        Từ <strong>01/12/2024</strong> đến <strong>31/12/2024</strong>. <br />
+        👉 Áp dụng cho các booking tạo mới trong thời gian trên.
+    </div>
+
+    <h3 class="section-title">✨ Mô tả chương trình</h3>
+
+    <p style="font-size:17px; line-height:1.7;">
+        Đây là chương trình ưu đãi cực hấp dẫn với mức giảm lên đến
+        <strong style="color:#E74C3C;">30%</strong> cho mọi loại phòng.
+    </p>
+
+    <ul style="font-size:17px; padding-left: 20px;">
+        <li>🎁 Tặng voucher dịch vụ trị giá 200.000đ</li>
+        <li>🚐 Miễn phí shuttle bus sân bay</li>
+        <li>🏊 Sử dụng hồ bơi &amp; gym miễn phí</li>
+    </ul>
+
+    <h3 class="section-title">🔥 Các ưu đãi nổi bật đi kèm</h3>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <img src="https://picsum.photos/600/300?random=201" class="sub-banner" />
+        </div>
+        <div class="col-md-4">
+            <img src="https://picsum.photos/600/300?random=202" class="sub-banner" />
+        </div>
+        <div class="col-md-4">
+            <img src="https://picsum.photos/600/300?random=203" class="sub-banner" />
+        </div>
+    </div>
+
+    <h3 class="section-title mt-5">
+        🎁 Mã Ưu Đãi Tặng Bạn Mới
+    </h3>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="voucher-card d-flex flex-column">
+                <div class="d-flex gap-2 align-items-start mb-2">
+                    <span style="font-size:22px;">⭐</span>
+                    <p class="voucher-title mb-0">Giảm 20,000 cho lần đặt vé máy bay đầu tiên</p>
+                </div>
+                <p class="text-muted flex-grow-1">Áp dụng cho lần đặt đầu tiên trên app.</p>
+
+                <input class="coupon-input" value="TVLKBANMOI" readonly />
+                <button type="button" class="copy-btn mt-2">Copy</button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="voucher-card d-flex flex-column">
+                <div class="d-flex gap-2 align-items-start mb-2">
+                    <span style="font-size:22px;">🏨</span>
+                    <p class="voucher-title mb-0">Giảm đến 200k cho đặt phòng khách sạn đầu tiên</p>
+                </div>
+                <p class="text-muted flex-grow-1">Áp dụng cho khách hàng mới.</p>
+
+                <input class="coupon-input" value="TVKHOINEW" readonly />
+                <button type="button" class="copy-btn mt-2">Copy</button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="voucher-card d-flex flex-column">
+                <div class="d-flex gap-2 align-items-start mb-2">
+                    <span style="font-size:22px;">🎡</span>
+                    <p class="voucher-title mb-0">Giảm 8% cho lần đặt vé tham quan</p>
+                </div>
+                <p class="text-muted flex-grow-1">Không áp dụng kèm ưu đãi khác.</p>
+
+                <input class="coupon-input" value="TVLKTQ8" readonly />
+                <button type="button" class="copy-btn mt-2">Copy</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var input = this.previousElementSibling;
+            if (!input) return;
+
+            input.select();
+            input.setSelectionRange(0, 99999);
+
+            try {
+                navigator.clipboard.writeText(input.value);
+            } catch (e) {
+                document.execCommand('copy');
+            }
+
+            var oldText = this.innerText;
+            this.innerText = 'Đã copy';
+            setTimeout(() => this.innerText = oldText, 1500);
+        });
+    });
+</script>

@@ -90,6 +90,11 @@
             header.site-menu-header.shrink .navbar {
                 padding: .5rem 0;
             }
+
+        .button-has-icon {
+            display: flex;
+            gap: 5px;
+        }
     </style>
 }
 @section MenuSecondary {
@@ -312,7 +317,8 @@
                                 <span>Bàn làm việc &amp; ghế ergonomics</span>
                             </span>
                             <span class="room-amenities-more">
-                            <span>+3 tiện nghi khác</span></span>
+                                <span>+3 tiện nghi khác</span>
+                            </span>
                         </div>
 
                         <div class="room-detail-table">
@@ -385,32 +391,89 @@
                     </article>
                 </div>
             </section>
-            <!-- RATING -->
-            <section id="rating" class="rd-section reveal" data-section>
+
+            <section id="room-available" class="rd-section reveal" data-section>
                 <div class="section-header">
-                    <h2 class="section-title">Đánh giá & trải nghiệm</h2>
-                    <p class="section-subtitle">
-                        Điểm số được tổng hợp từ các lượt lưu trú đã xác minh, không phải nhận xét "ảo".
-                    </p>
+                    <h2 class="section-title">Những phòng tương tự tại <span class="text-primary">@resort.name</span></h2>
+                    <p class="section-subtitle"><a href="@Url.Action("Index", "Room")" class="text-primary text-decoration-underline">Xem tất cả</a></p>
                 </div>
+                <div class="row">
+                    @foreach (QuanLyKhachSan.Models.RoomViewModel room in ViewBag.Rooms)
+                    {
+                        if(room.Room.id == Model.id)
+                        {
+                            continue;
+                        }
 
-                <div class="rating-grid">
-                    <div class="rating-summary">
-                        <div class="rating-score-row">
-                            <div class="rating-score-main" id="rating-overall-score">9.0<span>/10</span></div>
-                        </div>
-                        <div class="rating-label" id="rating-overall-label">Xuất sắc</div>
-                        <p class="rating-text" id="rating-total-text">Dựa trên ... đánh giá</p>
-                        <div class="rating-stars">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                    </div>
+                        <div class="col-lg-4 col-md-6 g-3">
+                            <a href="@Url.Action("Details", "Room", new { id = room.Room.id, from = ViewBag.CheckIn, to = ViewBag.CheckOut })" class="text-decoration-none">
 
-                    <div class="rating-detail-list" id="rating-categories">
-                        <!-- JS -->
-                    </div>
+                                <div class="card rounded-4 p-0">
+                                    <div class="p-3">
+                                        <img src="@Url.Content("~/Content/Upload/Images/" + room.Room.thumbnail)"
+                                             class="w-100 rounded-3 detail-img" alt="thumbnail" style=" max-height: 250px; object-fit: cover;">
+                                    </div>
+                                    <div class="card-body p-3 pt-0">
+                                        <h6 class="card-title fw-bold text-black">@room.Room.name</h6>
+                                        <div class="p-3 pt-0 pb-0">
+                                            <p class="mb-1 text-info fw-bold text-decoration-underline">
+                                                <i class="fa-solid fa-location-dot"></i>
+                                                @resort.address
+                                            </p>
+                                            <ul class="list-unstyled text-success list-option-benefit">
+                                                <li class="button-has-icon">
+                                                    <span>
+                                                        <img src="@Url.Content("~/Content/assets/icon-images/tick-success.png")"
+                                                             alt="tick-success">
+                                                    </span>
+                                                    <span class="fw-bold">Miễn phí hủy</span>
+                                                </li>
+                                                <li class="button-has-icon">
+                                                    <span>
+                                                        <img src="@Url.Content("~/Content/assets/icon-images/tick-success.png")"
+                                                             alt="tick-success">
+                                                    </span>
+                                                    <span class="fw-bold">Không cọc trước</span>
+                                                </li>
+                                            </ul>
+                                            <p class="fw-bold" style="color: #f47c0e;">Từ: @string.Format("{0:N0}VNĐ", room.Room.price) </p>
+                                        </div>
+                                        <div class="text-end">
+                                            <a href="@Url.Action("Details", "Room", new { id = room.Room.id, from = ViewBag.CheckIn, to = ViewBag.CheckOut })" class="see-more btn btn-primary rounded-4">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
                 </div>
             </section>
+                <!-- RATING -->
+                <section id="rating" class="rd-section reveal" data-section>
+                    <div class="section-header">
+                        <h2 class="section-title">Đánh giá & trải nghiệm</h2>
+                        <p class="section-subtitle">
+                            Điểm số được tổng hợp từ các lượt lưu trú đã xác minh, không phải nhận xét "ảo".
+                        </p>
+                    </div>
+
+                    <div class="rating-grid">
+                        <div class="rating-summary">
+                            <div class="rating-score-row">
+                                <div class="rating-score-main" id="rating-overall-score">9.0<span>/10</span></div>
+                            </div>
+                            <div class="rating-label" id="rating-overall-label">Xuất sắc</div>
+                            <p class="rating-text" id="rating-total-text">Dựa trên ... đánh giá</p>
+                            <div class="rating-stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                        </div>
+
+                        <div class="rating-detail-list" id="rating-categories">
+                            <!-- JS -->
+                        </div>
+                    </div>
+                </section>
         </div>
     </main>
     <div class="lightbox" id="lightbox">

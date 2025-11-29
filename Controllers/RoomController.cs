@@ -177,7 +177,9 @@ namespace QuanLyKhachSan.Controllers
                 .Where(b => b.check_in < to && b.check_out > from)
                 .Count();
 
-            var room = db.Rooms.FirstOrDefault(r => r.id == id);
+            var DataRoom = db.Rooms.AsQueryable();
+
+            var room = DataRoom.FirstOrDefault(r => r.id == id);
 
             room.quantity -= CountConflicts;
 
@@ -187,9 +189,21 @@ namespace QuanLyKhachSan.Controllers
             }
 
             var resort = db.Resorts.FirstOrDefault(r => r.id == room.resort_id);
+
+            var rooms = db.Rooms.Where(m => m.resort_id == resort.id)
+                .Take(6)
+                .Select(r => new RoomViewModel
+            {
+                Room = r,
+                address = resort.address
+            }).ToList();
+
             ViewBag.Resort = resort;
+            ViewBag.Rooms = rooms;
             ViewBag.From = from;
             ViewBag.To = to;
+            ViewBag.CheckIn = from.ToString("yyyy-MM-dd");
+            ViewBag.CheckOut = to.ToString("yyyy-MM-dd");
 
             return View(room);
         }

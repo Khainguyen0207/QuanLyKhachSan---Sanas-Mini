@@ -98,7 +98,7 @@
             <div class="brand">
                 <img src="@Url.Content("~/Content/Upload/Images/" + resort.thumbnail)" alt="Alternate Text" style=" border-radius: 10px;  max-height: 40px;" />
                 <div>
-                    <h1>Sanas </h1>
+                    <h1>Sanas</h1>
                     <div class="sub">@resort.name — @Model.name</div>
                 </div>
             </div>
@@ -336,26 +336,50 @@
                             </div>
 
                             <div class="room-price-block">
+                                @if (ViewBag.From != null && @ViewBag.To != null)
+                                {
+                                    <div class="text-black">
+                                        <span class="border-bottom fw-bold">Thời điểm khách vào và ra</span>
+                                        <p class="mb-0">Từ Ngày: @ViewBag.From.ToShortDateString()</p>
+                                        <p class="mb-0">Đến Ngày: @ViewBag.To.ToShortDateString()</p>
+                                    </div>
+                                }
                                 <div class="room-price-main" id="room-price">@string.Format("{0:N0}đ / đêm", Model.price)</div>
+
                                 <div class="room-price-caption">Chưa bao gồm thuế và các khoản phụ thu.</div>
                                 <div class="room-price-badge">
                                     <span>+ COUPON 200K</span>
+                                </div>
+                                <div class="d-block my-2">
+                                    <a href="@Url.Action("Index", "Room")" class="btn btn-primary rounded-5" style="font-size: .8rem">Thay đổi thời gian vào và ra</a>
+
                                 </div>
                             </div>
                         </div>
 
                         <div class="room-footer">
                             <div class="room-cta">
-                                <button class="btn-primary-lg" id="room-book-btn">
-                                    <span>Đặt phòng</span>
-                                    <span>›</span>
-                                </button>
+                                @if (@Model.quantity < 1)
+                                {
+                                    <button class="btn-primary-lg" disabled>
+                                        <span>Hết phòng</span>
+                                        <span>›</span>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <a class="btn-primary-lg" href="@Url.Action("Book", "Booking", new {roomId = Model.id, from = ViewBag.From, to = ViewBag.To})">
+                                        <span>Đặt phòng</span>
+                                        <span>›</span>
+                                    </a>
+                                }
+
                                 <button class="rd-btn-ghost" type="button">
                                     Xem chính sách hủy
                                 </button>
                             </div>
-                            <div class="room-qty-text" id="room-quantity-text">
-                                Còn @Model.quantity phòng trên hệ thống.
+                            <div class="room-qty-text w-100 mt-3" id="room-quantity-text">
+                                <p>Còn @Model.quantity phòng trên hệ thống</p>
                             </div>
                         </div>
                     </article>

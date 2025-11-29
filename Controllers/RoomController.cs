@@ -1,31 +1,20 @@
 ﻿using QuanLyKhachSan.Models;
 using QuanLyKhachSan.Requests;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
-using System.Web.Security;
-using System.Web.Services.Description;
-using System.Web.WebPages;
 
 namespace QuanLyKhachSan.Controllers
 {
     public class RoomController : BaseController
     {
-        QuanLyKhachSanDataContext db;
         private const int PerPage = 12;
 
-        public RoomController()
-        {
-            string conn = ConfigurationManager.ConnectionStrings["QLKSConnectionString"].ConnectionString;
-            db = new QuanLyKhachSanDataContext(conn);
-        }
+        public RoomController() {}
 
         public ActionResult Index(ResortFilterRequest filter)
         {
@@ -53,6 +42,7 @@ namespace QuanLyKhachSan.Controllers
             if (! string.IsNullOrWhiteSpace(filter.Search))
             {
                 string keyword = filter.Search.Trim();
+
                 rooms = rooms.Where(r =>
                     r.name.Contains(keyword) ||
                     r.description.Contains(keyword) ||
@@ -67,9 +57,7 @@ namespace QuanLyKhachSan.Controllers
 
                 if (parts.Length >= 1)
                 {
-                    int from;
-                    int to;
-
+                    int from, to;
                     // parse mềm, tránh văng exception
                     int.TryParse(parts[0].Trim(), out from);
 
@@ -82,7 +70,7 @@ namespace QuanLyKhachSan.Controllers
                         else
                         {
                             rooms = rooms.Where(r => r.price >= from && r.price <= to);
-                        }
+                        }   
                     }
                     else
                     {
@@ -105,6 +93,18 @@ namespace QuanLyKhachSan.Controllers
             if (filter.Quantity.HasValue)
             {
                 rooms = rooms.Where(m => m.quantity >= filter.Quantity);
+            }
+
+            // -------------------- [ Lọc theo khoảng còn phòng ] --------------------
+            if (checkin != null && checkout != null)
+            {
+               
+                rooms = rooms.Where(m => m.quantity > 
+                    db.Bookings
+                       .Where(b => b.room_id == m.id)
+                       .Where(b => b.check_in < checkout && b.check_out > checkin)
+                       .Count()
+                );
             }
 
             // -------------------- [ Sắp xếp ] --------------------
@@ -160,10 +160,26 @@ namespace QuanLyKhachSan.Controllers
 
 
         // -------------------- [ GET: Chi tiết phòng ] --------------------
-        public ActionResult Details(int id = -1)
+        public ActionResult Details(int id = -1, DateTime from = default(DateTime), DateTime to = default(DateTime))
         {
-            //, DateTime checkin, DateTime checkout
+            if (from == default || from < DateTime.Now)
+            {
+                from = DateTime.Now.AddDays(1);
+            }
+
+            if (to == default || to < from)
+            {
+                to = from.AddDays(1);
+            }
+
+            int CountConflicts = db.Bookings
+                .Where(b => b.room_id == id)
+                .Where(b => b.check_in < to && b.check_out > from)
+                .Count();
+
             var room = db.Rooms.FirstOrDefault(r => r.id == id);
+
+            room.quantity -= CountConflicts;
 
             if (room == null)
             {
@@ -172,6 +188,8 @@ namespace QuanLyKhachSan.Controllers
 
             var resort = db.Resorts.FirstOrDefault(r => r.id == room.resort_id);
             ViewBag.Resort = resort;
+            ViewBag.From = from;
+            ViewBag.To = to;
 
             return View(room);
         }

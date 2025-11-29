@@ -1157,7 +1157,6 @@
     <Content Include="Content\Images\img2.jpg" />
     <Content Include="Content\Images\img3.jpg" />
     <Content Include="Content\Images\img4.jpg" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -1351,10 +1350,7 @@
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
-    <Content Include="Views\Resort\Index.cshtml" />
-    <Content Include="Views\Resort\CreateResort.cshtml" />
     <Content Include="Web.config.example" />
-    <Content Include="Views\Room\DetailRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

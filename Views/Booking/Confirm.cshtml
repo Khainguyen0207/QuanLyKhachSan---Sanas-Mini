@@ -128,14 +128,15 @@
                         </div>
 
                         @{
-                            List<string> amenities = room.room_amenities.Split(',').ToList();
                             List<string> colors = new List<string> { "red", "green", "text-primary", "text-info" };
                             int i = 0;
 
+                            var amenities = Json.Decode(room.room_amenities) as System.Web.Helpers.DynamicJsonArray;
+
                             <ul class="features">
-                                @foreach (string amenitie in amenities)
+                                @foreach (dynamic amenitie in amenities)
                                 {
-                                    <li class="@colors[i]">@amenitie</li>
+                                    <li class="@colors[i]">@amenitie.value</li>
 
                                     if (i == colors.Count - 1)
                                     {
@@ -146,6 +147,7 @@
                                         i++;
                                     }
                                 }
+
                             </ul>
                         }
 
@@ -190,17 +192,17 @@
                     </div>
                     <div class="price-row">
                         <div>Ngày vào dự kiến</div>
-                        <div>@ViewBag.Checkin.ToString("dd/MM/yyyy")</div>
+                        <div>@ViewBag.CheckIn.ToShortDateString()</div>
                     </div>
                     <div class="price-row">
                         <div>Ngày ra dự kiến</div>
-                        <div>@ViewBag.Checkout.ToString("dd/MM/yyyy")</div>
+                        <div>@ViewBag.CheckOut.ToShortDateString()</div>
                     </div>
                     <div class="line"></div>
                     <div class="price-row total-price">
                         <div>Tổng cộng</div>
                         <div style="color: #28a745 !important">
-                            <span class="total" style="color: #28a745 ">@string.Format("{0:N0}", (decimal)ViewBag.Days * room.price * 0.9m)</span>
+                            <span class="total" style="color: #28a745 ">@string.Format("{0:N0}", (decimal) ViewBag.Days * room.price * 0.9m)</span>
                             <span>VNĐ</span>
                         </div>
                     </div>

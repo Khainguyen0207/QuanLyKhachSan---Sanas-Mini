@@ -115,14 +115,16 @@
                         </div>
 
                         @{
-                            List<string> amenities = room.room_amenities.Split(',').ToList();
                             List<string> colors = new List<string> { "red", "green", "text-primary", "text-info" };
                             int i = 0;
 
+                            var amenities = Json.Decode(room.room_amenities) as System.Web.Helpers.DynamicJsonArray;
+
                             <ul class="features">
-                                @foreach (string amenitie in amenities)
+                                @foreach (dynamic amenitie in amenities)
                                 {
-                                    <li class="@colors[i]">@amenitie</li>
+                                    <li class="@colors[i]">@amenitie.value</li>
+
 
                                     if (i == colors.Count - 1)
                                     {
@@ -133,6 +135,7 @@
                                         i++;
                                     }
                                 }
+
                             </ul>
                         }
 
@@ -172,7 +175,7 @@
                     <div class="price-row">
                         <div>Số Ngày</div>
                         <div>
-                            <span class="number-of-days">1</span>
+                            <span class="number-of-days">@ViewBag.Days</span>
                             <span>Ngày</span>
                         </div>
                     </div>
@@ -180,7 +183,7 @@
                     <div class="price-row total-price">
                         <div>Tổng cộng</div>
                         <div style="color: #28a745 !important">
-                            <span class="total" style="color: #28a745 ">@string.Format("{0:N0}", room.price * 0.9m)</span>
+                            <span class="total" style="color: #28a745 ">@string.Format("{0:N0}", room.price * decimal.Parse(ViewBag.Days.ToString()) * 0.9m )</span>
                             <span>VNĐ</span>
                         </div>
                     </div>
@@ -192,35 +195,6 @@
                     </button>
                     <div class="not-charged">Bạn sẽ không bị tính phí nữa.</div>
                 </div>
-
-                <script>
-                    const date = new Date();
-                    const inputCheckin = document.querySelector('input[name="checkin"]');
-                    const days = document.querySelector('span.number-of-days');
-                    const inputCheckout = document.querySelector('input[name="checkout"]');
-
-                    const now = date.toISOString().split('T')[0];
-                    getDateCheckout();
-
-                    inputCheckin.addEventListener("change", function () {
-                        getDateCheckout()
-                    })
-
-                    inputCheckout.addEventListener("change", function () {
-                        const checkin = new Date(inputCheckin.value);
-                        const checkout = new Date(inputCheckout.value);
-                        let daysDiff = (checkout - checkin) / (1000 * 60 * 60 * 24);
-                        daysDiff = (daysDiff == 0 ? 1 : daysDiff);
-
-                        const priceOfDay = Math.round(@room.price);
-
-                        days.textContent = Math.round(daysDiff);
-
-                        const totalDom = document.querySelector(".total-price .total")
-                        let total = (daysDiff == 0 ? 1 : daysDiff ) * priceOfDay * 0.9;
-                        totalDom.textContent = total.toLocaleString();
-                    })
-                </script>
             </section>
         </div>
     </section>

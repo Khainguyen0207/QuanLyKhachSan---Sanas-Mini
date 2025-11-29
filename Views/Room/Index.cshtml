@@ -213,7 +213,7 @@
                                                         <p class="fw-bold" style="color: #f47c0e;">Từ: @string.Format("{0:N0}VNĐ", room.Room.price) </p>
                                                     </div>
                                                     <div class="text-end">
-                                                        <a href="@Url.Action("Details", "Room", new { id = room.Room.id })" class="see-more btn btn-primary rounded-4">Xem chi tiết</a>
+                                                        <a href="@Url.Action("Details", "Room", new { id = room.Room.id, from = ViewBag.CheckIn, to = ViewBag.CheckOut })" class="see-more btn btn-primary rounded-4">Xem chi tiết</a>
                                                     </div>
                                                 </div>
                                             </div>

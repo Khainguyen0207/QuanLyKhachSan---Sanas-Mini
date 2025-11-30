@@ -1,0 +1,880 @@
+﻿@model IEnumerable<QuanLyKhachSan.Models.Booking>
+@using QuanLyKhachSan.Models
+
+@{
+    Resort resort = ViewBag.Resort as Resort;
+
+    ViewBag.Title = "Resort Celendar " + resort.name;
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Lịch đặt phòng tại <span class="text-success fw-bold">@resort.name</span></h4>
+
+                <div class="celendar" data-fd-component="celendar">
+                    <div class="console-schedular">
+                        <div class="schedular-filters d-block">
+                            <div class="vehicle-type w-100 container">
+                                <form action="/" method="get">
+                                    <div class="row justify-content-between">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="fw-semibold">Resort:</label>
+                                            <select name="resortId" class="form-select w-auto ">
+                                                <option value="">Tất cả</option>
+                                                @foreach (QuanLyKhachSan.Models.Room room in ViewBag.Rooms)
+                                                {
+                                                    <option value="@room.id" @(ViewBag.RoomId != null && ViewBag.RoomId == room.id ? "selected" : "")>@room.name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="fw-semibold">From:</label>
+                                            <input type="text" class="w-auto form-select" name="from" data-fd-component="flatpickr-month" data-flatpickr-mode="range" data-flatpickr-minDate="today" value="@(DateTime.Now.Month)"/>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="fw-semibold">To:</label>
+                                            <input type="text" class="w-auto form-select" name="to" data-fd-component="flatpickr-month" data-flatpickr-mode="range" data-flatpickr-minDate="today" value="@(DateTime.Now.Month + 1)"/>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary rounded-3">Tìm kiếm</button>
+                                </form>
+                            </div>
+                        </div> <!-- Schedular Filters -->
+
+                        <div class="schedular-body">
+                            <div class="main-schedular">
+                                <div class="grids">
+                                    <div class="grids-head">
+                                        @{
+                                            int year = DateTime.Now.Year;
+                                            int month = DateTime.Now.Month;
+
+                                            var days = Enumerable
+                                                .Range(1, DateTime.DaysInMonth(year, month))
+                                                .Select(i => new DateTime(year, month, i))
+                                                .ToList();
+                                        }
+
+                                        @foreach (var d in days)
+                                        {
+                                            <div class="timeslot">@d.ToString("dd/MM/yyyy")</div>
+                                        }
+                                    </div>
+                                    <div class="grids-body">
+                                        <!--<div class="ride resize butNotHere maintenance" style="width: 202px; left: 102px; top: 184px">
+        <div class="other-info">
+            <i class="ion-settings"></i>
+            <span>Maintenance</span>
+        </div>
+    </div>
+
+    <div class="ride resize butNotHere return" style="width:304px; left: 510px; top:93px;">
+        <div class="other-info">
+            <i class="ion-arrow-return-left"></i>
+            <span>Return To Base</span>
+        </div>
+    </div>
+    <div class="ride resize butNotHere" style="width:304px">
+        <div class="passenger-info complete-add scrolly">
+
+            <ul>
+                <li><i class="ion-ios-location-outline"></i> Estate of Jane Meriweather C/O Hawaiian Trust Company Honolulu, HI 96801-1234</li>
+            </ul>
+        </div>
+        <div class="passenger-info scrolly">
+            <ul>
+                <li><i class="ion-android-person"></i> <strong class="pass-name">Mr. John Smith</strong></li>
+                <li><i class="ion-ios-telephone-outline"></i> <span class="pass-contact">718-444-665</span></li>
+                <li><a class="show-add" href="#" title=""> <i class="ion-ios-location-outline"></i> <span class="pass-loc">Estate of Jane Meriweather C/O Hawaiian Trust Company Honolulu, HI 96801-1234</span></a></li>
+            </ul>
+        </div>
+        <div class="assign-driver">
+            <span>Driver Not Assigned</span>
+            <a class="custom-btn" data-toggle="modal" data-target="#assign-driver" href="#" title=""><i class="ion-android-person-add"></i> Assign Driver</a>
+        </div>
+    </div>-->
+                                        <!-- Ride -->
+                                        @{
+                                            int top = 4;
+                                            int left = 0;
+                                            int width = 100;
+                                        }
+
+                                        @foreach (Booking booking in Model)
+                                        {
+                                            int dayIn = booking.check_in.Day;
+                                            int dayOut = booking.check_out.Day;
+
+                                            // Số ngày trống trước khi bắt đầu
+                                            int gapBefore = (dayIn - 1);
+                                            int gapBeforePx = gapBefore * 100; // mỗi ngày 100px
+
+                                            // Tổng số ngày booking
+                                            int totalDays = (dayOut - dayIn);
+                                            int widthPxCalc = totalDays * 100;
+
+                                            string leftPx = $"{gapBeforePx}px";
+                                            string widthPx = $"{widthPxCalc}px";
+
+                                            <div class="ride resize butNotHere assigned" style="left: @leftPx; width: @widthPx; top: 2px;">
+                                                <div class="passenger-info complete-add scrolly">
+                                                    <ul>
+                                                        <li><i class="ion-ios-location-outline"></i>KH: @booking.name</li>
+                                                        <li><i class="ion-ios-location-outline"></i>Phòng: @booking.Room.name</li>
+                                                        <li><i class="ion-ios-location-outline"></i>Nơi: @booking.Resort.name</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="passenger-info scrolly">
+                                                    <ul>
+                                                        <li><i class="ion-android-person"></i> <strong class="pass-name">@booking.Room.name</strong></li>
+                                                        <li>
+                                                            <i class="ion-ios-telephone-outline"></i>
+                                                            <span class="pass-contact">Khách hàng: @booking.Resort.name</span>
+                                                        </li>
+                                                        <li>
+                                                            <a class="show-add" href="#" title="">
+                                                                <i class="ion-ios-location-outline"></i> <span class="pass-loc">
+                                                                    @booking.Resort.address
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="driver-info">
+                                                    <ul>
+                                                        <li>
+                                                            <img src="@Url.Content("~/Content/assets/images/default-avatar.png" )"> <i class="ion-android-person"></i>
+                                                            <strong class="driver-name">Khách hàng: @booking.name</strong>
+                                                        </li>
+                                                        <li><i class="ion-ios-clock-outline"></i> <span>Check In: @booking.check_in</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @for (int j = 0; j < 4; j++)
+                                        {
+                                            <div class="grids-row">
+                                                @for (int i = 0; i < days.Count; i++)
+                                                {
+                                                    <div class="timeslot"> + </div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Schedular Body -->
+                    </div><!-- console Schedular -->
+
+                    <!--<div class="ride-menu new-ride">
+                        <div class="menu-title">
+                            <h4>New Ride</h4>
+                            <p>Select Below An Action To Perform</p>
+                        </div>
+                        <ul>
+                            <li><a class="new-ride" data-toggle="modal" data-target="#add-new" href="#" title=""><i class="ion-model-s"></i> Add A New Ride</a></li>
+                            <li><a data-rideclass="return" class="other-info-btn" href="#" title=""><i class="ion-arrow-return-left"></i> <span>Return To Base</span></a></li>
+                            <li><a data-rideclass="maintenance" class="other-info-btn" href="#" title=""><i class="ion-settings"></i> <span>Maintenance</span></a></li>
+                            <li><a data-rideclass="preparation" class="other-info-btn" href="#" title=""><i class="ion-pinpoint"></i> <span>Preparation</span></a></li>
+                            <li><a data-rideclass="service" class="other-info-btn" href="#" title=""><i class="ion-pull-request"></i> <span>Vehicle Service</span></a></li>
+                            <li class="bordered"><a href="#" title=""><i class="ion-android-cancel"></i> Cancel</a></li>
+                        </ul>
+                    </div>--><!-- New Ride Menu -->
+
+
+                    <!--<div class="ride-menu ride-opts">
+                        <div class="ride-options">
+                            <ul>
+                                <li><a class="edit-ride" href="#" title=""><i class="ion-edit"></i> Edit Ride</a></li>
+                                <li><a class="delete-ride" href="#" title=""><i class="ion-android-remove-circle"></i> Delete Ride</a></li>
+                            </ul>
+                        </div>--><!-- Ride Options -->
+                    <!--</div>-->
+
+                    <!-- New Ride  -->
+                    <!--<div class="modal custom-modal" id="add-new">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form class="custom-form" id="add-ride" name="Form">
+                                    <div class="modal-header">
+                                        <div class="modal-title">
+                                            <h4>New Ride</h4>
+                                            <span>Fill The Form Below To Add A New Ride</span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label class="col-lg-5 col-md-12  col-form-label">Passenger's Name</label>
+                                            <div class="col-lg-7 col-md-12">
+                                                <input id="pass-name" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-5 col-md-12  col-form-label">Contact #:</label>
+                                            <div class="col-lg-7 col-md-12">
+                                                <input id="pass-contact" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-5 col-md-12  col-form-label">Pickup Location:</label>
+                                            <div class="col-lg-7 col-md-12">
+                                                <textarea id="pass-loc" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="custom-btn ride-cancel color2"><i class="ion-android-cancel"></i> Cancel Ride</button>
+                                        <button class="custom-btn add-ride-btn" type="submit"><i class="ion-android-add-circle"></i> Add A Ride</button>
+                                        <button class="custom-btn hidden edit-ride-btn" type="submit"><i class="ion-android-add-circle"></i> Edit Ride</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>-->
+
+
+                    <!-- Assign Driver  -->
+                    <div class="modal custom-modal" id="assign-driver">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form class="custom-form" id="select-driver">
+                                    <div class="modal-header">
+                                        <div class="modal-title">
+                                            <h4>Assign A Driver</h4>
+                                            <span>Assign Driver To This Ride</span>
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table driver-selector custom-table style2">
+                                            <thead>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Name</th>
+                                                    <th>License</th>
+                                                    <th>Weekly Earnings</th>
+                                                    <th>Working Days</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="console-driver-img"><img src="https://picsum.photos/100/100" style="width:30px"></td>
+                                                    <td class="console-driver" drivername="John Smith">John Smith</td>
+                                                    <td>4/5/20</td>
+                                                    <td>$345</td>
+                                                    <td>Mon-Tues-Wed-Thurs</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="console-driver-img"><img src="https://picsum.photos/100/100" style="width:30px"></td>
+                                                    <td class="console-driver" drivername="Bale Disel">Bale Disel</td>
+                                                    <td>5/15/19</td>
+                                                    <td>$564</td>
+                                                    <td>Fri-Sat-Sun</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="console-driver-img"><img src="https://picsum.photos/100/100" style="width:30px"></td>
+                                                    <td class="console-driver" drivername="Macelo Benz">Macelo Benz</td>
+                                                    <td>12/30/20</td>
+                                                    <td>$543</td>
+                                                    <td>Mon-Tues-Wed-Thurs</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#" title="" class="custom-btn cancel-popup color2" data-dismiss="modal"><i class="ion-android-cancel"></i> Cancel</a>
+                                        <button class="custom-btn" type="submit"><i class="ion-android-add-circle"></i> Assign</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Assign Driver  -->
+                    <div class="modal custom-modal" id="change-ride">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form class="custom-form" id="ride-changer">
+                                    <div class="modal-header">
+                                        <div class="modal-title">
+                                            <h4>Edit Ride</h4>
+                                            <span>Edit The Following Ride</span>
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label class="col-lg-5 col-md-12  col-form-label">Edit This Ride</label>
+                                            <div class="col-lg-7 col-md-12">
+                                                <select class="select change-ride">
+                                                    <option value="return">Return</option>
+                                                    <option value="maintenance">Maintenance</option>
+                                                    <option value="preparation">Preparation</option>
+                                                    <option value="service">Service</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#" title="" class="custom-btn color2" data-dismiss="modal"><i class="ion-android-cancel"></i> Cancel</a>
+                                        <button class="custom-btn" type="submit"><i class="ion-android-add-circle"></i> Edit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scriptLast {
+    <script>
+
+        $(window).on("load", function () {
+            // ============================================
+            // SCOPED CALENDAR INSTANCE
+            // ============================================
+            const $cal = $(".celendar");
+
+            // ============================================
+            // 1. DRAGGABLE, RESIZABLE, DROPPABLE
+            // ============================================
+            function initializeRideInteractions() {
+                /*=== Draggable Box ===*/
+                $cal.find(".resize").draggable({
+                    axis: "x,y",
+                    animate: true,
+                    grid: [102, 91],
+                    containment: $cal.find('.grids-body')[0],
+                    scroll: true,
+                    revert: "valid",
+                    refreshPositions: true,
+                    start: function (event, ui) {
+                    },
+                    stop: function (event, ui) {
+                    }
+                });
+
+                /*=== Droppable ===*/
+                $cal.find(".ride").droppable({
+                    tolerance: "touch"
+                });
+
+                var targetPos = [];
+                var sp = "";
+                /*=== Resizable Box ===*/
+                $cal.find(".resize").resizable({
+                    grid: [102, 0],
+                    animate: false,
+                    handles: 'e',
+                    containment: $cal.find('.grids-body')[0],
+                    maxHeight: 77,
+                    minHeight: 77,
+                    start: function (event, ui) {
+                        targetPos = [];
+                        $cal.find('.ride').each(function () {
+                            targetPos.push($(this).position());
+                        });
+                        sp = ui.position.left + ui.size.width;
+                    },
+                    stop: function (event, ui) {
+                        var ep = ui.position.left + ui.size.width;
+                        var tp = ui.position.top;
+                        $.each(targetPos, function (i, e) {
+                            if (targetPos[i].top == tp) {
+                                if (targetPos[i].left > sp && targetPos[i].left < ep) {
+                                    ui.element.css(ui.originalSize);
+                                    setTimeout(function () {
+                                        detectShortRides();
+                                    }, 100);
+                                }
+                            }
+                        });
+                    }
+                });
+
+                /*=== Resizable Stop Event ===*/
+                $cal.find(".resize").on("resizestop", function (event, ui) {
+                    if (ui.size.width <= 204) {
+                        $(this).addClass("short-ride");
+                    } else {
+                        $(this).removeClass("short-ride");
+                    }
+                    setTimeout(function () {
+                        RideTime(ui.element[0]);
+                    }, 400);
+                });
+
+                /*=== Detect Short Rides ===*/
+                function detectShortRides() {
+                    $cal.find(".ride").each(function () {
+                        if ($(this).width() <= 204) {
+                            $(this).addClass("short-ride");
+                        } else {
+                            $(this).removeClass("short-ride");
+                        }
+                    });
+                }
+                detectShortRides();
+
+                /*=== Show/Hide Complete Address ===*/
+                $cal.find(".show-add").on("click", function () {
+                    $(this).parents('.ride').find('.complete-add').fadeIn();
+                    return false;
+                });
+
+                $cal.find(".complete-add").on("click", function () {
+                    $(this).fadeOut();
+                });
+            }
+            initializeRideInteractions();
+
+            // ============================================
+            // 2. NEW RIDE MENU (Right Click)
+            // ============================================
+            $cal.on("click", function (event) {
+                const $target = $(event.target);
+                if ($target.closest(".grids-body .timeslot").length > 0) {
+                    $("#add-ride .modal-title h4").text('New Ride');
+                    $("#pass-name").val("");
+                    $("#pass-contact").val("");
+                    $("#pass-loc").val("");
+                    $("#add-ride .add-ride-btn").show();
+                    $("#add-ride .edit-ride-btn").hide();
+
+                    $(".ride-opts").removeClass("show");
+                    $(".new-ride").addClass("show");
+                    let left = event.target.getBoundingClientRect().left + window.scrollX;
+                    let top = event.target.getBoundingClientRect().top + window.scrollY;
+                    $(".new-ride").css({
+                        "left": left + 50,
+                        "top": top + 30
+                    });
+                } else {
+                    $(".ride-opts").removeClass("show");
+                    $(".new-ride").removeClass("show");
+                    $(".new-ride").css({
+                        "left": 0,
+                        "top": 0
+                    });
+                }
+            });
+
+            // ============================================
+            // 3. CONTEXT MENU - EDIT/DELETE RIDE
+            // ============================================
+            $cal.find(".main-schedular").on("contextmenu", function (e) {
+                e.preventDefault();
+            });
+
+            $cal.find(".ride-options").on("contextmenu", function (e) {
+                e.preventDefault();
+            });
+
+            /*=== Right Click Menu ===*/
+            $cal.on("mousedown", ".grids-body .ride", function (e) {
+                if (e.button == 2) {
+                    $(".new-ride").removeClass("show");
+                    $cal.find(".ride").removeClass("selected");
+                    $(this).addClass("selected");
+                    $(".ride-opts").addClass("show");
+                    let left = $(this).offset().left;
+                    let top = $(this).offset().top;
+                    $(".ride-opts").css({
+                        "left": left + 50,
+                        "top": top + 30
+                    });
+                    return false;
+                }
+                return true;
+            });
+
+            /*=== Delete Ride ===*/
+            $cal.on("click", ".delete-ride", function () {
+                $cal.find(".ride.selected").detach();
+                return false;
+            });
+
+            /*=== Edit Ride Popup Open ===*/
+            $cal.on("click", ".edit-ride", function () {
+                if ($cal.find(".ride.selected").hasClass('maintenance') ||
+                    $cal.find(".ride.selected").hasClass('preparation') ||
+                    $cal.find(".ride.selected").hasClass('return') ||
+                    $cal.find(".ride.selected").hasClass('service')) {
+                    $("#change-ride").modal('show');
+                    $('.change-ride').val('service').trigger('change');
+                } else {
+                    $("#add-new").modal('show');
+                    let name = $cal.find(".ride.selected .passenger-info .pass-name").text();
+                    let contact = $cal.find(".ride.selected .passenger-info .pass-contact").text();
+                    let loc = $cal.find(".ride.selected .passenger-info .pass-loc").text();
+                    $("#add-ride #pass-name").val(name);
+                    $("#add-ride #pass-contact").val(contact);
+                    $("#add-ride #pass-loc").val(loc);
+                    $("#add-ride .modal-title h4").text('Edit Ride');
+                    $("#add-ride .add-ride-btn").hide();
+                    $("#add-ride .edit-ride-btn").show();
+                }
+                return false;
+            });
+
+            // ============================================
+            // 4. TIMESLOT POSITION TRACKING
+            // ============================================
+            var myposleft;
+            var mypostop;
+            $cal.on("click", ".timeslot", function () {
+                myposleft = $(this).offset().left - $cal.find(".grids-body").offset().left - 1;
+                mypostop = $(this).offset().top - $cal.find(".grids-body").offset().top + 2;
+            });
+
+            // ============================================
+            // 5. ADD/EDIT RIDE FORM SUBMISSION
+            // ============================================
+            $('#add-ride').submit(function () {
+                let name = $("#pass-name").val();
+                let contact = $("#pass-contact").val();
+                let date = $("#pass-date").val();
+                let loc = $("#pass-loc").val();
+
+                // If New Ride
+                if ($(".custom-btn:focus").hasClass("add-ride-btn")) {
+                    $cal.find(".grids-body").prepend(`
+                        <div class="ride resize butNotHere" style="left:${myposleft}px; top:${mypostop}px">
+                            <div class="passenger-info complete-add scrolly">
+                                <ul>
+                                    <li><i class="ion-ios-location-outline"></i>${loc}</li>
+                                </ul>
+                            </div>
+                            <div class="passenger-info scrolly">
+                                <ul>
+                                    <li><i class="ion-android-person"></i> <strong class="pass-name">${name}</strong></li>
+                                    <li><i class="ion-ios-telephone-outline"></i> <span class="pass-contact">${contact}</span></li>
+                                    <li><a class="show-add" href="#" title=""> <i class="ion-ios-location-outline"></i> <span class="pass-loc"> ${loc}</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="assign-driver">
+                                <span>Driver Not Assigned</span>
+                                <a class="custom-btn" data-toggle="modal" data-target="#assign-driver" href="#" title=""><i class="ion-android-person-add"></i> Assign Driver</a>
+                            </div>
+                            <div class="short-ride-info">
+                                <ul>
+                                    <li><i class="ion-android-person"></i> <strong class="pass-name">${name}</strong></li>
+                                    <li><i class="ion-ios-telephone-outline"></i> <span class="pass-contact">${contact}</span></li>
+                                    <li><a class="show-add" href="#" title=""> <i class="ion-ios-location-outline"></i> <span class="pass-loc">${loc}</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    `);
+                    initializeRideInteractions();
+                    customScroll();
+                    $("#add-new").modal('hide');
+                    return false;
+                }
+                // If Edit Ride
+                else if ($(".custom-btn:focus").hasClass("edit-ride-btn")) {
+                    $cal.find(".ride.selected .pass-name").text(name);
+                    $cal.find(".ride.selected .pass-contact").text(contact);
+                    $cal.find(".ride.selected .pass-loc").text(loc);
+
+                    $cal.find(".ride.selected").removeClass('selected');
+                    $("#pass-name").val("");
+                    $("#pass-contact").val("");
+                    $("#pass-loc").val("");
+                    $("#add-new").modal('hide');
+                    $("#add-ride .edit-ride-btn").hide();
+                    $("#add-ride .add-ride-btn").show();
+                    $("#add-ride .modal-title h4").text('New Ride');
+                    return false;
+                }
+            });
+
+            /*=== Ride Cancel ===*/
+            $cal.on("click", ".ride-cancel", function () {
+                $cal.find(".ride.selected").removeClass('selected');
+                $("#pass-name").val("");
+                $("#pass-contact").val("");
+                $("#pass-loc").val("");
+                $("#add-new").modal('hide');
+                return false;
+            });
+
+            // ============================================
+            // 6. RIDE CHANGER (Maintenance/Return/Service/Prep)
+            // ============================================
+            /*=== Ride Changer Form ===*/
+            //$("#ride-changer").submit(function () {
+            //    let changedRide = $('.change-ride').select2('data')[0].element.value;
+            //    let rideName = $('.change-ride').select2('data')[0].text;
+            //    $cal.find(".ride.selected .other-info span").html(rideName);
+
+            //    if (rideName == 'Return') {
+            //        $cal.find(".ride.selected .other-info i").attr('class', 'ion-arrow-return-left');
+            //    }
+            //    if (rideName == 'Maintenance') {
+            //        $cal.find(".ride.selected .other-info i").attr('class', 'ion-settings');
+            //    }
+            //    if (rideName == 'Preparation') {
+            //        $cal.find(".ride.selected .other-info i").attr('class', 'ion-pinpoint');
+            //    }
+            //    if (rideName == 'Service') {
+            //        $cal.find(".ride.selected .other-info i").attr('class', 'ion-pull-request');
+            //    }
+            //    $cal.find(".ride.selected").attr('class', "ride resize butNotHere " + changedRide);
+            //    $("#change-ride").modal('hide');
+            //    return false;
+            //});
+
+            /*=== Add Other Info Rides (Return/Maintenance/etc) ===*/
+            $cal.on("click", ".other-info-btn", function () {
+                let iconClass = $(this).find('i').attr("class");
+                let text = $(this).find('span').text();
+                let rideClass = $(this).attr('data-rideclass');
+                $cal.find(".grids-body").prepend(`
+                    <div class="ride resize butNotHere ${rideClass}" style="left:${myposleft}px; top:${mypostop}px">
+                        <div class="other-info">
+                            <i class="${iconClass}"></i>
+                            <span>${text}</span>
+                        </div>
+                    </div>`);
+                initializeRideInteractions();
+                $(".new-ride").removeClass("show");
+                return false;
+            });
+
+            // ============================================
+            // 7. DRIVER ASSIGNMENT
+            // ============================================
+            /*=== Select Ride To Assign Driver ===*/
+            $cal.on("click", 'a[data-target="#assign-driver"]', function () {
+                $cal.find(".ride").removeClass('assign-to-me');
+                $(this).parents('.ride').addClass('assign-to-me');
+                $(".driver-selector tr").removeClass('selected');
+                return false;
+            });
+
+            /*=== Select Driver In Table ===*/
+            $(document).on("click", ".driver-selector tr", function () {
+                $(this).addClass('selected').siblings().removeClass('selected');
+            });
+
+            /*=== Submit Driver Selection ===*/
+            $("#select-driver").submit(function () {
+                let selectedDriver = $(".driver-selector tr.selected td.console-driver").text();
+                let driverImage = $(".driver-selector tr.selected td.console-driver-img img").attr('src');
+
+                $cal.find(".assign-to-me .assign-driver").detach();
+                $cal.find(".assign-to-me").append(`
+                <div class="driver-info">
+                    <ul>
+                        <li><img src="${driverImage}"> <i class="ion-android-person"></i> <strong class="driver-name">${selectedDriver}</strong></li>
+                        <li><i class="ion-ios-clock-outline"></i> <span><i class="hr">02</i>:<i class="mins">02</i>Hours</span></li>
+                    </ul>
+                </div>`);
+
+                RideTime($cal.find(".assign-to-me")[0]);
+
+                $cal.find(".assign-to-me").addClass('assigned').removeClass('assign-to-me');
+
+                if ($cal.find('.ride').hasClass('change-driver')) {
+                    $cal.find(".change-driver .driver-info .driver-name").html(selectedDriver);
+                    $cal.find(".change-driver .driver-info ul li img").attr('src', driverImage);
+                    $cal.find(".change-driver").removeClass('change-driver');
+                    $("#assign-driver .modal-header .modal-title h4").text('Assign A Driver');
+                }
+
+                $("#assign-driver").modal('hide');
+                return false;
+            });
+
+            /*=== Cancel Driver Popup ===*/
+            $cal.on("click", ".cancel-popup", function () {
+                $cal.find(".change-driver").removeClass('change-driver');
+                return false;
+            });
+
+            /*=== Change Driver ===*/
+            $cal.on("click", ".driver-info", function () {
+                $cal.find(".ride").removeClass('change-driver');
+                $(this).parents('.ride').addClass('change-driver');
+                let thisDriver = $(this).find('.driver-name').text();
+                $("#assign-driver .modal-header .modal-title h4").text('Change The Driver');
+                $("#assign-driver").modal('show');
+                $(".driver-selector tr").removeClass('selected');
+                $("td[drivername='" + thisDriver + "']").parents('tr').addClass('selected');
+            });
+
+            // ============================================
+            // 8. INITIAL RIDE INFO & TIME CALCULATION
+            // ============================================
+            $cal.find(".ride").each(function () {
+                if ($(this).hasClass('return') || $(this).hasClass('maintenance') ||
+                    $(this).hasClass('preparation') || $(this).hasClass('service')) {
+                    return true;
+                } else {
+                    // Add Short Ride Info To Each Ride
+                    let name = $(this).find(".passenger-info .pass-name").text();
+                    let contact = $(this).find(".passenger-info .pass-contact").text();
+                    let loc = $(this).find(".passenger-info .pass-loc").text();
+                    $(this).append(`<div class="short-ride-info">
+                        <ul>
+                            <li><i class="ion-android-person"></i> <strong class="pass-name">${name}</strong></li>
+                            <li><i class="ion-ios-telephone-outline"></i> <span class="pass-contact">${contact}</span></li>
+                            <li><i class="ion-ios-location-outline"></i> <span class="pass-loc">${loc}</span></li>
+                        </ul>
+                    </div>`);
+                    RideTime(this);
+                }
+            });
+
+            // ============================================
+            // 9. TIME CALCULATION FUNCTIONS
+            // ============================================
+            function RideTime(thisRide) {
+                let rideWidth = $(thisRide).width();
+                let updateTime = convertPixelToTime(rideWidth);
+
+                function pad2(number) {
+                    return (number < 10 ? '0' : '') + number;
+                }
+
+                $(thisRide).find(".driver-info .hr").text(pad2(updateTime.h));
+                $(thisRide).find(".driver-info .mins").text(pad2(updateTime.m));
+            }
+
+            function convertMiliseconds(miliseconds, format) {
+                var days, hours, minutes, seconds, total_hours, total_minutes, total_seconds;
+
+                total_seconds = parseInt(Math.floor(miliseconds / 1000));
+                total_minutes = parseInt(Math.floor(total_seconds / 60));
+                total_hours = parseInt(Math.floor(total_minutes / 60));
+                days = parseInt(Math.floor(total_hours / 24));
+
+                seconds = parseInt(total_seconds % 60);
+                minutes = parseInt(total_minutes % 60);
+                hours = parseInt(total_hours % 24);
+
+                switch (format) {
+                    case 's':
+                        return total_seconds;
+                    case 'm':
+                        return total_minutes;
+                    case 'h':
+                        return total_hours;
+                    case 'd':
+                        return days;
+                    default:
+                        return { d: days, h: hours, m: minutes, s: seconds };
+                }
+            }
+
+            function convertPixelToTime(pixels) {
+                let onePx = 17647.05882352941;
+                return convertMiliseconds(pixels * onePx);
+            }
+
+            // ============================================
+            // 10. DATE/TIME PICKERS
+            // ============================================
+            setTimeout(function () {
+                $(".xdsoft_today").trigger('click');
+            }, 1000);
+
+            /* === Date Time Picker === */
+            jQuery('.new-datepicker').datetimepicker({
+                validateOnBlur: false,
+                timepicker: false,
+                format: 'M-d-Y',
+                value: new Date(),
+                defaultDate: false,
+                onSelectDate: function (dp, $input) {
+                }
+            });
+
+            jQuery('.datetimepicker').datetimepicker({
+                validateOnBlur: false,
+                format: 'm-d-Y h:i A',
+                value: new Date()
+            });
+
+            jQuery('.timepicker').datetimepicker({
+                validateOnBlur: false,
+                datepicker: false,
+                format: 'h:i A',
+                value: new Date()
+            });
+
+            // ============================================
+            // 11. DATE NAVIGATION
+            // ============================================
+            var month = new Array();
+            month[0] = "Jan";
+            month[1] = "Feb";
+            month[2] = "Mar";
+            month[3] = "Apr";
+            month[4] = "May";
+            month[5] = "Jun";
+            month[6] = "Jul";
+            month[7] = "Aug";
+            month[8] = "Sep";
+            month[9] = "Oct";
+            month[10] = "Nov";
+            month[11] = "Dec";
+
+            $cal.on("click", ".nextDate", function () {
+                let a = $cal.find(".new-datepicker").val();
+                let newDate = new Date(new Date(a).getTime() + (1 * 24 * 60 * 60 * 1000));
+                let date = newDate.getDate();
+                let tempMonth = month[newDate.getMonth()];
+                let year = newDate.getFullYear();
+                $cal.find(".new-datepicker").val(tempMonth + "-" + date + "-" + year);
+                return false;
+            });
+
+            $cal.on("click", ".prevDate", function () {
+                let a = $cal.find(".new-datepicker").val();
+                let newDate = new Date(new Date(a).getTime() - (1 * 24 * 60 * 60 * 1000));
+                let date = newDate.getDate();
+                let tempMonth = month[newDate.getMonth()];
+                let year = newDate.getFullYear();
+                $cal.find(".new-datepicker").val(tempMonth + "-" + date + "-" + year);
+                return false;
+            });
+
+            // ============================================
+            // 12. SELECT2 & SCROLLBAR INITIALIZATION
+            // ============================================
+            $cal.find('.select').select2({
+                placeholder: 'Select an option'
+            });
+            $('.bottom select').select2({
+                placeholder: 'Select an option'
+            });
+
+            customScroll();
+
+        });
+
+
+        /**
+         * Custom Scroll Function
+         * Applies custom scrollbar to elements with class 'scrolly'
+         */
+        function customScroll() {
+            $(".scrolly").mCustomScrollbar({
+                axis: "y",
+                theme: "light-3",
+                scrollbarPosition: "outside"
+            });
+        }
+
+
+    </script>
+}

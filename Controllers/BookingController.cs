@@ -8,20 +8,24 @@ namespace QuanLyKhachSan.Controllers
 {
     public class BookingController : BaseController
     {
-        QuanLyKhachSanDataContext db;
-        public BookingController()
-        {
-            string conn = ConfigurationManager.ConnectionStrings["QLKSConnectionString"].ConnectionString;
-            db = new QuanLyKhachSanDataContext(conn);
-        }
-
-        
+        public BookingController()  {}
 
         // -------------------- [ STEP 1: Trang nhập thông tin đặt phòng ] --------------------
         [HttpGet]
-        public ActionResult Book(int roomId = -1)
+        public ActionResult Book(int roomId = -1, DateTime from = default(DateTime), DateTime to = default(DateTime))
         {
-            if (roomId == -1)
+            if (roomId == -1 || from == default || to == default)
+            {
+                return HttpNotFound();
+            }
+            
+            if (from < DateTime.Now)
+            {
+                return HttpNotFound();
+
+            }
+
+            if (to < from)
             {
                 return HttpNotFound();
             }
@@ -35,6 +39,10 @@ namespace QuanLyKhachSan.Controllers
 
             ViewBag.Room = room;
             ViewBag.Resort = db.Resorts.FirstOrDefault(r => r.id == room.resort_id);
+            ViewBag.CheckOut = to;
+            ViewBag.CheckIn = from;
+            ViewBag.Days = (to.Date - from.Date).TotalDays;
+
             return View();
         }
 
@@ -50,7 +58,8 @@ namespace QuanLyKhachSan.Controllers
                 return HttpNotFound();
 
             // ✅ Tính tổng giá
-            double days = (checkout - checkin).TotalDays;
+            double days = (checkout.Date - checkin.Date).TotalDays;
+
             if (days < 1) days = 1;
             double total = (double)(room.price ?? 0) * days;
 
@@ -78,14 +87,21 @@ namespace QuanLyKhachSan.Controllers
 
             var user = Session["User"] as Customer;
             var room = db.Rooms.FirstOrDefault(r => r.id == roomId);
+
             if (room == null)
                 return HttpNotFound();
 
+            int CountConflicts = db.Bookings
+                .Where(b => b.room_id == room.id)
+                .Where(b => b.check_in < checkout && b.check_out > checkin)
+                .Count();
+
+
             // ✅ Kiểm tra còn phòng
-            if (room.quantity <= 0)
+            if (room.quantity - CountConflicts < 1)
             {
                 ViewBag.Error = "❌ Rất tiếc! Phòng này đã hết chỗ.";
-                return RedirectToAction("ListByResort", "Room", new { resortId = room.resort_id });
+                return RedirectToAction("Index", "Room", new { resortId = room.resort_id });
             }
 
             // ✅ Tạo bản ghi đặt phòng
@@ -97,7 +113,7 @@ namespace QuanLyKhachSan.Controllers
                 check_in = checkin,
                 check_out = checkout,
                 total_price = (decimal) total,
-                total_price_temporary = (decimal)total,
+                total_price_temporary = (decimal) total,
                 status = "pending",
                 payment_status = "unpaid",
                 note = "Thanh toán sau",
@@ -112,7 +128,6 @@ namespace QuanLyKhachSan.Controllers
             db.Bookings.InsertOnSubmit(newBooking);
             db.SubmitChanges();
 
-            // ✅ Gửi dữ liệu ra View thành công
             ViewBag.CustomerName = user.name;
             ViewBag.CustomerEmail = user.email;
             ViewBag.ResortName = db.Resorts.FirstOrDefault(r => r.id == room.resort_id)?.name;

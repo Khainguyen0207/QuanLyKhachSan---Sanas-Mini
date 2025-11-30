@@ -126,6 +126,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CalendarController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
@@ -172,6 +173,7 @@
     <Content Include="Content\assets\admin\js\table.js" />
     <Content Include="Content\assets\admin\js\tagify.js" />
     <Content Include="Content\assets\admin\js\toast.js" />
+    <Content Include="Content\assets\css\admin\celendar.css" />
     <Content Include="Content\assets\css\admin\style.css" />
     <Content Include="Content\assets\css\style.css" />
     <Content Include="Content\assets\css\theme.css" />
@@ -521,6 +523,7 @@
     <Content Include="Content\assets\images\TPHCM.png" />
     <Content Include="Content\assets\js\ace.js" />
     <Content Include="Content\assets\js\alerts.js" />
+    <Content Include="Content\assets\js\app.js" />
     <Content Include="Content\assets\js\avgrund.js" />
     <Content Include="Content\assets\js\backend.js" />
     <Content Include="Content\assets\js\bootstrap-table.js" />
@@ -544,6 +547,7 @@
     <Content Include="Content\assets\js\dropzone.js" />
     <Content Include="Content\assets\js\editorDemo.js" />
     <Content Include="Content\assets\js\file-upload.js" />
+    <Content Include="Content\assets\js\flatpickr.js" />
     <Content Include="Content\assets\js\flot-chart.js" />
     <Content Include="Content\assets\js\form-addons.js" />
     <Content Include="Content\assets\js\form-repeater.js" />
@@ -599,6 +603,9 @@
     <Content Include="Content\assets\libs\dataTables\js\bootstrap.bundle.min.js" />
     <Content Include="Content\assets\libs\dataTables\js\dataTables.bootstrap5.js" />
     <Content Include="Content\assets\libs\dataTables\js\dataTables.js" />
+    <Content Include="Content\assets\libs\flatpickr\css\flatpickr-month.css" />
+    <Content Include="Content\assets\libs\flatpickr\css\flatpickr.min.css" />
+    <Content Include="Content\assets\libs\flatpickr\js\flatpickr.js" />
     <Content Include="Content\assets\libs\fontawesome\all.min.css" />
     <Content Include="Content\assets\libs\fontawesome\all.min.js" />
     <Content Include="Content\assets\libs\fontawesome\brands.min.css" />
@@ -1159,7 +1166,6 @@
     <Content Include="Content\Images\img2.jpg" />
     <Content Include="Content\Images\img3.jpg" />
     <Content Include="Content\Images\img4.jpg" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -1318,6 +1324,7 @@
       <LastGenOutput>QuanLyKhachSan.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\Calendar\Index.cshtml" />
     <None Include="Models\QuanLyKhachSan.dbml.layout">
       <DependentUpon>QuanLyKhachSan.dbml</DependentUpon>
     </None>
@@ -1347,16 +1354,17 @@
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
+    <Content Include="Web.config.example" />
     <Content Include="Views\Resort\Index.cshtml" />
     <Content Include="Views\Resort\CreateResort.cshtml" />
     <Content Include="Views\Room\DetailRoom.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\Detail.cshtml" />
-    <None Include="Web.config.example" />
-    <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\assets\libs\select2\css\" />
+    <Folder Include="Content\assets\libs\select2\js\" />
     <Folder Include="Content\Upload\" />
   </ItemGroup>
   <ItemGroup>

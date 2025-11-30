@@ -35,7 +35,7 @@
                             <div class="amount justify-content-between">
                                 <div class="amount-total">
                                     <span class="total">Tổng cộng</span>
-                                    <span>@string.Format("{0:0}", ViewBag.Total) VNĐ</span>
+                                    <span>@string.Format("{0:N0}", ViewBag.Total) VNĐ</span>
                                 </div>
                                 <span>
                                     <img src="@Url.Content("~/Content/assets/icon-images/circle-checked.png")" alt="circle-checked" style="max-width: 40px;">
@@ -73,7 +73,7 @@
                 </section>
 
                 <div class="text-center mt-4 col-12">
-                    <a href="/" class="btn btn-primary w-100 mb-4 rounded-4" onclick="alert('Đặt phòng thành công')">DONE!</a>
+                    <a href="@Url.Action("Index", "Room")" class="btn btn-primary w-100 mb-4 rounded-4">Quay về trang chủ!</a>
                 </div>
             </div>
 

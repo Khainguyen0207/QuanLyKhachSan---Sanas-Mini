@@ -11,8 +11,7 @@ namespace QuanLyKhachSan.Controllers
 {
     public class BaseController : Controller
     {
-
-        private QuanLyKhachSanDataContext db;
+        protected QuanLyKhachSanDataContext db;
 
         public BaseController()
         {

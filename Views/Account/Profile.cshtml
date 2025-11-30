@@ -13,10 +13,9 @@
                 <div class="pe-4 mt-2">
                     <a href="#" class="sidebar-link text-decoration-none mb-3 active"
                        data-page="User_Profile">Thông tin</a>
-                    <a href="my-booking.html" class="sidebar-link text-decoration-none mb-3 ">Đơn đặt phòng của tôi</a>
+                    <a href="" class="sidebar-link text-decoration-none mb-4 ">Đơn đặt phòng của tôi</a>
                 </div>
             </div>
-            
             <div class="user-info col-lg-10 p-5 pt-3">
                 <div class="form-container border h-100 p-3 d-flex flex-column rounded-4">
                     <div class="user-profile-form d-flex flex-column flex-md-row align-items-center justify-content-between p-3 rounded-5">
@@ -38,7 +37,7 @@
                     </div>
                     <div class="personal-detail p-3 rounded-4 border ">
                         <h6 class="mb-3">Thông tin cá nhân</h6>
-
+                        
                         <div class="personal-contact">
                             <p class="mb-2">
                                 <i class="fa-regular fa-envelope" style="color: #22a2e3;"></i>
@@ -84,7 +83,7 @@
                                             {
                                                 var resort = b.Resort;
                                                 var room = b.Room;
-
+                                                
                                                 <tr>
                                                     <td>@(resort?.name ?? "—")</td>
                                                     <td>@(room?.name ?? "—")</td>
@@ -115,7 +114,7 @@
                                                             <span class="badge bg-secondary">Chưa thanh toán</span>
                                                         }
                                                     </td>
-                                                    <td>@string.Format("{0:N0}đ", b.total_price)</td>
+                                                    <td>@string.Format("{0:N0}", b.total_price)</td>
                                                 </tr>
                                             }
 
@@ -137,7 +136,7 @@
 
                     <div class="logout-btn text-center w-100 mb-5">
                         <a href="@Url.Action("Logout", "Account")" class="btn btn-primary w-50 fw-bold fs-5 rounded-5 p-2"
-                                style="background-color: #00b2ff;""> Đăng xuất</a>
+                           style="background-color: #00b2ff;"> Đăng xuất</a>
                     </div>
                 </div>
             </div>

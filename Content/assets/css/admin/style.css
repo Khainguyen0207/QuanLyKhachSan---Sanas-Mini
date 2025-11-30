@@ -408,10 +408,10 @@ body {
   max-width: 100%;
   overflow-x: hidden;
 }
-body nav {
-  background-color: var(--background-color-dark);
-  color: var(--font-color-dark);
-}
+    body nav {
+        background-color: var(--bs-body-bg);
+        color: var(--font-color-dark);
+    }
 body nav .navbar-profile {
   display: flex;
   justify-content: center;
@@ -824,6 +824,21 @@ body nav img {
   }
 }
 
+.select2-container--default .select2-selection--single, .select2-container--default .select2-dropdown, .select2-container--default .select2-selection--multiple {
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
 
+html.dark body .form-control, html.dark body .asColorPicker-input, html.dark body .dataTables_wrapper select, html.dark body .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], html.dark body .jsgrid .jsgrid-table .jsgrid-filter-row select, html.dark body .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], html.dark body .select2-container--default .select2-selection--single, html.dark body .select2-container--default .select2-selection--single .select2-search__field, html.dark body .typeahead, html.dark body .tt-query, html.dark body .tt-hint, html.light body .form-control, html.light body .asColorPicker-input, html.light body .dataTables_wrapper select, html.light body .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], html.light body .jsgrid .jsgrid-table .jsgrid-filter-row select, html.light body .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], html.light body .select2-container--default .select2-selection--single, html.light body .select2-container--default .select2-selection--single .select2-search__field, html.light body .typeahead, html.light body .tt-query, html.light body .tt-hint {
+    color: var(--text-color);
+    background-color: var(--background-color);
+    border: var(--bs-border-width) solid var(--bs-border-color) !important;
+    border-radius: var(--border-radius)
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,1479 @@
+﻿
+/*=============== Fonts ===================*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+/*=============== General Styling ===================*/
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License:none (public domain)
+*/
+
+html,
+.celendar body,
+.celendar div,
+.celendar span,
+.celendar applet,
+.celendar object,
+.celendar iframe,
+.celendar h1,
+.celendar h2,
+.celendar h3,
+.celendar h4,
+.celendar h5,
+.celendar h6,
+.celendar p,
+.celendar blockquote,
+.celendar pre,
+.celendar a,
+.celendar abbr,
+.celendar acronym,
+.celendar address,
+.celendar big,
+.celendar cite,
+.celendar code,
+.celendar del,
+.celendar dfn,
+.celendar em,
+.celendar img,
+.celendar ins,
+.celendar kbd,
+.celendar q,
+.celendar s,
+.celendar samp,
+.celendar small,
+.celendar strike,
+.celendar strong,
+.celendar sub,
+.celendar sup,
+.celendar tt,
+.celendar var,
+.celendar b,
+.celendar u,
+.celendar i,
+.celendar center,
+.celendar dl,
+.celendar dt,
+.celendar dd,
+.celendar ol,
+.celendar ul,
+.celendar li,
+.celendar fieldset,
+.celendar form,
+.celendar label,
+.celendar legend,
+.celendar table,
+.celendar caption,
+.celendar tbody,
+.celendar tfoot,
+.celendar thead,
+.celendar tr,
+.celendar th,
+.celendar td,
+.celendar article,
+.celendar aside,
+.celendar canvas,
+.celendar details,
+.celendar embed,
+.celendar figure,
+.celendar figcaption,
+.celendar footer,
+.celendar header,
+.celendar hgroup,
+.celendar menu,
+.celendar nav,
+.celendar output,
+.celendar ruby,
+.celendar section,
+.celendar summary,
+.celendar time,
+.celendar mark,
+.celendar audio,
+.celendar video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+.celendar
+/* HTML5 display-role reset for older browsers */
+article,
+.celendar aside,
+.celendar details,
+.celendar figcaption,
+.celendar figure,
+.celendar footer,
+.celendar header,
+.celendar hgroup,
+.celendar menu,
+.celendar nav,
+.celendar section {
+    display: block
+}
+
+.celendar body {
+    line-height: 1.4
+}
+
+.celendar blockquote,
+.celendar q {
+    quotes: none
+}
+
+    .celendar blockquote:before,
+    .celendar blockquote:after,
+    .celendar q:before,
+    .celendar q:after {
+        content: '';
+        content: none;
+    }
+
+.celendar table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.celendar html {
+    overflow-x: hidden
+}
+
+.celendar body {
+    display: flex;
+    color: #b3b3b3;
+    letter-spacing: 0;
+    height: 100vh;
+    background: #fafbff;
+    align-items: center;
+    font-family: 'Poppins';
+    overflow-x: hidden;
+}
+
+    .celendar body * {
+        outline: none !important
+    }
+
+.celendar h1,
+.celendar h2,
+.celendar h3,
+.celendar h4,
+.celendar h5,
+.celendar h6 {
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #1c2a35;
+}
+
+.celendar h1 {
+    font-size: 36px
+}
+
+.celendar h2 {
+    font-size: 32px
+}
+
+.celendar h3 {
+    font-size: 28px
+}
+
+.celendar h4 {
+    font-size: 24px
+}
+
+.celendar h5 {
+    font-size: 20px
+}
+
+.celendar h6 {
+    font-size: 16px
+}
+
+.celendar p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.celendar a {
+    color: inherit
+}
+
+    .celendar a:hover,
+    .celendar a:focus {
+        text-decoration: none;
+        outline: none;
+    }
+
+.celendar input:hover,
+.celendar input:focus {
+    outline: none
+}
+
+.celendar section {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+
+.celendar iframe {
+    width: 100%;
+    border: 0;
+}
+
+.celendar i {
+    font-style: italic
+}
+
+.celendar img {
+    height: auto
+}
+
+.celendar :-webkit-input-placeholder,
+.celendar :-webkit-textarea-placeholder {
+    opacity: 1
+}
+
+.celendar :-moz-placeholder {
+    opacity: 1
+}
+
+.celendar :-ms-input-placeholder,
+.celendar :-ms-textarea-placeholder {
+    opacity: 1
+}
+
+.celendar label {
+    font-size: 14px;
+    color: #777777;
+    margin: 0 0 5px;
+    font-weight: 500;
+}
+
+.celendar input[type="file"] {
+    visibility: hidden;
+    display: none
+}
+
+
+.celendar textarea {
+    max-width: 100%;
+    min-height: 90px;
+    padding: 20px;
+}
+
+.celendar strong {
+    font-weight: 800
+}
+
+.celendar button {
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    color: #FFF;
+    border: 0;
+    padding: 0 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.celendar img {
+    max-width: 100%
+}
+
+.celendar ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #b8b8b8;
+    opacity: 1; /* Firefox */
+}
+
+.celendar :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #b8b8b8;
+}
+
+.celendar ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #b8b8b8;
+}
+
+.celendar a:focus,
+.celendar a:hover {
+    color: #2d313d;
+}
+
+.celendar
+/*=============== Cross Browser Compatibility ===================*/
+a,
+.celendar .custom-btn,
+.celendar .header-search button,
+.celendar .sidemenu,
+.celendar .status-box,
+.celendar .status-box:before,
+.celendar .status-box i,
+.celendar .sm-status,
+.celendar .sm-status:before,
+.celendar .sm-status i {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.celendar .console-user img {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.celendar .console-schedular {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 30px rgba(0,0,0,0.06);
+    -moz-box-shadow: 0 0 30px rgba(0,0,0,0.06);
+    box-shadow: 0 0 30px rgba(0,0,0,0.06);
+}
+
+.celendar
+/*=========== Schedular Filters =============*/
+.schedular-filters {
+    display: flex;
+    margin: 0 0 15px;
+    border: 1px solid lightblue;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.celendar .vehicle-type {
+    flex-basis: 250px
+}
+
+.celendar .date-changer {
+    margin-left: auto;
+    display: flex;
+    max-width: 260px;
+    align-items: center;
+    border: 1px solid #f5f6fa;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.celendar .schedular-body {
+    display: grid;
+    grid-template-areas: 'grid1 grid2 grid2 grid2 grid2 ';
+    min-height: calc(100vh - 305px);
+    border: 1px solid lightblue;
+    border-radius: 5px;
+}
+
+.celendar .date-changer input.new-datepicker {
+    background: #ffffff;
+    border: 0;
+    margin: 0;
+    font-size: 14px;
+    height: 40px;
+    color: #8a8a8a;
+    flex: auto;
+    width: 100%;
+    border-radius: 0;
+}
+
+.celendar .date-changer .custom-btn ~ .custom-btn {
+    margin: 0
+}
+
+.celendar .date-changer .custom-btn,
+.celendar .date-changer .custom-btn:hover,
+.celendar .date-changer .custom-btn:focus,
+.celendar .date-changer .custom-btn:active {
+    height: 100%;
+    border-radius: 0;
+    line-height: 28px;
+    text-align: center;
+    background: #f5f6fa;
+    color: #7b7b7b;
+}
+
+    .celendar .date-changer .custom-btn i {
+        margin: 0
+    }
+
+.celendar .vehicle-type .select2-container--default .select2-selection--single {
+    height: 40px;
+    background: #ecf1f2;
+    border-color: #ddd;
+}
+
+    .celendar .vehicle-type .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 38px;
+        font-size: 15px;
+        color: #8a8a97;
+    }
+
+    .celendar .vehicle-type .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 40px
+    }
+
+.celendar
+/*=========== Vehicle Information =============*/
+.vehicles-info {
+    width: 250px;
+    background: #f5f6fa;
+    overflow: hidden;
+    padding: 0 20px;
+    margin-right: 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+    .celendar .vehicles-info h3 {
+        background: #edeef2;
+        font-size: 16px;
+        color: #6f7480;
+        font-weight: 400;
+        text-align: center;
+        padding: 13px 10px;
+        margin: 0 -20px 10px;
+        -webkit-border-radius: 5px 5px 0 0;
+        -moz-border-radius: 5px 5px 0 0;
+        border-radius: 5px 5px 0 0;
+    }
+
+.celendar .car {
+    margin: 0 0 10px;
+    background: #FFF;
+    width: 100%;
+    padding: 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 13px rgba(0,0,0,0.06);
+    -moz-box-shadow: 0 0 13px rgba(0,0,0,0.06);
+    box-shadow: 0 0 13px rgba(0,0,0,0.06);
+}
+
+.celendar .car-top {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+}
+
+    .celendar .car-top span {
+        font-size: 12px;
+        background: #4786ff;
+        padding: 3px 5px;
+        color: #FFF;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+.celendar .car i {
+    margin-left: auto;
+    font-style: normal;
+    font-size: 12px;
+    color: #6f7480;
+}
+
+.celendar .car-bottom {
+    display: flex;
+    align-items: center;
+    margin-top: 7px;
+}
+
+    .celendar .car-bottom h5 {
+        font-size: 16px;
+        color: #282828;
+        margin: 0;
+    }
+
+.celendar .main-schedular {
+    background: #f5f6fa;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.celendar
+/*=========== Timeslot Grids =============*/
+.grids-head {
+    display: flex;
+    margin: 10px;
+}
+
+.celendar .grids {
+    overflow: auto;
+    height: 100%;
+}
+
+.celendar .timeslot:before {
+    display: none;
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 1px;
+    height: 80%;
+    opacity: 0.7;
+    top: 10%;
+    background: linear-gradient(transparent,#cdcdcd,transparent);
+}
+
+.celendar .timeslot {
+    min-width: 100px;
+    text-align: center;
+    position: relative;
+    font-size: 12px;
+    padding: 11px 10px;
+    margin: 0 1px;
+    background: #FFF;
+    cursor: pointer;
+}
+
+.celendar .grids-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.celendar .grids-body {
+    margin: 0 10px;
+    position: relative;
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+.celendar .grids-row .timeslot {
+    line-height: 61px;
+    font-size: 20px;
+    padding: 10px;
+    color: rgba(0,0,0,0.1);
+    margin: 0 1px;
+}
+
+    .celendar .grids-row .timeslot:hover {
+        color: #999
+    }
+
+.celendar .ui-draggable-dragging {
+    opacity: 0.8;
+    border: 1px solid #FFF;
+    z-index: 2;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.celendar
+/*=========== Ride =============*/
+.ride {
+    width: 100px;
+    height: 77px;
+    background: #fcedef;
+    color: #c26370;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 0;
+    top: 2px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    transition: all 0.1s;
+}
+
+    .celendar .ride:hover {
+        z-index: 10
+    }
+
+.celendar .passenger-info ul {
+    list-style: none;
+    font-size: 12px;
+}
+
+    .celendar .passenger-info ul li {
+        margin: 0 0 4px;
+        line-height: 1.2;
+    }
+
+    .celendar .passenger-info ul li {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+        .celendar .passenger-info ul li strong {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .celendar .passenger-info ul li:last-child {
+            margin: 0
+        }
+
+        .celendar .passenger-info ul li a {
+            color: inherit
+        }
+
+.celendar .passenger-info {
+    padding: 9px 15px;
+    flex-basis: 100%;
+    min-width: 90px;
+    overflow-x: scroll;
+}
+
+    .celendar .passenger-info ul li i {
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+.celendar .assign-driver {
+    margin-left: auto;
+    padding: 10px 10px 10px 0;
+    font-family: barlow;
+    min-width: 130px;
+    text-align: center;
+    flex-basis: auto;
+}
+
+    .celendar .assign-driver span {
+        display: table;
+        font-size: 13px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+.celendar .custom-btn {
+    font-size: 12px;
+    background: #4786ff;
+    color: #FFF;
+    display: inline-block;
+    padding: 5px 10px;
+    font-family: poppins;
+    height: auto;
+    position: relative;
+    white-space: nowrap;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    line-height: 1.4;
+}
+
+    .celendar .custom-btn i {
+        margin-right: 7px;
+        font-size: 13px;
+        vertical-align: middle;
+        font-weight: 800;
+    }
+
+    .celendar .custom-btn:hover,
+    .celendar .custom-btn:focus,
+    .celendar .custom-btn:active {
+        color: #FFF
+    }
+
+.celendar .short-ride .assign-driver span {
+    display: none
+}
+
+.celendar .short-ride .assign-driver {
+    position: absolute;
+    top: 50%;
+    padding: 0;
+    left: 100%;
+    z-index: 1;
+    white-space: nowrap;
+    opacity: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.celendar .short-ride .passenger-info {
+    width: 100%
+}
+
+.celendar .short-ride:hover .assign-driver {
+    opacity: 1
+}
+
+.celendar .short-ride .assign-driver .custom-btn:before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: inherit;
+    position: absolute;
+    left: -5px;
+    top: 9px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.celendar .ride.assigned {
+    background: #caefc8;
+    color: #158854;
+}
+
+.celendar .ride.return {
+    background: #fff2be;
+    color: #948133;
+}
+
+.celendar .ride.maintenance {
+    background: #f1f3fb;
+    color: #8d8f96;
+}
+
+.celendar .ride.preparation {
+    background: #FBF2E9;
+    color: #94887c;
+}
+
+.celendar .ride.service {
+    background: #F5F0F0;
+    color: #9a9494;
+}
+
+.celendar .driver-info {
+    margin-left: auto;
+    background: #FFF;
+    margin-right: 5px;
+    margin-top: 5px;
+    flex-basis: auto;
+    margin-bottom: 5px;
+    padding: 15px 10px 15px 30px;
+    position: relative;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+    .celendar .driver-info ul {
+        list-style: none;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+        .celendar .driver-info ul li {
+            margin: 0 0 4px;
+            line-height: 1.2;
+        }
+
+            .celendar .driver-info ul li strong {
+                font-size: 15px;
+                font-weight: 500;
+            }
+
+            .celendar .driver-info ul li:last-child {
+                margin: 0
+            }
+
+            .celendar .driver-info ul li i,
+            .celendar .driver-info ul li img {
+                margin-right: 5px;
+                font-size: 14px;
+                font-style: normal;
+            }
+
+            .celendar .driver-info ul li img {
+                width: 35px;
+                position: absolute;
+                left: -14px;
+                border: 2px solid #FFF;
+                top: 50%;
+                margin-top: -18px;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                border-radius: 20px;
+                -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                -moz-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+
+.celendar .short-ride .driver-info {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 2;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.celendar .short-ride:hover .driver-info {
+    opacity: 1;
+    visibility: visible;
+}
+
+.celendar .short-ride .driver-info:before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 30px;
+    width: 10px;
+    height: 10px;
+    background: #FFF;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.celendar .passenger-info.complete-add {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: none;
+    height: 100%;
+    z-index: 1;
+    background: inherit;
+    font-weight: 500;
+    min-width: 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+    .celendar .passenger-info.complete-add ul li {
+        margin: 0;
+        max-width: none;
+        text-overflow: unset;
+        overflow: visible;
+        white-space: unset;
+    }
+
+.celendar .ride-menu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 11;
+    background: #FFF;
+    width: 234px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+    .celendar .ride-menu.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+.celendar .menu-title {
+    background: linear-gradient(to right, #6ec0fe,#1386de);
+    padding: 8px 15px;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+}
+
+    .celendar .menu-title h4 {
+        color: #FFF;
+        margin: 0 0 2px;
+        font-family: barlow;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    .celendar .menu-title p {
+        margin: 0;
+        color: rgba(255,255,255,0.6);
+        font-size: 12px;
+        display: none;
+    }
+
+.celendar .ride-menu ul {
+    list-style: none;
+    padding: 10px 0 0;
+    font-size: 14px;
+    color: #9ea4b0;
+}
+
+    .celendar .ride-menu ul li {
+        font-size: 14px;
+    }
+
+        .celendar .ride-menu ul li a {
+            padding: 5px 20px;
+            width: 100%;
+            display: inline-block;
+        }
+
+        .celendar .ride-menu ul li i {
+            font-size: 18px;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        .celendar .ride-menu ul li.bordered {
+            border-top: 1px solid #e2e8f1
+        }
+
+        .celendar .ride-menu ul li a:hover {
+            background: #e2e8f1
+        }
+
+.celendar .ride-options ul {
+    padding: 10px 0
+}
+
+.celendar .other-info {
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    line-height: 1;
+}
+
+    .celendar .other-info i {
+        display: block;
+        font-size: 21px;
+        line-height: 1;
+    }
+
+    .celendar .other-info span {
+        font-size: 14px;
+        line-height: 1.3;
+        margin: 5px 0 0;
+        display: block;
+    }
+
+.celendar .hidden {
+    display: none
+}
+
+.celendar .short-ride-info {
+    position: absolute;
+    margin-top: 0px;
+    left: 0;
+    color: currentColor;
+    top: 100%;
+    width: auto;
+    display: flex;
+    background: #FFF;
+    padding: 10px 20px;
+    white-space: nowrap;
+    opacity: 0;
+    z-index: 1;
+    visibility: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.celendar .short-ride:hover .short-ride-info {
+    opacity: 1;
+    visibility: visible;
+}
+
+.celendar .short-ride-info ul {
+    list-style: none;
+    font-size: 13px;
+    max-width: 270px;
+    white-space: normal;
+    width: max-content;
+}
+
+.celendar .short-ride-info:before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    width: 10px;
+    height: 10px;
+    top: -5px;
+    background: inherit;
+    margin-left: -5px;
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+}
+
+.celendar .short-ride-info ul li strong {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.celendar .droppable {
+    width: calc(100% - 20%);
+    height: calc(100% - 20%);
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    z-index: 2;
+}
+
+.celendar
+/*=========== Custom Modal =============*/
+.custom-modal .modal-header {
+    background: linear-gradient(to right, #1386de,#6ec0fe);
+    padding: 12px 20px;
+    border: 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+
+.celendar .custom-modal .modal-title {
+    line-height: 1
+}
+
+    .celendar .custom-modal .modal-title h4 {
+        /*    margin: 0 0 10px;*/
+        color: #FFF;
+        margin: 0;
+        font-size: 25px;
+        font-weight: 500;
+        font-family: barlow;
+    }
+
+    .celendar .custom-modal .modal-title span {
+        font-size: 16px;
+        color: rgba(255,255,255,0.5);
+        font-family: barlow;
+        display: none;
+    }
+
+.celendar .custom-modal .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow: auto;
+}
+
+.celendar .modal.custom-dialog {
+    align-items: center;
+    display: flex !important;
+}
+
+.celendar .custom-modal .modal-dialog {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.celendar .modal-content {
+    flex: 1;
+    width: 100%;
+    border: 0;
+}
+
+.celendar .custom-form .form-group input,
+.celendar .custom-form .form-group input:focus,
+.celendar .custom-form .form-group textarea,
+.celendar .custom-form .form-group textarea:focus {
+    margin: 0;
+    background: #f5f6fa;
+    align-items: center;
+    font-family: poppins;
+    border: 1px solid #ebecf1;
+    font-size: 12px;
+    color: #a8a8aa;
+    padding: 10px 10px;
+}
+
+.celendar .custom-form .form-group textarea {
+    min-height: 100px;
+}
+
+.celendar .custom-form .col-form-label {
+    color: #8c8c8c;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.celendar .custom-form .form-group textarea {
+    min-height: 100px;
+    padding: 10px;
+}
+
+.celendar .custom-modal .modal-footer {
+    background: #f5f6fa;
+    padding: 10px 10px;
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+}
+
+.celendar .color2 {
+    background-color: #ce5263 !important
+}
+
+.celendar .custom-form .select2-container {
+    width: 100% !important
+}
+
+.celendar .custom-modal .select2-container--default .select2-selection--single {
+    border-color: #ebecf1;
+    background: #f5f6fa;
+    border-radius: 2px;
+    height: 35px;
+}
+
+    .celendar .custom-modal .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 35px;
+        color: #a8afb1;
+        padding: 0px 10px;
+        font-size: 13px;
+    }
+
+    .celendar .custom-modal .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 33px;
+    }
+
+.celendar
+/*=== Custom Table ===*/
+.table-container {
+    width: 100%;
+    overflow: auto;
+    padding: 2px 1px;
+}
+
+.celendar table.custom-table {
+    font-size: 15px;
+    width: 100% !important;
+    min-width: 500px;
+    border: 1px solid #d6d6d6;
+}
+
+.celendar .custom-table thead {
+    background: #ebebeb;
+    font-size: 15px;
+    color: #2d313d;
+    font-weight: 500;
+}
+
+    .celendar .custom-table thead th {
+        padding: 12px;
+        white-space: nowrap;
+    }
+
+    .celendar .custom-table thead tr.bordered th {
+        border-right: 1px solid #d6d6d6
+    }
+
+    .celendar .custom-table thead tr {
+        border-bottom: 1px solid #FFF
+    }
+
+.celendar table.custom-table td {
+    color: #777777;
+    padding: 20px 10px;
+    border: 1px solid #d6d6d6;
+    vertical-align: middle;
+    font-size: 12px;
+    min-width: 83px;
+}
+
+    .celendar table.custom-table td i {
+        font-style: normal;
+        display: block;
+    }
+
+.celendar table.custom-table tr:nth-child(odd) {
+    background: #f0f1f0
+}
+
+.celendar td input {
+    margin: 0;
+}
+
+.celendar .action {
+    display: flex;
+    align-items: center;
+}
+
+    .celendar /*.custom-table select {
+    margin: 0 2px;
+    height: 23px;
+    border-radius: 20px;
+    color: #777777;
+    border: 1px solid #e0e1e0;
+    padding: 0 6px;
+}.celendar */ .action .select2 .select2-selection {
+        height: 23px;
+        border: 1px solid #e0e1e0;
+    }
+
+    .celendar .action .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 22px;
+    }
+
+    .celendar .action .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 23px;
+    }
+
+.celendar .custom-table td .action input {
+    height: 22px;
+    font-size: 12px;
+    padding: 0 10px;
+    margin: 0 2px;
+    width: auto;
+    min-width: 0;
+}
+
+.celendar .custom-table .action input {
+    width: 72px
+}
+
+.celendar .custom-table .action input {
+    color: #777777
+}
+
+.celendar a.td-icon {
+    margin: 0 6px;
+    font-size: 20px;
+    color: #cfcfcf;
+}
+
+.celendar .custom-table.style2 thead th {
+    padding: 10px;
+    font-weight: 500;
+    color: #6b8282;
+    border: 0;
+}
+
+.celendar table.custom-table.style2 {
+    font-size: 12px;
+    min-width: 300px;
+    margin: 0;
+    border: 1px solid #efefef;
+}
+
+    .celendar table.custom-table.style2 thead {
+        font-size: 13px;
+        background: #f8f9f9;
+    }
+
+        .celendar table.custom-table.style2 thead tr {
+            background: none;
+        }
+
+    .celendar table.custom-table.style2 td {
+        padding: 6px 10px;
+        font-size: 12px;
+        border: 1px solid #efefef;
+    }
+
+    .celendar table.custom-table.style2 tbody tr:nth-child(odd) {
+        background: #f8f9f98c;
+    }
+
+    .celendar table.custom-table.style2 tbody tr.selected {
+        background: #b4defd !important;
+    }
+
+        .celendar table.custom-table.style2 tbody tr.selected td {
+            border-color: #67bdff;
+            color: #198ae0;
+        }
+
+@media (max-width:1230px) {
+    .celendar .custom-table thead {
+        font-size: 13px;
+    }
+
+    .celendar table.custom-table td {
+        font-size: 11px;
+        min-width: 20px;
+        width: 100px;
+        word-break: break-all;
+    }
+
+    .celendar .login-form {
+        width: 970px
+    }
+
+    .celendar .login-left {
+        padding: 20px 40px
+    }
+
+    .celendar a.custom-btn.style2,
+    .celendar a.custom-btn.style3 {
+        min-width: 140px;
+        padding: 12px 20px
+    }
+}
+
+@media (max-width:980px) {
+    .celendar .layout-wrapper {
+        padding-left: 60px;
+        position: relative;
+        float: left;
+        width: 100%;
+        display: unset;
+    }
+
+    .celendar .sidemenu {
+        position: absolute;
+        left: 0;
+        z-index: 2;
+        height: 100%;
+    }
+
+    .celendar .login-form {
+        margin: 15px 15px;
+        display: unset
+    }
+
+    .celendar p.login-note {
+        margin: 40px 0 0
+    }
+
+    .celendar .login-right {
+        width: 100%;
+        float: left
+    }
+
+        .celendar .login-right img {
+            width: 100%
+        }
+}
+
+@media (max-width:767px) {
+    .celendar .content-area {
+        padding: 10px;
+    }
+
+    .celendar .header-dropdown > a {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .celendar .layout-wrapper {
+        padding-left: 40px
+    }
+
+    .celendar .sidemenu.active {
+        width: 40px;
+        min-width: 40px
+    }
+
+        .celendar .sidemenu.active nav ul li a {
+            padding: 7px 13px
+        }
+
+    .celendar .content-area > .row > div {
+        margin: 0 0 10px;
+    }
+
+    .celendar .sidemenu.active .limo-user {
+        padding: 30px 5px 10px;
+    }
+
+        .celendar .sidemenu.active .limo-user .user-img {
+            min-width: 30px;
+        }
+
+    .celendar header {
+        display: unset;
+        background: #FFF;
+        float: left;
+        width: 100%;
+    }
+
+    .celendar .notifications.has-ddl {
+        float: left;
+    }
+
+    .celendar .notifications .ddl {
+        z-index: 100;
+        left: 0;
+    }
+
+    .celendar .header-dropdown.has-ddl {
+        width: 100%;
+    }
+
+    .celendar .bottom {
+        display: unset
+    }
+
+        .celendar .bottom > div {
+            float: left !important;
+            width: 100%;
+            text-align: left !important;
+            margin: 0 0 10px
+        }
+
+    .celendar div#DataTables_Table_0_info {
+        text-align: left
+    }
+
+    .celendar div#DataTables_Table_0_length {
+        margin: 0 0 10px
+    }
+
+    .celendar .dataTables_paginate span {
+        width: 100%;
+        margin: 10px 0 10px
+    }
+
+    .celendar .bottom-bar {
+        display: unset;
+        text-align: center;
+        display: inline-block;
+        padding: 15px 10px;
+        width: 100%;
+    }
+
+        .celendar .bottom-bar span {
+            display: inline-block;
+            width: 100%;
+        }
+}
+
+@media (max-width:480px) {
+    .celendar .login-left {
+        padding: 20px
+    }
+
+        .celendar .login-left h4 {
+            font-size: 25px
+        }
+
+        .celendar .login-left p {
+            font-size: 13px
+        }
+
+    .celendar .field {
+        padding: 6px 10px
+    }
+
+    .celendar .login-credentials {
+        margin: 0 0 30px
+    }
+
+    .celendar .form-help {
+        display: table;
+        width: 100%
+    }
+
+    .celendar .remember {
+        margin: 0 0 10px
+    }
+}

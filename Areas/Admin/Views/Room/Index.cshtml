@@ -11,22 +11,25 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Rooms</h4>
-                <form action="@Url.Action("Index", "Room", new { area = "Admin" })" method="get" class="row g-2 mb-4">
-                    <div class="col-md-3">
-                        <label class="fw-semibold">Resort:</label>
-                        <select name="resortId" class="form-select">
-                            <option value="">Tất cả</option>
-                            @foreach (QuanLyKhachSan.Models.Resort resort in ViewBag.Resorts)
-                            {
-                                <option value="@resort.id" @(ViewBag.ResortId != null && ViewBag.ResortId == resort.id ? "selected" : "")>@resort.name</option>
-                            }
-                        </select>
+                <form action="@Url.Action("Index", "Room", new { area = "Admin" })" method="get">
+                    <label for="resort-select-id" class="fw-semibold">Select Resort</label>
+
+                    <div class="row">
+                        <div class="col-md-4 col-6 mb-3">
+                            <select name="resortId" class="form-select" data-fd-component="select2" id="resort-select-id">
+                                <option value="">Tất cả</option>
+                                @foreach (QuanLyKhachSan.Models.Resort resort in ViewBag.Resorts)
+                                {
+                                    <option value="@resort.id" @(ViewBag.ResortId != null && ViewBag.ResortId == resort.id ? "selected" : "")>@resort.name</option>
+                                }
+                            </select>
+                        </div>
+
                     </div>
-                    <div class="col-md-1 d-grid align-items-end">
-                        <button type="submit" class="btn btn-primary mt-4">
-                            <i class="bi bi-funnel"></i> Lọc
-                        </button>
-                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="mdi mdi-filter-outline"></i> Lọc
+                    </button>
                 </form>
                 <div class="action float-right">
                     <button type="reset" class="btn btn-inverse-primary btn-icon-text me-3"

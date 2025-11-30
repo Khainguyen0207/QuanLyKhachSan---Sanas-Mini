@@ -28,10 +28,14 @@
     <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/owl-carousel-2/owl.carousel.min.css")'>
     <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/owl-carousel-2/owl.theme.default.min.css")'>
     <link rel="stylesheet" href='@Url.Content("~/Content/assets/libs/dataTables/css/dataTables.bootstrap5.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/libs/flatpickr/css/flatpickr.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/libs/flatpickr/css/flatpickr-month.css")'>
     <link rel="stylesheet" href='@Url.Content("~/Content/assets/vendors/select2/select2.min.css")'>
-    <link href="@Url.Content("~/Content/assets/libs/tagify/css/tagify.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/libs/tagify/css/tagify.css")" rel="stylesheet" />
 
     <link rel="stylesheet" href='@Url.Content("~/Content/assets/css/style.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/css/admin/celendar.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/assets/css/admin/style.css")'>
     <!-- End layout styles -->
     <link rel="shortcut icon" href='@Url.Content("~/Content/assets/images/favicon.png")' />
 
@@ -47,10 +51,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jockey+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital@0;1&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css" integrity="sha512-/k658G6UsCvbkGRB3vPXpsPHgWeduJwiWGPCGS14IQw3xpr63AEMdA8nMYG2gmYkXitQxDTn6iiK/2fD4T87qA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
+<style>
+    html::-webkit-scrollbar {
+        display: none;
+    }
+</style>
 <body>
 
     <div id="validation" class="d-flex flex-column gap-2" style="position: absolute;
@@ -368,13 +377,16 @@
         <script src='@Url.Content("~/Content/assets/vendors/owl-carousel-2/owl.carousel.min.js")'></script>
         <script src="@Url.Content("~/Content/assets/libs/tagify/js/tagify.js")"></script>
         <script src="@Url.Content("~/Content/assets/libs/tagify/js/tagify.polyfills.min.js")"></script>
+        <script src="@Url.Content("~/Content/assets/libs/flatpickr/js/flatpickr.js")"></script>
+        <script src="@Url.Content("~/Content/assets/libs/flatpickr/js/selectMonthPlugin.js")"></script>
         <!-- End plugin js for this page -->
         <!-- inject:js -->
-        <script src='@Url.Content("~/Content/assets/js/off-canvas.js")'></script>
-        <script src='@Url.Content("~/Content/assets/js/hoverable-collapse.js")'></script>
-        <script src='@Url.Content("~/Content/assets/js/misc.js")'></script>
-        <script src='@Url.Content("~/Content/assets/js/settings.js")'></script>
-        <script src='@Url.Content("~/Content/assets/js/todolist.js")'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+
+        <script type="module" src='@Url.Content("~/Content/assets/js/app.js")'></script>
         <!-- endinject -->
         <!-- Custom js for this page -->
         <script src='@Url.Content("~/Content/assets/js/dashboard.js")'></script>
@@ -382,10 +394,8 @@
         <script type="module" src='@Url.Content("~/Content/assets/admin/js/app.js")'></script>
     </footer>
 
+    @RenderSection("scriptLast", required: false)
 </body>
-
-
-
 </html>
 
 

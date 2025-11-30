@@ -10,6 +10,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Resorts</h4>
+
                 <div class="action float-right">
                     <button type="reset" class="btn btn-inverse-primary btn-icon-text me-3"
                             data-bb-toggle="btn-with-href"
@@ -84,6 +85,10 @@
                                             </a>
                                             <a href="@Url.Action("Delete", "Resort", new { id = r.Id , area = "Admin" })" type="button" class="btn-sm btn-inverse-danger btn-icon" data-bs-action="modal-confirm-action" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete">
                                                 <i class="mdi mdi-delete"></i>
+                                            </a>
+                                            <a href="@Url.Action("Index", "Calendar", new { resortId = r.Id, area = "Admin" })" type="button"
+                                               class="btn-sm btn-inverse-primary btn-icon">
+                                                <i class="mdi mdi-eye-outline"></i>
                                             </a>
                                         </td>
                                     </tr>

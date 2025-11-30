@@ -2,12 +2,12 @@
     'use strict';
 
     $(document).ready(function () {
-        const resort = $("#resort_id");
-        console.log('OK')
+        const resort = $('select[data-fd-component="select2"]');
 
         if (resort.length) {
             resort.select2();
-            console.log('OK')
         }
     })
 })(jQuery);
+
+

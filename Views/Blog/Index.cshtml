@@ -1,0 +1,215 @@
+﻿@{
+    ViewBag.Title = "Chiến dịch khuyến mãi";
+}
+
+<style>
+    /* ---- HERO BANNER ---- */
+    .hero-banner {
+        width: 100%;
+        height: 350px;
+        border-radius: 20px;
+        object-fit: cover;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+        margin-bottom: 40px;
+    }
+
+    /* ---- SUB BANNER (3 cái nhỏ) ---- */
+    .sub-banner {
+        height: 180px;
+        object-fit: cover;
+        border-radius: 18px;
+        transition: .3s;
+    }
+
+        .sub-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+        }
+
+    /* ---- PROMO CARD ---- */
+    .promo-card {
+        border-radius: 14px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: .25s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,.08);
+    }
+
+        .promo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,.15);
+        }
+
+    .promo-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .promo-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: white;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(0,0,0,.18);
+    }
+
+    .section-title {
+        font-size: 26px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        color: #0F294D;
+    }
+
+    .voucher-card {
+        border-radius: 14px;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        transition: 0.25s ease;
+        height: 100%;
+    }
+
+        .voucher-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+    .voucher-title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .coupon-input {
+        border: 1px solid #cbd6e2;
+        padding: 10px;
+        border-radius: 8px;
+        width: 100%;
+        margin-top: 15px;
+        font-weight: 600;
+        color: #084B83;
+        background: #F6FAFF;
+    }
+
+    .copy-btn {
+        background: #1BA0E2;
+        color: white;
+        border: none;
+        padding: 8px 22px;
+        border-radius: 10px;
+        transition: 0.2s;
+    }
+
+        .copy-btn:hover {
+            background: #007FCA;
+        }
+</style>
+
+<div class="container py-4">
+
+    <img src="https://picsum.photos/1400/400?random=999"
+         class="hero-banner" />
+
+    <h3 class="section-title">🎉 Ưu đãi nổi bật trong tháng</h3>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <img src="https://picsum.photos/600/300?random=201" class="sub-banner" />
+        </div>
+        <div class="col-md-4">
+            <img src="https://picsum.photos/600/300?random=202" class="sub-banner" />
+        </div>
+        <div class="col-md-4">
+            <img src="https://picsum.photos/600/300?random=203" class="sub-banner" />
+        </div>
+    </div>
+
+    <h3 class="section-title">🔥 Chiến dịch khuyến mãi siêu hấp dẫn</h3>
+
+    <div class="row g-4">
+
+        @for (int i = 1; i <= 6; i++)
+        {
+            <div class="col-md-4">
+                <a href="@Url.Action("Detail", "Promotion", new { id = i })" style="text-decoration:none;">
+                    <div class="promo-card position-relative">
+                        <div class="promo-badge">Ưu đãi #@i</div>
+                        <img src="https://picsum.photos/600/300?random=@(i+100)" class="promo-img" />
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+    <h3 class="section-title mt-5">
+        🎁 Mã Ưu Đãi Tặng Bạn Mới
+    </h3>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="voucher-card d-flex flex-column">
+                <div class="d-flex gap-2 align-items-start mb-2">
+                    <span style="font-size:22px;">⭐</span>
+                    <p class="voucher-title mb-0">Giảm 20,000 cho lần đặt vé máy bay đầu tiên</p>
+                </div>
+                <p class="text-muted flex-grow-1">Áp dụng cho lần đặt đầu tiên trên app.</p>
+
+                <input class="coupon-input" value="TVLKBANMOI" readonly />
+                <button type="button" class="copy-btn mt-2">Copy</button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="voucher-card d-flex flex-column">
+                <div class="d-flex gap-2 align-items-start mb-2">
+                    <span style="font-size:22px;">🏨</span>
+                    <p class="voucher-title mb-0">Giảm đến 200k cho đặt phòng khách sạn đầu tiên</p>
+                </div>
+                <p class="text-muted flex-grow-1">Áp dụng cho khách hàng mới.</p>
+
+                <input class="coupon-input" value="TVKHOINEW" readonly />
+                <button type="button" class="copy-btn mt-2">Copy</button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="voucher-card d-flex flex-column">
+                <div class="d-flex gap-2 align-items-start mb-2">
+                    <span style="font-size:22px;">🎡</span>
+                    <p class="voucher-title mb-0">Giảm 8% cho lần đặt vé tham quan</p>
+                </div>
+                <p class="text-muted flex-grow-1">Không áp dụng kèm ưu đãi khác.</p>
+
+                <input class="coupon-input" value="TVLKTQ8" readonly />
+                <button type="button" class="copy-btn mt-2">Copy</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var input = this.previousElementSibling;
+            if (!input) return;
+
+            input.select();
+            input.setSelectionRange(0, 99999);
+
+            try {
+                navigator.clipboard.writeText(input.value);
+            } catch (e) {
+                document.execCommand('copy');
+            }
+
+            var oldText = this.innerText;
+            this.innerText = 'Đã copy';
+            setTimeout(() => this.innerText = oldText, 1500);
+        });
+    });
+</script>

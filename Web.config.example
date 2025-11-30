@@ -7,7 +7,7 @@
 <configuration>
   <connectionStrings>
     <add name="QLKSConnectionString"
-         connectionString="Data Source=YOUR_SERVER_NAME;Initial Catalog=YOUR_DATABASE_NAME;User Id=YOUR_USERNAME;Password=YOUR_PASSWORD;"
+         connectionString="Data Source=DESKTOP-F83LKGL;Initial Catalog=QLKS;Integrated Security=True;Encrypt=False"
          providerName="System.Data.SqlClient" />
   </connectionStrings>
 

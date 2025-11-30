@@ -15,6 +15,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jockey+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital@0;1&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="~/Content/assets/css/user/style.css">
+
+    <link href="~/Content/assets/css/style_Toast.css" rel="stylesheet" />
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -40,12 +43,10 @@
             transition: all 220ms ease;
         }
 
-        header.site-menu-header.shrink .navbar {
-            padding: 5px 0;
-            box-shadow: 0 8px 26px rgba(10, 10, 10, 0.08)
-
-
-        }
+            header.site-menu-header.shrink .navbar {
+                padding: 5px 0;
+                box-shadow: 0 8px 26px rgba(10, 10, 10, 0.08)
+            }
 
         header.site-menu-header.shrink {
             background-color: rgba(0, 0, 0, .4) !important;
@@ -127,7 +128,36 @@
     <main class="overflow-x-hidden">
         @RenderBody()
     </main>
+
     <footer class="footer" id="footer-info">
+
+        <section id="toast-section">
+            <div class="demo-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <h3>Toast Types</h3>
+                        <div class="control-row">
+                            <button class="btn btn-success"
+                                    onclick="showToast('success', 'Success!', 'Operation completed successfully')">
+                                Success
+                            </button>
+                            <button class="btn btn-error" onclick="showToast('error', 'Error!', 'Something went wrong')">Error</button>
+                        </div>
+                        <div class="control-row">
+                            <button class="btn btn-warning"
+                                    onclick="showToast('warning', 'Warning!', 'Please check your input')">
+                                Warning
+                            </button>
+                            <button class="btn btn-info" onclick="showToast('info', 'Info', 'Here is some information')">Info</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast Container -->
+            <div id="toastContainer" class="toast-container top-right"></div>
+        </section>
+
         <div class="footer-container">
             <div class="footer-column">
                 <div class="row row-cols-2">
@@ -180,6 +210,9 @@
         <script src="~/Content/assets/libs/jquery/jquery-3.7.1.min.js"></script>
 
         <script type="module" src="@Url.Content("~/Content/assets/js/script.js")"></script>
+
+        <script src="~/Content/assets/js/Toast.js"></script>
+
         <script>
             // Sticky header shrink on scroll + active nav highlighting + reveal
             const header = document.getElementById('main-menu');
